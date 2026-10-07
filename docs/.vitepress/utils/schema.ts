@@ -1,5 +1,7 @@
 import { SITE_NAME, SITE_URL } from './constants'
 
+const CONTACT_EMAIL = 'dheerajatoria@gmail.com'
+
 export interface QuestionSchemaInput {
   question: string
   answerText: string
@@ -58,6 +60,48 @@ export function websiteJsonLd(): Record<string, unknown> {
       '@type': 'SearchAction',
       target: `${SITE_URL}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
+    },
+  }
+}
+
+export function organizationJsonLd(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
+    email: CONTACT_EMAIL,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '#302, Nagavara',
+      addressLocality: 'Bangalore',
+      addressCountry: 'IN',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: CONTACT_EMAIL,
+      contactType: 'customer support',
+      availableLanguage: 'English',
+    },
+  }
+}
+
+export function informationalPageJsonLd(input: {
+  type: 'AboutPage' | 'ContactPage' | 'WebPage'
+  name: string
+  description: string
+  path: string
+}): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': input.type,
+    name: input.name,
+    description: input.description,
+    url: `${SITE_URL}${input.path}`,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: SITE_URL,
     },
   }
 }

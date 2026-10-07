@@ -10,7 +10,11 @@ import {
   TRACKS,
 } from './utils/constants'
 import { buildHeadMeta, pageTitle } from './utils/seo'
-import { websiteJsonLd } from './utils/schema'
+import {
+  informationalPageJsonLd,
+  organizationJsonLd,
+  websiteJsonLd,
+} from './utils/schema'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const manifestPath = path.join(__dirname, 'manifest.json')
@@ -97,7 +101,8 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/Dheerajprogrammer/interviewprep.world' }],
 
     footer: {
-      message: 'Built for developers preparing for technical interviews.',
+      message:
+        'Built for developers preparing for technical interviews. &nbsp;·&nbsp; <a href="/about-us/">About us</a> &nbsp;·&nbsp; <a href="/contact-us/">Contact us</a> &nbsp;·&nbsp; <a href="/privacy-policy/">Privacy policy</a> &nbsp;·&nbsp; <a href="/terms-and-conditions/">Terms &amp; conditions</a>',
       copyright: `Copyright © ${new Date().getFullYear()} ${SITE_NAME}`,
     },
 
@@ -160,6 +165,47 @@ export default defineConfig({
         { type: 'application/ld+json' },
         JSON.stringify(websiteJsonLd()),
       ])
+      head.push([
+        'script',
+        { type: 'application/ld+json' },
+        JSON.stringify(organizationJsonLd()),
+      ])
+    }
+
+    const staticPages: Record<
+      string,
+      { type: 'AboutPage' | 'ContactPage' | 'WebPage'; path: string }
+    > = {
+      'about-us/index.md': { type: 'AboutPage', path: '/about-us' },
+      'contact-us/index.md': { type: 'ContactPage', path: '/contact-us' },
+      'privacy-policy/index.md': { type: 'WebPage', path: '/privacy-policy' },
+      'terms-and-conditions/index.md': {
+        type: 'WebPage',
+        path: '/terms-and-conditions',
+      },
+    }
+    const staticPage = staticPages[pageData.relativePath]
+    if (staticPage) {
+      head.push([
+        'script',
+        { type: 'application/ld+json' },
+        JSON.stringify(
+          informationalPageJsonLd({
+            type: staticPage.type,
+            name: pageData.title,
+            description:
+              (fm.description as string) ?? SITE_DESCRIPTION,
+            path: staticPage.path,
+          }),
+        ),
+      ])
+      if (staticPage.type === 'ContactPage') {
+        head.push([
+          'script',
+          { type: 'application/ld+json' },
+          JSON.stringify(organizationJsonLd()),
+        ])
+      }
     }
   },
 
