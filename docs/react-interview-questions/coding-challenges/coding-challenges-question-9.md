@@ -8,8 +8,8 @@ difficulty: hard
 experienceLevel: senior
 tags: ["react", "coding-challenges"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "Build an accessible tabs component. is a practical React coding interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Use tab, tablist, and tabpanel roles with linked IDs; support arrow-key navigation, Home and End, visible focus, and the chosen activation model. Keep the selected tab state controlled by the parent or a clear compound-component boundary."
 outline: deep
 canonical: "https://interviewprep.world/react-interview-questions/coding-challenges/coding-challenges-question-9"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-In a React exercise, identify state, events, async boundaries, and accessibility needs before writing JSX. Build the smallest working interaction first, then address loading, errors, and component reuse.
-
-For **Build an accessible tabs component.**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Use tab, tablist, and tabpanel roles with linked IDs; support arrow-key navigation, Home and End, visible focus, and the chosen activation model. Keep the selected tab state controlled by the parent or a clear compound-component boundary.
 
 ## Example
 
@@ -48,25 +46,13 @@ function SearchBox({ onSearch }) {
 
 Start with a controlled, accessible interaction; add debounce, loading, and errors around it.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this hard-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this hard-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

@@ -8,8 +8,8 @@ difficulty: hard
 experienceLevel: senior
 tags: ["angular", "signals"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "What are signal inputs? is a practical Angular signals interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Signal inputs expose a component input as a signal, so derived values can react to input changes without lifecycle-hook bookkeeping. They still follow the same parent-to-child ownership rule as ordinary inputs."
 outline: deep
 canonical: "https://interviewprep.world/angular-interview-questions/signals/signals-question-8"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Signals hold synchronous reactive state; computed signals derive values and effects bridge reactive state to imperative work. Keep derivations pure and avoid effects that silently write more application state.
-
-For **What are signal inputs?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Signal inputs expose a component input as a signal, so derived values can react to input changes without lifecycle-hook bookkeeping. They still follow the same parent-to-child ownership rule as ordinary inputs.
 
 ## Example
 
@@ -45,25 +43,13 @@ count.update(value => value + 1)
 
 Signals are read by calling them; computed values automatically track the signals they read.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this hard-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this hard-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

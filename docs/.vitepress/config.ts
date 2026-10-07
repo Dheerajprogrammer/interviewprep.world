@@ -88,6 +88,16 @@ export default defineConfig({
       { text: 'TypeScript', link: '/typescript-interview-questions/' },
       { text: 'System Design', link: '/frontend-system-design/' },
       { text: 'HR', link: '/hr-interview-questions/' },
+      {
+        text: 'More Topics',
+        items: [
+          { text: 'Frontend', link: '/frontend-interview-questions/' },
+          { text: 'Backend', link: '/backend-interview-questions/' },
+          { text: 'Database', link: '/database-interview-questions/' },
+          { text: 'DevOps & Cloud', link: '/devops-cloud-interview-questions/' },
+          { text: 'Architecture', link: '/architecture-interview-questions/' },
+        ],
+      },
       { text: 'Search', link: '/search/' },
     ],
 

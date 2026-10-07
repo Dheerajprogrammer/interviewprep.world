@@ -8,8 +8,8 @@ difficulty: easy
 experienceLevel: junior
 tags: ["system-design", "requirements"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How do you estimate scale for a UI? is a practical system design foundations interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Estimate active users, concurrent sessions, page views, request rates, payload sizes, update frequency, device and network mix, and growth horizon. Use rough order-of-magnitude math to identify the bottleneck worth designing for."
 outline: deep
 canonical: "https://interviewprep.world/frontend-system-design/requirements/requirements-question-4"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-A strong system-design answer starts with requirements and scale, then proposes a small end-to-end architecture. Name the trade-offs, failure modes, and measurements that determine whether it works.
-
-For **How do you estimate scale for a UI?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Estimate active users, concurrent sessions, page views, request rates, payload sizes, update frequency, device and network mix, and growth horizon. Use rough order-of-magnitude math to identify the bottleneck worth designing for.
 
 ## Example
 
@@ -44,25 +42,13 @@ Browser → CDN → Web app → API gateway → services
 
 Start with the request path, then add only the components required by the clarified requirements.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this easy-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this easy-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.
