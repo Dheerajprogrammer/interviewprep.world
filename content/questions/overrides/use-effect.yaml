@@ -1,0 +1,68 @@
+slug: use-effect
+title: Explain the useEffect Hook
+track: react
+subcategory: hooks
+subcategoryLabel: Hooks
+trackLabel: React
+trackPath: react-interview-questions
+difficulty: medium
+experienceLevel: mid
+tags: [react, hooks, useEffect, side-effects]
+updated: "2026-10-06"
+description: Learn React useEffect interview questions with answers, examples, performance considerations and real interview scenarios.
+answerExcerpt: useEffect runs side effects after render—data fetching, subscriptions, and DOM sync—controlled by a dependency array with optional cleanup.
+body: |
+  ## Answer
+
+  `useEffect` schedules **side effects** after React commits DOM updates. Typical uses include fetching data, subscribing to events or stores, and synchronizing with non-React code.
+
+  - **No dependency array** — runs after every render.
+  - **`[]`** — runs after mount (and cleanup before unmount). In Strict Mode (dev), effects may run twice to surface unsafe side effects.
+  - **`[deps]`** — runs when dependencies change; cleanup runs before re-running the effect.
+
+  ## Code Examples
+
+  ```jsx
+  import { useEffect, useState } from 'react'
+
+  export function UserProfile({ userId }) {
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+      let cancelled = false
+      fetch(`/api/users/${userId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (!cancelled) setUser(data)
+        })
+      return () => {
+        cancelled = true
+      }
+    }, [userId])
+
+    return user ? <p>{user.name}</p> : null
+  }
+  ```
+
+  ```jsx
+  useEffect(() => {
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [tick])
+  ```
+
+  ## Common Mistakes
+
+  - Missing dependencies (stale closures) or over-including objects that change every render (infinite loops).
+  - Using `useEffect` for derived state instead of computing during render.
+  - Omitting cleanup for subscriptions, timers, or pending fetches.
+
+  ## Follow-up Questions
+
+  - Difference between `useEffect` and `useLayoutEffect`?
+  - How do you cancel async work on unmount?
+  - When would you use an event handler instead of an effect?
+
+  ## Real Interview Scenarios
+
+  Interviewers often present a component with an infinite re-render loop or a memory leak from a missing cleanup and ask you to fix it live.
