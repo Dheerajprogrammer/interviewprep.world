@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PagefindSearch from './PagefindSearch.vue'
 import manifest from '../../manifest.json'
+import { TRACKS } from '../../utils/constants'
 </script>
 
 <template>
@@ -8,8 +9,8 @@ import manifest from '../../manifest.json'
     <p class="ip-eyebrow">Interview prep for modern engineering teams</p>
     <h1>Turn interview prep into a daily practice.</h1>
     <p>
-      {{ manifest.questionCount }} curated questions across frontend, system design,
-      and behavioral interviews—with answers and examples.
+      {{ manifest.questionCount }} curated questions across frontend, backend, databases,
+      cloud, architecture, and behavioral interviews—with answers and examples.
     </p>
     <div class="ip-home-actions">
       <a class="ip-btn ip-btn--primary" href="/react-interview-questions/">
@@ -21,7 +22,7 @@ import manifest from '../../manifest.json'
     </div>
     <div class="ip-home-stats" aria-label="Site statistics">
       <span><strong>{{ manifest.questionCount }}</strong> questions</span>
-      <span><strong>6</strong> interview tracks</span>
+      <span><strong>{{ TRACKS.length }}</strong> interview tracks</span>
       <span><strong>Examples</strong> on every answer</span>
     </div>
     <div class="ip-sponsor" aria-label="Support InterviewPrep.World">

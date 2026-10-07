@@ -8,8 +8,8 @@ difficulty: easy
 experienceLevel: junior
 tags: ["system-design", "architecture"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How do you handle authentication state? is a practical frontend architecture design interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Keep the server as the source of truth, initialize identity safely, handle expiration and refresh deliberately, clear protected data on logout, and gate UI as a convenience while enforcing access on APIs."
 outline: deep
 canonical: "https://interviewprep.world/frontend-system-design/architecture/architecture-question-8"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Frontend architecture should give teams independent, safe delivery without fragmenting the user experience. Make boundaries explicit and design observability, accessibility, and rollout controls from the start.
-
-For **How do you handle authentication state?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Keep the server as the source of truth, initialize identity safely, handle expiration and refresh deliberately, clear protected data on logout, and gate UI as a convenience while enforcing access on APIs.
 
 ## Example
 
@@ -45,25 +43,13 @@ platform/api/           # transport and auth boundary
 
 Feature ownership stays clear while shared code is limited to genuinely reusable contracts.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this easy-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this easy-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

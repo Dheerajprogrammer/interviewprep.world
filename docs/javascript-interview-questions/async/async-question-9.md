@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["javascript", "async"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How do you cancel a fetch request? is a practical async JavaScript interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Create an `AbortController`, pass its signal to `fetch`, and call `abort()` when the request is no longer relevant, such as component cleanup or a replaced search query. Handle the resulting abort error separately from a real network failure."
 outline: deep
 canonical: "https://interviewprep.world/javascript-interview-questions/async/async-question-9"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-JavaScript runs synchronous work on a call stack and schedules asynchronous continuations through the event loop. Promise reactions run as microtasks, ahead of the next task, so ordering and cancellation must be designed explicitly.
-
-For **How do you cancel a fetch request?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Create an `AbortController`, pass its signal to `fetch`, and call `abort()` when the request is no longer relevant, such as component cleanup or a replaced search query. Handle the resulting abort error separately from a real network failure.
 
 ## Example
 
@@ -47,25 +45,13 @@ console.log("end")
 
 Promise handlers use the microtask queue, which runs before the next timer task.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["angular", "dependency-injection"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "What is an injector? is a practical Angular DI interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "An injector is Angular’s resolver for dependency tokens. It looks up a provider in its hierarchy, creates or retrieves the configured value, and supplies it to constructors or `inject()` calls."
 outline: deep
 canonical: "https://interviewprep.world/angular-interview-questions/dependency-injection/dependency-injection-question-2"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Angular dependency injection resolves tokens through a hierarchy of injectors. Provider scope determines instance lifetime, while tokens and provider types let applications replace implementations cleanly.
-
-For **What is an injector?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+An injector is Angular’s resolver for dependency tokens. It looks up a provider in its hierarchy, creates or retrieves the configured value, and supplies it to constructors or `inject()` calls.
 
 ## Example
 
@@ -44,25 +42,13 @@ bootstrapApplication(AppComponent, { providers: [{ provide: API_URL, useValue: "
 
 An injection token is a typed key for a dependency that is not a class.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

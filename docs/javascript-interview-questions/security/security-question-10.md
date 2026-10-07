@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["javascript", "security"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How do you validate and sanitize user input? is a practical web security interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Validate input against the expected type, length, format, and authorization rules at the server boundary; normalize only when semantics require it; and sanitize only for the output context, such as HTML or a URL. Validation and sanitization solve different problems."
 outline: deep
 canonical: "https://interviewprep.world/javascript-interview-questions/security/security-question-10"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Client-side security is layered: keep untrusted data from becoming executable markup, enforce server-side authorization, and use browser protections such as CSP, secure cookies, and same-origin boundaries.
-
-For **How do you validate and sanitize user input?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Validate input against the expected type, length, format, and authorization rules at the server boundary; normalize only when semantics require it; and sanitize only for the output context, such as HTML or a URL. Validation and sanitization solve different problems.
 
 ## Example
 
@@ -45,25 +43,13 @@ document.body.append(message)
 
 `textContent` treats the value as text, preventing it from becoming executable markup.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

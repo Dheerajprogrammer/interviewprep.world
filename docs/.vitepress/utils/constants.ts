@@ -1,7 +1,7 @@
 export const SITE_NAME = 'InterviewPrep.World'
 export const SITE_URL = 'https://interviewprep.world'
 export const SITE_DESCRIPTION =
-  '1000+ interview questions for React, Angular, JavaScript, TypeScript, system design, and HR—with answers, examples, and real interview scenarios.'
+  '750+ interview questions across frontend, backend, databases, DevOps, architecture, and behavioral interviews—with answers, examples, and real scenarios.'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.svg`
 
 export const BRAND = {
@@ -45,6 +45,36 @@ export const TRACKS = [
     id: 'hr',
     label: 'HR Questions',
     path: '/hr-interview-questions/',
+    ogImage: '/og-default.png',
+  },
+  {
+    id: 'frontend',
+    label: 'Frontend',
+    path: '/frontend-interview-questions/',
+    ogImage: '/og-default.png',
+  },
+  {
+    id: 'backend',
+    label: 'Backend',
+    path: '/backend-interview-questions/',
+    ogImage: '/og-default.png',
+  },
+  {
+    id: 'database',
+    label: 'Database',
+    path: '/database-interview-questions/',
+    ogImage: '/og-default.png',
+  },
+  {
+    id: 'devops',
+    label: 'DevOps & Cloud',
+    path: '/devops-cloud-interview-questions/',
+    ogImage: '/og-default.png',
+  },
+  {
+    id: 'architecture',
+    label: 'Architecture',
+    path: '/architecture-interview-questions/',
     ogImage: '/og-default.png',
   },
 ] as const

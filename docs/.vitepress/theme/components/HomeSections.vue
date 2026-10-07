@@ -9,6 +9,11 @@ const trackDetails: Record<string, { description: string; icon: string; topics: 
   typescript: { icon: 'TS', description: 'Master type-safe application patterns, generics, narrowing, and project structure.', topics: ['Generics', 'Types', 'Architecture'] },
   'system-design': { icon: '⌘', description: 'Work through scalable frontend architecture, data, real-time UI, and delivery trade-offs.', topics: ['Caching', 'Performance', 'Real-time'] },
   hr: { icon: '★', description: 'Prepare clear, compelling behavioral answers using the STAR framework.', topics: ['STAR answers', 'Leadership', 'Collaboration'] },
+  frontend: { icon: '⌘', description: 'Cover browser fundamentals, Next.js, state, performance, security, and accessibility.', topics: ['HTML & CSS', 'Next.js', 'Accessibility'] },
+  backend: { icon: '⌁', description: 'Practice server-side fundamentals from Node and Express to Java, Python, REST, and GraphQL.', topics: ['Node.js', 'APIs', 'Spring Boot'] },
+  database: { icon: '▣', description: 'Build practical database knowledge across SQL, PostgreSQL, MongoDB, and Redis.', topics: ['SQL', 'PostgreSQL', 'Redis'] },
+  devops: { icon: '☁', description: 'Prepare for delivery and cloud conversations with Git, containers, Kubernetes, CI/CD, and cloud platforms.', topics: ['Docker', 'Kubernetes', 'CI/CD'] },
+  architecture: { icon: '◇', description: 'Explore service boundaries, distributed systems, API design, and reusable design patterns.', topics: ['Microservices', 'Distributed systems', 'API design'] },
 }
 
 const tracks = TRACKS.map((track) => {

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: InterviewPrep.World — Technical Interview Questions
-description: 1000+ interview questions for React, Angular, JavaScript, TypeScript, system design, and HR—with answers, examples, and real scenarios.
+description: 750+ interview questions across frontend, backend, databases, DevOps, architecture, and behavioral interviews—with answers, examples, and real scenarios.
 ---
 
 <HomeHero />

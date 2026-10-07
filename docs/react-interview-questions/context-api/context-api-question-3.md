@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["react", "context-api"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How does Context affect re-renders? is a practical React Context interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "When a provider value changes by reference, React re-renders every descendant consumer of that context. Context bypasses prop drilling, not rendering cost, so avoid placing frequently changing unrelated state in one provider."
 outline: deep
 canonical: "https://interviewprep.world/react-interview-questions/context-api/context-api-question-3"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Context is dependency injection for values shared down a component tree. It is excellent for relatively stable cross-cutting values; split frequently changing values or use a store to avoid broad re-renders.
-
-For **How does Context affect re-renders?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+When a provider value changes by reference, React re-renders every descendant consumer of that context. Context bypasses prop drilling, not rendering cost, so avoid placing frequently changing unrelated state in one provider.
 
 ## Example
 
@@ -47,25 +45,13 @@ function Button() {
 
 Context avoids passing a stable shared value through every intermediate component.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

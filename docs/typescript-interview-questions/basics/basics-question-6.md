@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["typescript", "basics"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "What is an intersection type? is a practical TypeScript fundamentals interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "An intersection type combines requirements from multiple types, so a value must satisfy all of them. It is useful for composing compatible object contracts, but conflicting property types can produce an impossible type."
 outline: deep
 canonical: "https://interviewprep.world/typescript-interview-questions/basics/basics-question-6"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-TypeScript adds a static type system to JavaScript. Explain the compile-time guarantee, distinguish it from runtime validation, and use narrow, readable types instead of escaping to `any`.
-
-For **What is an intersection type?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+An intersection type combines requirements from multiple types, so a value must satisfy all of them. It is useful for composing compatible object contracts, but conflicting property types can produce an impossible type.
 
 ## Example
 
@@ -45,25 +43,13 @@ function formatId(id: string | number) {
 
 The `typeof` check narrows the union, so each branch gets the operations valid for that type.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

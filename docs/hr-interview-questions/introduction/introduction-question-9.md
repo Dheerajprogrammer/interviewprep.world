@@ -8,8 +8,8 @@ difficulty: medium
 experienceLevel: mid
 tags: ["hr", "introduction"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "Why are you leaving your current role? is a practical behavioral introduction interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Keep the answer positive and forward-looking. Briefly name what you have learned, then explain that you are seeking a different scope, product stage, technical challenge, or growth opportunity—without criticizing people or your employer."
 outline: deep
 canonical: "https://interviewprep.world/hr-interview-questions/introduction/introduction-question-9"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Use a concise present-past-future structure: state what you do now, select only relevant experience, and connect it to the role. Be specific without reciting the entire resume.
-
-For **Why are you leaving your current role?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Keep the answer positive and forward-looking. Briefly name what you have learned, then explain that you are seeking a different scope, product stage, technical challenge, or growth opportunity—without criticizing people or your employer.
 
 ## Example
 
@@ -45,25 +43,13 @@ Future: This role lets me apply that product and performance experience at large
 
 Keep the answer to roughly one or two minutes and adapt the final sentence to the role.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this medium-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this medium-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.

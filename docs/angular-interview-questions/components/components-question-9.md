@@ -8,8 +8,8 @@ difficulty: easy
 experienceLevel: junior
 tags: ["angular", "components"]
 updated: 2026-10-06
-readingMinutes: 2
-answerExcerpt: "How do you build a reusable Angular component? is a practical Angular components interview topic. A strong answer defines the concept, shows where it applies, and explains the trade-offs."
+readingMinutes: 1
+answerExcerpt: "Define a narrow input and output contract, use semantic accessible markup, keep domain-specific data access outside the component, and expose only behavior callers need. Test it through its public inputs and rendered output."
 outline: deep
 canonical: "https://interviewprep.world/angular-interview-questions/components/components-question-9"
 breadcrumbs:
@@ -31,9 +31,7 @@ next:
 
 ## Answer
 
-Components own a template and coordinate a focused piece of UI. Use inputs for data in, outputs for events out, and lifecycle hooks only when the component actually needs to synchronize with something outside rendering.
-
-For **How do you build a reusable Angular component?**, start with the rule or behaviour, then anchor it in a small realistic example. Distinguish the default approach from the exceptions and name the observable outcome: correctness, maintainability, accessibility, performance, or security.
+Define a narrow input and output contract, use semantic accessible markup, keep domain-specific data access outside the component, and expose only behavior callers need. Test it through its public inputs and rendered output.
 
 ## Example
 
@@ -44,25 +42,13 @@ export class SaveComponent { @Output() saved = new EventEmitter<void>() }
 
 The parent supplies data through inputs and reacts to child events through outputs.
 
-## How to structure your answer
 
-1. Define the concept in one or two sentences.
-2. Explain when you would use it and when you would choose an alternative.
-3. Walk through a small example, including an edge case.
-4. Close with how you would test or measure the result.
+## Practical considerations
 
-## Common mistakes
+1. Choose the approach from the requirement and constraints, not from habit.
+2. Include validation, error handling, and cleanup where the boundary requires them.
+3. Verify the observable result with focused tests or measurement.
 
-- Repeating a definition without connecting it to real code.
-- Treating an optimization or abstraction as a default rather than a trade-off.
-- Omitting lifecycle, error, cleanup, accessibility, or testing considerations when they apply.
+## In practice
 
-## Follow-up prompts
-
-- What failure mode would you expect if this were implemented incorrectly?
-- How would you test this behaviour?
-- What changes when the feature must scale to a larger application or team?
-
-## Interview tip
-
-For this easy-level question, narrate your assumptions before coding. Interviewers can assess reasoning from a clear, bounded example much better than from a list of APIs.
+For this easy-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.
