@@ -2,7 +2,9 @@
 
 Modern, SEO-focused interview preparation site built with [VitePress](https://vitepress.dev/).
 
-<iframe src="https://github.com/sponsors/Dheerajprogrammer/button" title="Sponsor Dheerajprogrammer" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+<a href="https://github.com/sponsors/Dheerajprogrammer">
+  <img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=githubsponsors&logoColor=white" alt="Sponsor Dheerajprogrammer" />
+</a>
 
 Support the project through [GitHub Sponsors](https://github.com/sponsors/Dheerajprogrammer).
 

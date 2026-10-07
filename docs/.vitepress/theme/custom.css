@@ -178,6 +178,20 @@
   border: 2px solid var(--vp-c-brand-1);
 }
 
+.ip-btn--sponsor {
+  padding: 0.43rem 0.75rem;
+  gap: 0.35rem;
+  border: 1px solid #db2777;
+  background: #db2777;
+  color: #fff;
+  font-size: 0.82rem;
+}
+
+.ip-btn--sponsor:hover {
+  background: #be185d;
+  color: #fff;
+}
+
 .ip-section {
   padding: 2.5rem 1.5rem;
   max-width: 1152px;
@@ -248,9 +262,6 @@
   font-size: 0.86rem;
 }
 
-.ip-sponsor iframe {
-  display: block;
-}
 
 .ip-track-section {
   padding-top: 3.5rem;
