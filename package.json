@@ -7,7 +7,7 @@
     "docs:build": "npm run content:generate && vitepress build docs && node scripts/pre-pagefind.mjs && pagefind --site docs/.vitepress/dist && node scripts/post-build.mjs",
     "docs:preview": "vitepress preview docs --port 5173",
     "content:generate": "tsx scripts/generate-questions.ts",
-    "deploy": "npm run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name=interviewprep-world",
+    "deploy": "npm run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name=interviewprep-world --branch=production",
     "deploy:preview": "npm run docs:build && wrangler pages deploy docs/.vitepress/dist --project-name=interviewprep-world --branch=preview"
   },
   "devDependencies": {
