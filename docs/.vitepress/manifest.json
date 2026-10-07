@@ -1,0 +1,2365 @@
+{
+  "latest": [
+    {
+      "title": "What is the Virtual DOM?",
+      "link": "/react-interview-questions/basics/virtual-dom",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "Explain the useEffect Hook",
+      "link": "/react-interview-questions/hooks/use-effect",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "Where should state live in a React application?",
+      "link": "/react-interview-questions/state-management/state-management-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "How do you diagnose unnecessary React re-renders?",
+      "link": "/react-interview-questions/performance/performance-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "What is client-side routing?",
+      "link": "/react-interview-questions/react-router/react-router-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "What problem does the Context API solve?",
+      "link": "/react-interview-questions/context-api/context-api-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "What are the core Redux principles?",
+      "link": "/react-interview-questions/redux/redux-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "What are error boundaries?",
+      "link": "/react-interview-questions/advanced/advanced-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "How do you organize a scalable React project?",
+      "link": "/react-interview-questions/architecture/architecture-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "Build a searchable, sortable React list.",
+      "link": "/react-interview-questions/coding-challenges/coding-challenges-question-1",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "What is the Virtual DOM?",
+      "link": "/react-interview-questions/basics/basics-question-2",
+      "track": "React",
+      "updated": "2026-10-06"
+    },
+    {
+      "title": "Explain the `useState` Hook.",
+      "link": "/react-interview-questions/hooks/hooks-question-2",
+      "track": "React",
+      "updated": "2026-10-06"
+    }
+  ],
+  "sidebars": {
+    "/react-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/react-interview-questions/"
+      },
+      {
+        "text": "React Basics",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All React Basics",
+            "link": "/react-interview-questions/basics/"
+          },
+          {
+            "text": "What is the Virtual DOM?",
+            "link": "/react-interview-questions/basics/virtual-dom"
+          },
+          {
+            "text": "What is the Virtual DOM?",
+            "link": "/react-interview-questions/basics/basics-question-2"
+          },
+          {
+            "text": "What is reconciliation in React?",
+            "link": "/react-interview-questions/basics/basics-question-3"
+          },
+          {
+            "text": "What is JSX?",
+            "link": "/react-interview-questions/basics/basics-question-4"
+          },
+          {
+            "text": "What is the difference between props and state?",
+            "link": "/react-interview-questions/basics/basics-question-5"
+          },
+          {
+            "text": "What causes a React component to re-render?",
+            "link": "/react-interview-questions/basics/basics-question-6"
+          },
+          {
+            "text": "What are keys and why are they important?",
+            "link": "/react-interview-questions/basics/basics-question-7"
+          },
+          {
+            "text": "What is a controlled component?",
+            "link": "/react-interview-questions/basics/basics-question-8"
+          },
+          {
+            "text": "What is an uncontrolled component?",
+            "link": "/react-interview-questions/basics/basics-question-9"
+          },
+          {
+            "text": "What is React Strict Mode?",
+            "link": "/react-interview-questions/basics/basics-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Hooks",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Hooks",
+            "link": "/react-interview-questions/hooks/"
+          },
+          {
+            "text": "Explain the useEffect Hook",
+            "link": "/react-interview-questions/hooks/use-effect"
+          },
+          {
+            "text": "Explain the `useState` Hook.",
+            "link": "/react-interview-questions/hooks/hooks-question-2"
+          },
+          {
+            "text": "Explain the `useEffect` Hook.",
+            "link": "/react-interview-questions/hooks/hooks-question-3"
+          },
+          {
+            "text": "What is the difference between `useEffect` and `useLayoutEffect`?",
+            "link": "/react-interview-questions/hooks/hooks-question-4"
+          },
+          {
+            "text": "When should you use `useMemo`?",
+            "link": "/react-interview-questions/hooks/hooks-question-5"
+          },
+          {
+            "text": "When should you use `useCallback`?",
+            "link": "/react-interview-questions/hooks/hooks-question-6"
+          },
+          {
+            "text": "What is `useRef` used for?",
+            "link": "/react-interview-questions/hooks/hooks-question-7"
+          },
+          {
+            "text": "How do you build a custom Hook?",
+            "link": "/react-interview-questions/hooks/hooks-question-8"
+          },
+          {
+            "text": "How do stale closures happen in Hooks?",
+            "link": "/react-interview-questions/hooks/hooks-question-9"
+          },
+          {
+            "text": "How do you avoid an infinite effect loop?",
+            "link": "/react-interview-questions/hooks/hooks-question-10"
+          }
+        ]
+      },
+      {
+        "text": "State Management",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All State Management",
+            "link": "/react-interview-questions/state-management/"
+          },
+          {
+            "text": "Where should state live in a React application?",
+            "link": "/react-interview-questions/state-management/state-management-question-1"
+          },
+          {
+            "text": "What is lifting state up?",
+            "link": "/react-interview-questions/state-management/state-management-question-2"
+          },
+          {
+            "text": "What is derived state and why should you avoid storing it?",
+            "link": "/react-interview-questions/state-management/state-management-question-3"
+          },
+          {
+            "text": "How do you update nested state immutably?",
+            "link": "/react-interview-questions/state-management/state-management-question-4"
+          },
+          {
+            "text": "What is state colocation?",
+            "link": "/react-interview-questions/state-management/state-management-question-5"
+          },
+          {
+            "text": "When is Context appropriate for state?",
+            "link": "/react-interview-questions/state-management/state-management-question-6"
+          },
+          {
+            "text": "When should you use a client-state library?",
+            "link": "/react-interview-questions/state-management/state-management-question-7"
+          },
+          {
+            "text": "How do you model async request state?",
+            "link": "/react-interview-questions/state-management/state-management-question-8"
+          },
+          {
+            "text": "What is optimistic UI?",
+            "link": "/react-interview-questions/state-management/state-management-question-9"
+          },
+          {
+            "text": "How do you prevent race conditions in state updates?",
+            "link": "/react-interview-questions/state-management/state-management-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Performance Optimization",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Performance Optimization",
+            "link": "/react-interview-questions/performance/"
+          },
+          {
+            "text": "How do you diagnose unnecessary React re-renders?",
+            "link": "/react-interview-questions/performance/performance-question-1"
+          },
+          {
+            "text": "What does `React.memo` do?",
+            "link": "/react-interview-questions/performance/performance-question-2"
+          },
+          {
+            "text": "What are the limits of `useMemo` and `useCallback`?",
+            "link": "/react-interview-questions/performance/performance-question-3"
+          },
+          {
+            "text": "How do you virtualize a large list?",
+            "link": "/react-interview-questions/performance/performance-question-4"
+          },
+          {
+            "text": "What is code splitting with `lazy` and `Suspense`?",
+            "link": "/react-interview-questions/performance/performance-question-5"
+          },
+          {
+            "text": "How do you optimize Context consumers?",
+            "link": "/react-interview-questions/performance/performance-question-6"
+          },
+          {
+            "text": "How do stable keys improve rendering?",
+            "link": "/react-interview-questions/performance/performance-question-7"
+          },
+          {
+            "text": "What is concurrent rendering?",
+            "link": "/react-interview-questions/performance/performance-question-8"
+          },
+          {
+            "text": "How do you optimize expensive calculations?",
+            "link": "/react-interview-questions/performance/performance-question-9"
+          },
+          {
+            "text": "How do you profile a React app?",
+            "link": "/react-interview-questions/performance/performance-question-10"
+          }
+        ]
+      },
+      {
+        "text": "React Router",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All React Router",
+            "link": "/react-interview-questions/react-router/"
+          },
+          {
+            "text": "What is client-side routing?",
+            "link": "/react-interview-questions/react-router/react-router-question-1"
+          },
+          {
+            "text": "How do nested routes work in React Router?",
+            "link": "/react-interview-questions/react-router/react-router-question-2"
+          },
+          {
+            "text": "What is an outlet?",
+            "link": "/react-interview-questions/react-router/react-router-question-3"
+          },
+          {
+            "text": "How do route parameters work?",
+            "link": "/react-interview-questions/react-router/react-router-question-4"
+          },
+          {
+            "text": "How do you protect a route?",
+            "link": "/react-interview-questions/react-router/react-router-question-5"
+          },
+          {
+            "text": "How do you navigate programmatically?",
+            "link": "/react-interview-questions/react-router/react-router-question-6"
+          },
+          {
+            "text": "What are loaders and actions?",
+            "link": "/react-interview-questions/react-router/react-router-question-7"
+          },
+          {
+            "text": "How do you handle a 404 route?",
+            "link": "/react-interview-questions/react-router/react-router-question-8"
+          },
+          {
+            "text": "How do you preserve query parameters?",
+            "link": "/react-interview-questions/react-router/react-router-question-9"
+          },
+          {
+            "text": "How do you split route bundles?",
+            "link": "/react-interview-questions/react-router/react-router-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Context API",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Context API",
+            "link": "/react-interview-questions/context-api/"
+          },
+          {
+            "text": "What problem does the Context API solve?",
+            "link": "/react-interview-questions/context-api/context-api-question-1"
+          },
+          {
+            "text": "How do you create and consume Context?",
+            "link": "/react-interview-questions/context-api/context-api-question-2"
+          },
+          {
+            "text": "How does Context affect re-renders?",
+            "link": "/react-interview-questions/context-api/context-api-question-3"
+          },
+          {
+            "text": "How do you avoid Context performance problems?",
+            "link": "/react-interview-questions/context-api/context-api-question-4"
+          },
+          {
+            "text": "When should Context not replace a state manager?",
+            "link": "/react-interview-questions/context-api/context-api-question-5"
+          },
+          {
+            "text": "How do you test a component that consumes Context?",
+            "link": "/react-interview-questions/context-api/context-api-question-6"
+          },
+          {
+            "text": "How do you compose multiple providers?",
+            "link": "/react-interview-questions/context-api/context-api-question-7"
+          },
+          {
+            "text": "How do you give Context a safe default?",
+            "link": "/react-interview-questions/context-api/context-api-question-8"
+          },
+          {
+            "text": "How do you update Context from a child?",
+            "link": "/react-interview-questions/context-api/context-api-question-9"
+          },
+          {
+            "text": "How do you split a large Context?",
+            "link": "/react-interview-questions/context-api/context-api-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Redux",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Redux",
+            "link": "/react-interview-questions/redux/"
+          },
+          {
+            "text": "What are the core Redux principles?",
+            "link": "/react-interview-questions/redux/redux-question-1"
+          },
+          {
+            "text": "What are actions, reducers, and the store?",
+            "link": "/react-interview-questions/redux/redux-question-2"
+          },
+          {
+            "text": "Why must Redux reducers be pure?",
+            "link": "/react-interview-questions/redux/redux-question-3"
+          },
+          {
+            "text": "What is Redux Toolkit?",
+            "link": "/react-interview-questions/redux/redux-question-4"
+          },
+          {
+            "text": "What is a selector?",
+            "link": "/react-interview-questions/redux/redux-question-5"
+          },
+          {
+            "text": "How do you handle async logic with Redux?",
+            "link": "/react-interview-questions/redux/redux-question-6"
+          },
+          {
+            "text": "What is middleware?",
+            "link": "/react-interview-questions/redux/redux-question-7"
+          },
+          {
+            "text": "What is normalized state?",
+            "link": "/react-interview-questions/redux/redux-question-8"
+          },
+          {
+            "text": "How do you avoid unnecessary Redux re-renders?",
+            "link": "/react-interview-questions/redux/redux-question-9"
+          },
+          {
+            "text": "When is Redux not a good fit?",
+            "link": "/react-interview-questions/redux/redux-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Advanced React",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Advanced React",
+            "link": "/react-interview-questions/advanced/"
+          },
+          {
+            "text": "What are error boundaries?",
+            "link": "/react-interview-questions/advanced/advanced-question-1"
+          },
+          {
+            "text": "What are portals?",
+            "link": "/react-interview-questions/advanced/advanced-question-2"
+          },
+          {
+            "text": "What is a render prop?",
+            "link": "/react-interview-questions/advanced/advanced-question-3"
+          },
+          {
+            "text": "What is a higher-order component?",
+            "link": "/react-interview-questions/advanced/advanced-question-4"
+          },
+          {
+            "text": "What are compound components?",
+            "link": "/react-interview-questions/advanced/advanced-question-5"
+          },
+          {
+            "text": "What is `forwardRef`?",
+            "link": "/react-interview-questions/advanced/advanced-question-6"
+          },
+          {
+            "text": "What is `useImperativeHandle`?",
+            "link": "/react-interview-questions/advanced/advanced-question-7"
+          },
+          {
+            "text": "What is hydration?",
+            "link": "/react-interview-questions/advanced/advanced-question-8"
+          },
+          {
+            "text": "What is server-side rendering?",
+            "link": "/react-interview-questions/advanced/advanced-question-9"
+          },
+          {
+            "text": "What is React Server Components?",
+            "link": "/react-interview-questions/advanced/advanced-question-10"
+          }
+        ]
+      },
+      {
+        "text": "React Architecture",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All React Architecture",
+            "link": "/react-interview-questions/architecture/"
+          },
+          {
+            "text": "How do you organize a scalable React project?",
+            "link": "/react-interview-questions/architecture/architecture-question-1"
+          },
+          {
+            "text": "How do you separate presentational and container concerns?",
+            "link": "/react-interview-questions/architecture/architecture-question-2"
+          },
+          {
+            "text": "How do you design reusable components?",
+            "link": "/react-interview-questions/architecture/architecture-question-3"
+          },
+          {
+            "text": "How do you handle feature flags?",
+            "link": "/react-interview-questions/architecture/architecture-question-4"
+          },
+          {
+            "text": "How do you define API boundaries in React?",
+            "link": "/react-interview-questions/architecture/architecture-question-5"
+          },
+          {
+            "text": "How do you make React code testable?",
+            "link": "/react-interview-questions/architecture/architecture-question-6"
+          },
+          {
+            "text": "How do you manage forms at scale?",
+            "link": "/react-interview-questions/architecture/architecture-question-7"
+          },
+          {
+            "text": "How do you handle global errors?",
+            "link": "/react-interview-questions/architecture/architecture-question-8"
+          },
+          {
+            "text": "How do you design a design-system component?",
+            "link": "/react-interview-questions/architecture/architecture-question-9"
+          },
+          {
+            "text": "How do you migrate a legacy React application?",
+            "link": "/react-interview-questions/architecture/architecture-question-10"
+          }
+        ]
+      },
+      {
+        "text": "React Coding Challenges",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All React Coding Challenges",
+            "link": "/react-interview-questions/coding-challenges/"
+          },
+          {
+            "text": "Build a searchable, sortable React list.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-1"
+          },
+          {
+            "text": "Build a debounced search input.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-2"
+          },
+          {
+            "text": "Build a reusable modal component.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-3"
+          },
+          {
+            "text": "Build a paginated data table.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-4"
+          },
+          {
+            "text": "Build a multi-step form.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-5"
+          },
+          {
+            "text": "Build a toast notification system.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-6"
+          },
+          {
+            "text": "Build a custom `useFetch` Hook.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-7"
+          },
+          {
+            "text": "Build a virtualized list.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-8"
+          },
+          {
+            "text": "Build an accessible tabs component.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-9"
+          },
+          {
+            "text": "Build an optimistic todo list.",
+            "link": "/react-interview-questions/coding-challenges/coding-challenges-question-10"
+          }
+        ]
+      }
+    ],
+    "/angular-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/angular-interview-questions/"
+      },
+      {
+        "text": "Angular Basics",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Angular Basics",
+            "link": "/angular-interview-questions/basics/"
+          },
+          {
+            "text": "What is Angular?",
+            "link": "/angular-interview-questions/basics/basics-question-1"
+          },
+          {
+            "text": "What is the difference between Angular and AngularJS?",
+            "link": "/angular-interview-questions/basics/basics-question-2"
+          },
+          {
+            "text": "What is a standalone component?",
+            "link": "/angular-interview-questions/basics/basics-question-3"
+          },
+          {
+            "text": "What are Angular modules?",
+            "link": "/angular-interview-questions/basics/basics-question-4"
+          },
+          {
+            "text": "What is a decorator?",
+            "link": "/angular-interview-questions/basics/basics-question-5"
+          },
+          {
+            "text": "What is a component lifecycle?",
+            "link": "/angular-interview-questions/basics/basics-question-6"
+          },
+          {
+            "text": "What is data binding in Angular?",
+            "link": "/angular-interview-questions/basics/basics-question-7"
+          },
+          {
+            "text": "What is the difference between property and attribute binding?",
+            "link": "/angular-interview-questions/basics/basics-question-8"
+          },
+          {
+            "text": "What are directives?",
+            "link": "/angular-interview-questions/basics/basics-question-9"
+          },
+          {
+            "text": "What are pipes?",
+            "link": "/angular-interview-questions/basics/basics-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Components",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Components",
+            "link": "/angular-interview-questions/components/"
+          },
+          {
+            "text": "What is the difference between a component and a directive?",
+            "link": "/angular-interview-questions/components/components-question-1"
+          },
+          {
+            "text": "How do `@Input` and `@Output` work?",
+            "link": "/angular-interview-questions/components/components-question-2"
+          },
+          {
+            "text": "What is `EventEmitter` used for?",
+            "link": "/angular-interview-questions/components/components-question-3"
+          },
+          {
+            "text": "What is content projection?",
+            "link": "/angular-interview-questions/components/components-question-4"
+          },
+          {
+            "text": "What is `ViewChild`?",
+            "link": "/angular-interview-questions/components/components-question-5"
+          },
+          {
+            "text": "What is the difference between view and content children?",
+            "link": "/angular-interview-questions/components/components-question-6"
+          },
+          {
+            "text": "How do lifecycle hooks work?",
+            "link": "/angular-interview-questions/components/components-question-7"
+          },
+          {
+            "text": "What is the `OnPush` change-detection strategy?",
+            "link": "/angular-interview-questions/components/components-question-8"
+          },
+          {
+            "text": "How do you build a reusable Angular component?",
+            "link": "/angular-interview-questions/components/components-question-9"
+          },
+          {
+            "text": "How do you communicate between sibling components?",
+            "link": "/angular-interview-questions/components/components-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Services",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Services",
+            "link": "/angular-interview-questions/services/"
+          },
+          {
+            "text": "What is an Angular service?",
+            "link": "/angular-interview-questions/services/services-question-1"
+          },
+          {
+            "text": "Why are services usually injectable?",
+            "link": "/angular-interview-questions/services/services-question-2"
+          },
+          {
+            "text": "What does `providedIn: root` mean?",
+            "link": "/angular-interview-questions/services/services-question-3"
+          },
+          {
+            "text": "What is the difference between a service and a factory provider?",
+            "link": "/angular-interview-questions/services/services-question-4"
+          },
+          {
+            "text": "How do you share state with a service?",
+            "link": "/angular-interview-questions/services/services-question-5"
+          },
+          {
+            "text": "How do you test an Angular service?",
+            "link": "/angular-interview-questions/services/services-question-6"
+          },
+          {
+            "text": "What is `HttpClient`?",
+            "link": "/angular-interview-questions/services/services-question-7"
+          },
+          {
+            "text": "How do HTTP interceptors work?",
+            "link": "/angular-interview-questions/services/services-question-8"
+          },
+          {
+            "text": "How do you handle HTTP errors?",
+            "link": "/angular-interview-questions/services/services-question-9"
+          },
+          {
+            "text": "When should a service be stateless?",
+            "link": "/angular-interview-questions/services/services-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Dependency Injection",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Dependency Injection",
+            "link": "/angular-interview-questions/dependency-injection/"
+          },
+          {
+            "text": "What is dependency injection?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-1"
+          },
+          {
+            "text": "What is an injector?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-2"
+          },
+          {
+            "text": "What are provider scopes?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-3"
+          },
+          {
+            "text": "What is an injection token?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-4"
+          },
+          {
+            "text": "What are multi-providers?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-5"
+          },
+          {
+            "text": "How does hierarchical DI work?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-6"
+          },
+          {
+            "text": "What is `@Optional`?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-7"
+          },
+          {
+            "text": "What is `@Self` and `@SkipSelf`?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-8"
+          },
+          {
+            "text": "How do you provide a configuration object?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-9"
+          },
+          {
+            "text": "How do you mock a dependency in a test?",
+            "link": "/angular-interview-questions/dependency-injection/dependency-injection-question-10"
+          }
+        ]
+      },
+      {
+        "text": "RxJS",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All RxJS",
+            "link": "/angular-interview-questions/rxjs/"
+          },
+          {
+            "text": "Difference between Subject and BehaviorSubject",
+            "link": "/angular-interview-questions/rxjs/subject-vs-behaviorsubject"
+          },
+          {
+            "text": "What is the difference between an Observable and a Promise?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-2"
+          },
+          {
+            "text": "What is a Subject?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-3"
+          },
+          {
+            "text": "What is the difference between Subject and BehaviorSubject?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-4"
+          },
+          {
+            "text": "What is a ReplaySubject?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-5"
+          },
+          {
+            "text": "What is the difference between `switchMap`, `mergeMap`, `concatMap`, and `exhaustMap`?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-6"
+          },
+          {
+            "text": "What do `debounceTime` and `distinctUntilChanged` do?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-7"
+          },
+          {
+            "text": "How do you unsubscribe safely?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-8"
+          },
+          {
+            "text": "What is the `async` pipe?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-9"
+          },
+          {
+            "text": "How do you handle errors in RxJS?",
+            "link": "/angular-interview-questions/rxjs/rxjs-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Routing",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Routing",
+            "link": "/angular-interview-questions/routing/"
+          },
+          {
+            "text": "How does Angular Router work?",
+            "link": "/angular-interview-questions/routing/routing-question-1"
+          },
+          {
+            "text": "What is a router outlet?",
+            "link": "/angular-interview-questions/routing/routing-question-2"
+          },
+          {
+            "text": "What are route parameters and query parameters?",
+            "link": "/angular-interview-questions/routing/routing-question-3"
+          },
+          {
+            "text": "What are route guards?",
+            "link": "/angular-interview-questions/routing/routing-question-4"
+          },
+          {
+            "text": "What is lazy loading?",
+            "link": "/angular-interview-questions/routing/routing-question-5"
+          },
+          {
+            "text": "What are resolvers?",
+            "link": "/angular-interview-questions/routing/routing-question-6"
+          },
+          {
+            "text": "How do you create child routes?",
+            "link": "/angular-interview-questions/routing/routing-question-7"
+          },
+          {
+            "text": "How do you redirect routes?",
+            "link": "/angular-interview-questions/routing/routing-question-8"
+          },
+          {
+            "text": "How do you handle a not-found route?",
+            "link": "/angular-interview-questions/routing/routing-question-9"
+          },
+          {
+            "text": "How do you preload lazy modules?",
+            "link": "/angular-interview-questions/routing/routing-question-10"
+          }
+        ]
+      },
+      {
+        "text": "State Management",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All State Management",
+            "link": "/angular-interview-questions/state-management/"
+          },
+          {
+            "text": "How do you manage state in Angular?",
+            "link": "/angular-interview-questions/state-management/state-management-question-1"
+          },
+          {
+            "text": "When is a service with RxJS enough?",
+            "link": "/angular-interview-questions/state-management/state-management-question-2"
+          },
+          {
+            "text": "What is NgRx?",
+            "link": "/angular-interview-questions/state-management/state-management-question-3"
+          },
+          {
+            "text": "What are actions, reducers, selectors, and effects?",
+            "link": "/angular-interview-questions/state-management/state-management-question-4"
+          },
+          {
+            "text": "Why should reducers be pure?",
+            "link": "/angular-interview-questions/state-management/state-management-question-5"
+          },
+          {
+            "text": "How do selectors improve performance?",
+            "link": "/angular-interview-questions/state-management/state-management-question-6"
+          },
+          {
+            "text": "How do you model loading and error state?",
+            "link": "/angular-interview-questions/state-management/state-management-question-7"
+          },
+          {
+            "text": "What is entity state normalization?",
+            "link": "/angular-interview-questions/state-management/state-management-question-8"
+          },
+          {
+            "text": "How do signals fit state management?",
+            "link": "/angular-interview-questions/state-management/state-management-question-9"
+          },
+          {
+            "text": "When should you avoid a global store?",
+            "link": "/angular-interview-questions/state-management/state-management-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Angular Signals",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Angular Signals",
+            "link": "/angular-interview-questions/signals/"
+          },
+          {
+            "text": "What are Angular Signals?",
+            "link": "/angular-interview-questions/signals/angular-signals"
+          },
+          {
+            "text": "What is the difference between `signal`, `computed`, and `effect`?",
+            "link": "/angular-interview-questions/signals/signals-question-2"
+          },
+          {
+            "text": "How do signals work with OnPush?",
+            "link": "/angular-interview-questions/signals/signals-question-3"
+          },
+          {
+            "text": "How do you update a writable signal?",
+            "link": "/angular-interview-questions/signals/signals-question-4"
+          },
+          {
+            "text": "What is a computed signal?",
+            "link": "/angular-interview-questions/signals/signals-question-5"
+          },
+          {
+            "text": "When should you use an effect?",
+            "link": "/angular-interview-questions/signals/signals-question-6"
+          },
+          {
+            "text": "How do signals interoperate with RxJS?",
+            "link": "/angular-interview-questions/signals/signals-question-7"
+          },
+          {
+            "text": "What are signal inputs?",
+            "link": "/angular-interview-questions/signals/signals-question-8"
+          },
+          {
+            "text": "How do you avoid effects that write state?",
+            "link": "/angular-interview-questions/signals/signals-question-9"
+          },
+          {
+            "text": "When should you use a signal instead of an Observable?",
+            "link": "/angular-interview-questions/signals/signals-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Performance",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Performance",
+            "link": "/angular-interview-questions/performance/"
+          },
+          {
+            "text": "How does Angular change detection work?",
+            "link": "/angular-interview-questions/performance/performance-question-1"
+          },
+          {
+            "text": "What does `OnPush` change detection do?",
+            "link": "/angular-interview-questions/performance/performance-question-2"
+          },
+          {
+            "text": "How do you track list items efficiently?",
+            "link": "/angular-interview-questions/performance/performance-question-3"
+          },
+          {
+            "text": "How do you avoid expensive template expressions?",
+            "link": "/angular-interview-questions/performance/performance-question-4"
+          },
+          {
+            "text": "How do pure pipes improve performance?",
+            "link": "/angular-interview-questions/performance/performance-question-5"
+          },
+          {
+            "text": "How do you lazy load a feature?",
+            "link": "/angular-interview-questions/performance/performance-question-6"
+          },
+          {
+            "text": "How do you profile an Angular app?",
+            "link": "/angular-interview-questions/performance/performance-question-7"
+          },
+          {
+            "text": "What is zone.js and what role does it play?",
+            "link": "/angular-interview-questions/performance/performance-question-8"
+          },
+          {
+            "text": "How do you reduce bundle size?",
+            "link": "/angular-interview-questions/performance/performance-question-9"
+          },
+          {
+            "text": "How do you prevent memory leaks in Angular?",
+            "link": "/angular-interview-questions/performance/performance-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Angular Architecture",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Angular Architecture",
+            "link": "/angular-interview-questions/architecture/"
+          },
+          {
+            "text": "How do you structure a large Angular application?",
+            "link": "/angular-interview-questions/architecture/architecture-question-1"
+          },
+          {
+            "text": "What is feature-based architecture?",
+            "link": "/angular-interview-questions/architecture/architecture-question-2"
+          },
+          {
+            "text": "How do you design a shared module or shared library?",
+            "link": "/angular-interview-questions/architecture/architecture-question-3"
+          },
+          {
+            "text": "How do you separate smart and presentational components?",
+            "link": "/angular-interview-questions/architecture/architecture-question-4"
+          },
+          {
+            "text": "How do you organize core services?",
+            "link": "/angular-interview-questions/architecture/architecture-question-5"
+          },
+          {
+            "text": "How do you create reusable form controls?",
+            "link": "/angular-interview-questions/architecture/architecture-question-6"
+          },
+          {
+            "text": "How do you define API models and mappers?",
+            "link": "/angular-interview-questions/architecture/architecture-question-7"
+          },
+          {
+            "text": "How do you handle application-wide errors?",
+            "link": "/angular-interview-questions/architecture/architecture-question-8"
+          },
+          {
+            "text": "How do you test Angular components and services?",
+            "link": "/angular-interview-questions/architecture/architecture-question-9"
+          },
+          {
+            "text": "How do you migrate an Angular application safely?",
+            "link": "/angular-interview-questions/architecture/architecture-question-10"
+          }
+        ]
+      }
+    ],
+    "/javascript-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/javascript-interview-questions/"
+      },
+      {
+        "text": "JavaScript Basics",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All JavaScript Basics",
+            "link": "/javascript-interview-questions/basics/"
+          },
+          {
+            "text": "What are the JavaScript primitive types?",
+            "link": "/javascript-interview-questions/basics/basics-question-1"
+          },
+          {
+            "text": "What is the difference between `==` and `===`?",
+            "link": "/javascript-interview-questions/basics/basics-question-2"
+          },
+          {
+            "text": "What is the difference between `null` and `undefined`?",
+            "link": "/javascript-interview-questions/basics/basics-question-3"
+          },
+          {
+            "text": "What is hoisting in JavaScript?",
+            "link": "/javascript-interview-questions/basics/basics-question-4"
+          },
+          {
+            "text": "What is the temporal dead zone?",
+            "link": "/javascript-interview-questions/basics/basics-question-5"
+          },
+          {
+            "text": "How do `var`, `let`, and `const` differ?",
+            "link": "/javascript-interview-questions/basics/basics-question-6"
+          },
+          {
+            "text": "What is strict mode?",
+            "link": "/javascript-interview-questions/basics/basics-question-7"
+          },
+          {
+            "text": "What is type coercion?",
+            "link": "/javascript-interview-questions/basics/basics-question-8"
+          },
+          {
+            "text": "What makes a value truthy or falsy?",
+            "link": "/javascript-interview-questions/basics/basics-question-9"
+          },
+          {
+            "text": "What is the difference between shallow and deep equality?",
+            "link": "/javascript-interview-questions/basics/basics-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Functions & Scope",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Functions & Scope",
+            "link": "/javascript-interview-questions/functions/"
+          },
+          {
+            "text": "What is a closure?",
+            "link": "/javascript-interview-questions/functions/functions-question-1"
+          },
+          {
+            "text": "What is lexical scope?",
+            "link": "/javascript-interview-questions/functions/functions-question-2"
+          },
+          {
+            "text": "What is the difference between `call`, `apply`, and `bind`?",
+            "link": "/javascript-interview-questions/functions/functions-question-3"
+          },
+          {
+            "text": "What is a higher-order function?",
+            "link": "/javascript-interview-questions/functions/functions-question-4"
+          },
+          {
+            "text": "What is currying?",
+            "link": "/javascript-interview-questions/functions/functions-question-5"
+          },
+          {
+            "text": "What is function composition?",
+            "link": "/javascript-interview-questions/functions/functions-question-6"
+          },
+          {
+            "text": "How do arrow functions handle `this`?",
+            "link": "/javascript-interview-questions/functions/functions-question-7"
+          },
+          {
+            "text": "What is an IIFE?",
+            "link": "/javascript-interview-questions/functions/functions-question-8"
+          },
+          {
+            "text": "What is a pure function?",
+            "link": "/javascript-interview-questions/functions/functions-question-9"
+          },
+          {
+            "text": "What is the difference between a callback and a promise?",
+            "link": "/javascript-interview-questions/functions/functions-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Async JavaScript",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Async JavaScript",
+            "link": "/javascript-interview-questions/async/"
+          },
+          {
+            "text": "What is the JavaScript event loop?",
+            "link": "/javascript-interview-questions/async/async-question-1"
+          },
+          {
+            "text": "What is the difference between the microtask and macrotask queues?",
+            "link": "/javascript-interview-questions/async/async-question-2"
+          },
+          {
+            "text": "What are the states of a Promise?",
+            "link": "/javascript-interview-questions/async/async-question-3"
+          },
+          {
+            "text": "How does `async`/`await` work?",
+            "link": "/javascript-interview-questions/async/async-question-4"
+          },
+          {
+            "text": "What is the difference between `Promise.all` and `Promise.allSettled`?",
+            "link": "/javascript-interview-questions/async/async-question-5"
+          },
+          {
+            "text": "When would you use `Promise.race` or `Promise.any`?",
+            "link": "/javascript-interview-questions/async/async-question-6"
+          },
+          {
+            "text": "How do you handle errors with async/await?",
+            "link": "/javascript-interview-questions/async/async-question-7"
+          },
+          {
+            "text": "What is callback hell and how do you avoid it?",
+            "link": "/javascript-interview-questions/async/async-question-8"
+          },
+          {
+            "text": "How do you cancel a fetch request?",
+            "link": "/javascript-interview-questions/async/async-question-9"
+          },
+          {
+            "text": "What is the difference between synchronous and asynchronous code?",
+            "link": "/javascript-interview-questions/async/async-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Prototypes & OOP",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Prototypes & OOP",
+            "link": "/javascript-interview-questions/prototypes/"
+          },
+          {
+            "text": "What is the prototype chain?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-1"
+          },
+          {
+            "text": "What is the difference between `__proto__` and `prototype`?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-2"
+          },
+          {
+            "text": "How does `new` work?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-3"
+          },
+          {
+            "text": "What are JavaScript classes syntactic sugar for?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-4"
+          },
+          {
+            "text": "What is prototypal inheritance?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-5"
+          },
+          {
+            "text": "How do you create an object without a prototype?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-6"
+          },
+          {
+            "text": "What is the difference between own and inherited properties?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-7"
+          },
+          {
+            "text": "How does `instanceof` work?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-8"
+          },
+          {
+            "text": "What are getters and setters?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-9"
+          },
+          {
+            "text": "When should you prefer composition over inheritance?",
+            "link": "/javascript-interview-questions/prototypes/prototypes-question-10"
+          }
+        ]
+      },
+      {
+        "text": "ES6+ Features",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All ES6+ Features",
+            "link": "/javascript-interview-questions/es6/"
+          },
+          {
+            "text": "What are ES modules?",
+            "link": "/javascript-interview-questions/es6/es6-question-1"
+          },
+          {
+            "text": "What is the difference between default and named exports?",
+            "link": "/javascript-interview-questions/es6/es6-question-2"
+          },
+          {
+            "text": "What are template literals?",
+            "link": "/javascript-interview-questions/es6/es6-question-3"
+          },
+          {
+            "text": "What are destructuring assignments?",
+            "link": "/javascript-interview-questions/es6/es6-question-4"
+          },
+          {
+            "text": "What is the rest parameter?",
+            "link": "/javascript-interview-questions/es6/es6-question-5"
+          },
+          {
+            "text": "What is the spread operator?",
+            "link": "/javascript-interview-questions/es6/es6-question-6"
+          },
+          {
+            "text": "What are `Map` and `Set` useful for?",
+            "link": "/javascript-interview-questions/es6/es6-question-7"
+          },
+          {
+            "text": "What are `WeakMap` and `WeakSet`?",
+            "link": "/javascript-interview-questions/es6/es6-question-8"
+          },
+          {
+            "text": "What are generators and iterators?",
+            "link": "/javascript-interview-questions/es6/es6-question-9"
+          },
+          {
+            "text": "What are optional chaining and nullish coalescing?",
+            "link": "/javascript-interview-questions/es6/es6-question-10"
+          }
+        ]
+      },
+      {
+        "text": "DOM & Browser APIs",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All DOM & Browser APIs",
+            "link": "/javascript-interview-questions/dom/"
+          },
+          {
+            "text": "What is event delegation?",
+            "link": "/javascript-interview-questions/dom/dom-question-1"
+          },
+          {
+            "text": "What is the difference between event bubbling and capturing?",
+            "link": "/javascript-interview-questions/dom/dom-question-2"
+          },
+          {
+            "text": "What do `preventDefault` and `stopPropagation` do?",
+            "link": "/javascript-interview-questions/dom/dom-question-3"
+          },
+          {
+            "text": "What is the difference between an attribute and a property?",
+            "link": "/javascript-interview-questions/dom/dom-question-4"
+          },
+          {
+            "text": "When does `DOMContentLoaded` fire?",
+            "link": "/javascript-interview-questions/dom/dom-question-5"
+          },
+          {
+            "text": "How do you create and insert DOM elements safely?",
+            "link": "/javascript-interview-questions/dom/dom-question-6"
+          },
+          {
+            "text": "What is the difference between `innerHTML`, `textContent`, and `innerText`?",
+            "link": "/javascript-interview-questions/dom/dom-question-7"
+          },
+          {
+            "text": "How do you use `data-*` attributes?",
+            "link": "/javascript-interview-questions/dom/dom-question-8"
+          },
+          {
+            "text": "What is the browser rendering pipeline?",
+            "link": "/javascript-interview-questions/dom/dom-question-9"
+          },
+          {
+            "text": "What is a Web Worker?",
+            "link": "/javascript-interview-questions/dom/dom-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Performance",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Performance",
+            "link": "/javascript-interview-questions/performance/"
+          },
+          {
+            "text": "What causes a memory leak in JavaScript?",
+            "link": "/javascript-interview-questions/performance/performance-question-1"
+          },
+          {
+            "text": "What is debouncing?",
+            "link": "/javascript-interview-questions/performance/performance-question-2"
+          },
+          {
+            "text": "What is throttling?",
+            "link": "/javascript-interview-questions/performance/performance-question-3"
+          },
+          {
+            "text": "What is memoization?",
+            "link": "/javascript-interview-questions/performance/performance-question-4"
+          },
+          {
+            "text": "What is a layout thrash?",
+            "link": "/javascript-interview-questions/performance/performance-question-5"
+          },
+          {
+            "text": "How can you avoid unnecessary reflows and repaints?",
+            "link": "/javascript-interview-questions/performance/performance-question-6"
+          },
+          {
+            "text": "What is code splitting?",
+            "link": "/javascript-interview-questions/performance/performance-question-7"
+          },
+          {
+            "text": "What is tree shaking?",
+            "link": "/javascript-interview-questions/performance/performance-question-8"
+          },
+          {
+            "text": "How do you profile a slow web page?",
+            "link": "/javascript-interview-questions/performance/performance-question-9"
+          },
+          {
+            "text": "When should you use `requestAnimationFrame`?",
+            "link": "/javascript-interview-questions/performance/performance-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Security",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Security",
+            "link": "/javascript-interview-questions/security/"
+          },
+          {
+            "text": "What is the same-origin policy?",
+            "link": "/javascript-interview-questions/security/security-question-1"
+          },
+          {
+            "text": "What is CORS?",
+            "link": "/javascript-interview-questions/security/security-question-2"
+          },
+          {
+            "text": "What is cross-site scripting (XSS)?",
+            "link": "/javascript-interview-questions/security/security-question-3"
+          },
+          {
+            "text": "How do you prevent XSS in a web application?",
+            "link": "/javascript-interview-questions/security/security-question-4"
+          },
+          {
+            "text": "What is CSRF and how can it be mitigated?",
+            "link": "/javascript-interview-questions/security/security-question-5"
+          },
+          {
+            "text": "Why is `eval` dangerous?",
+            "link": "/javascript-interview-questions/security/security-question-6"
+          },
+          {
+            "text": "How should sensitive data be stored in the browser?",
+            "link": "/javascript-interview-questions/security/security-question-7"
+          },
+          {
+            "text": "What are secure cookie attributes?",
+            "link": "/javascript-interview-questions/security/security-question-8"
+          },
+          {
+            "text": "What is Content Security Policy?",
+            "link": "/javascript-interview-questions/security/security-question-9"
+          },
+          {
+            "text": "How do you validate and sanitize user input?",
+            "link": "/javascript-interview-questions/security/security-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Design Patterns",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Design Patterns",
+            "link": "/javascript-interview-questions/patterns/"
+          },
+          {
+            "text": "What is the module pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-1"
+          },
+          {
+            "text": "What is the observer pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-2"
+          },
+          {
+            "text": "What is the pub/sub pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-3"
+          },
+          {
+            "text": "What is the factory pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-4"
+          },
+          {
+            "text": "What is the singleton pattern and its trade-offs?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-5"
+          },
+          {
+            "text": "What is the strategy pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-6"
+          },
+          {
+            "text": "What is the adapter pattern?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-7"
+          },
+          {
+            "text": "What is dependency injection in JavaScript?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-8"
+          },
+          {
+            "text": "What is immutability and why does it matter?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-9"
+          },
+          {
+            "text": "How do you design a reusable API client?",
+            "link": "/javascript-interview-questions/patterns/patterns-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Coding Challenges",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Coding Challenges",
+            "link": "/javascript-interview-questions/coding-challenges/"
+          },
+          {
+            "text": "How do you flatten a nested array?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-1"
+          },
+          {
+            "text": "How do you implement debounce?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-2"
+          },
+          {
+            "text": "How do you implement deep clone?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-3"
+          },
+          {
+            "text": "How do you group an array of objects by a key?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-4"
+          },
+          {
+            "text": "How do you find duplicate values in an array?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-5"
+          },
+          {
+            "text": "How do you implement `Array.prototype.map`?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-6"
+          },
+          {
+            "text": "How do you implement a Promise pool with concurrency limits?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-7"
+          },
+          {
+            "text": "How do you write a memoize function?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-8"
+          },
+          {
+            "text": "How do you compare two objects deeply?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-9"
+          },
+          {
+            "text": "How do you implement an event emitter?",
+            "link": "/javascript-interview-questions/coding-challenges/coding-challenges-question-10"
+          }
+        ]
+      }
+    ],
+    "/typescript-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/typescript-interview-questions/"
+      },
+      {
+        "text": "TypeScript Basics",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All TypeScript Basics",
+            "link": "/typescript-interview-questions/basics/"
+          },
+          {
+            "text": "What is TypeScript and why use it?",
+            "link": "/typescript-interview-questions/basics/basics-question-1"
+          },
+          {
+            "text": "What is structural typing?",
+            "link": "/typescript-interview-questions/basics/basics-question-2"
+          },
+          {
+            "text": "What is the difference between `any`, `unknown`, and `never`?",
+            "link": "/typescript-interview-questions/basics/basics-question-3"
+          },
+          {
+            "text": "What is type inference?",
+            "link": "/typescript-interview-questions/basics/basics-question-4"
+          },
+          {
+            "text": "What is a union type?",
+            "link": "/typescript-interview-questions/basics/basics-question-5"
+          },
+          {
+            "text": "What is an intersection type?",
+            "link": "/typescript-interview-questions/basics/basics-question-6"
+          },
+          {
+            "text": "What is type narrowing?",
+            "link": "/typescript-interview-questions/basics/basics-question-7"
+          },
+          {
+            "text": "What is a discriminated union?",
+            "link": "/typescript-interview-questions/basics/basics-question-8"
+          },
+          {
+            "text": "What is a type assertion?",
+            "link": "/typescript-interview-questions/basics/basics-question-9"
+          },
+          {
+            "text": "What does `strict` mode enable?",
+            "link": "/typescript-interview-questions/basics/basics-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Interfaces & Object Types",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Interfaces & Object Types",
+            "link": "/typescript-interview-questions/interfaces/"
+          },
+          {
+            "text": "What is the difference between an interface and a type alias?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-1"
+          },
+          {
+            "text": "How do optional properties work?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-2"
+          },
+          {
+            "text": "What are readonly properties?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-3"
+          },
+          {
+            "text": "What is declaration merging?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-4"
+          },
+          {
+            "text": "What is an index signature?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-5"
+          },
+          {
+            "text": "How do you extend an interface?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-6"
+          },
+          {
+            "text": "What are callable interfaces?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-7"
+          },
+          {
+            "text": "What are mapped types?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-8"
+          },
+          {
+            "text": "What are utility types?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-9"
+          },
+          {
+            "text": "How do you model an API response?",
+            "link": "/typescript-interview-questions/interfaces/interfaces-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Generics",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Generics",
+            "link": "/typescript-interview-questions/generics/"
+          },
+          {
+            "text": "What are generics?",
+            "link": "/typescript-interview-questions/generics/generics-question-1"
+          },
+          {
+            "text": "How do generic constraints work?",
+            "link": "/typescript-interview-questions/generics/generics-question-2"
+          },
+          {
+            "text": "What does `keyof` do?",
+            "link": "/typescript-interview-questions/generics/generics-question-3"
+          },
+          {
+            "text": "What does `typeof` do in a type position?",
+            "link": "/typescript-interview-questions/generics/generics-question-4"
+          },
+          {
+            "text": "What are conditional types?",
+            "link": "/typescript-interview-questions/generics/generics-question-5"
+          },
+          {
+            "text": "What is the `infer` keyword?",
+            "link": "/typescript-interview-questions/generics/generics-question-6"
+          },
+          {
+            "text": "How do generic defaults work?",
+            "link": "/typescript-interview-questions/generics/generics-question-7"
+          },
+          {
+            "text": "How do you write a generic function?",
+            "link": "/typescript-interview-questions/generics/generics-question-8"
+          },
+          {
+            "text": "How do you write a generic React component?",
+            "link": "/typescript-interview-questions/generics/generics-question-9"
+          },
+          {
+            "text": "When should you avoid generics?",
+            "link": "/typescript-interview-questions/generics/generics-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Functions & Narrowing",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Functions & Narrowing",
+            "link": "/typescript-interview-questions/functions/"
+          },
+          {
+            "text": "How do function overloads work?",
+            "link": "/typescript-interview-questions/functions/functions-question-1"
+          },
+          {
+            "text": "What is a type predicate?",
+            "link": "/typescript-interview-questions/functions/functions-question-2"
+          },
+          {
+            "text": "What is an assertion function?",
+            "link": "/typescript-interview-questions/functions/functions-question-3"
+          },
+          {
+            "text": "What is a function return type?",
+            "link": "/typescript-interview-questions/functions/functions-question-4"
+          },
+          {
+            "text": "What is the difference between `void` and `never`?",
+            "link": "/typescript-interview-questions/functions/functions-question-5"
+          },
+          {
+            "text": "How do you type async functions?",
+            "link": "/typescript-interview-questions/functions/functions-question-6"
+          },
+          {
+            "text": "How do you type callbacks?",
+            "link": "/typescript-interview-questions/functions/functions-question-7"
+          },
+          {
+            "text": "How do rest parameters work in TypeScript?",
+            "link": "/typescript-interview-questions/functions/functions-question-8"
+          },
+          {
+            "text": "How do you type `this` in a function?",
+            "link": "/typescript-interview-questions/functions/functions-question-9"
+          },
+          {
+            "text": "What are template literal types?",
+            "link": "/typescript-interview-questions/functions/functions-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Project Architecture",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Project Architecture",
+            "link": "/typescript-interview-questions/architecture/"
+          },
+          {
+            "text": "How do you organize types in a large project?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-1"
+          },
+          {
+            "text": "How do you type environment variables?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-2"
+          },
+          {
+            "text": "How do you validate untrusted runtime data?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-3"
+          },
+          {
+            "text": "How do you migrate JavaScript to TypeScript?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-4"
+          },
+          {
+            "text": "What is `tsconfig.json` for?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-5"
+          },
+          {
+            "text": "What is module resolution?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-6"
+          },
+          {
+            "text": "How do project references work?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-7"
+          },
+          {
+            "text": "How do you share types between frontend and backend?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-8"
+          },
+          {
+            "text": "How do you avoid over-engineered types?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-9"
+          },
+          {
+            "text": "How do you make TypeScript builds faster?",
+            "link": "/typescript-interview-questions/architecture/architecture-question-10"
+          }
+        ]
+      }
+    ],
+    "/frontend-system-design/": [
+      {
+        "text": "Overview",
+        "link": "/frontend-system-design/"
+      },
+      {
+        "text": "Requirements & Estimation",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Requirements & Estimation",
+            "link": "/frontend-system-design/requirements/"
+          },
+          {
+            "text": "How do you approach a frontend system design interview?",
+            "link": "/frontend-system-design/requirements/requirements-question-1"
+          },
+          {
+            "text": "What functional requirements should you clarify?",
+            "link": "/frontend-system-design/requirements/requirements-question-2"
+          },
+          {
+            "text": "What non-functional requirements matter for frontend systems?",
+            "link": "/frontend-system-design/requirements/requirements-question-3"
+          },
+          {
+            "text": "How do you estimate scale for a UI?",
+            "link": "/frontend-system-design/requirements/requirements-question-4"
+          },
+          {
+            "text": "How do you identify critical user journeys?",
+            "link": "/frontend-system-design/requirements/requirements-question-5"
+          },
+          {
+            "text": "How do you define success metrics?",
+            "link": "/frontend-system-design/requirements/requirements-question-6"
+          },
+          {
+            "text": "How do you choose an architecture?",
+            "link": "/frontend-system-design/requirements/requirements-question-7"
+          },
+          {
+            "text": "How do you communicate trade-offs?",
+            "link": "/frontend-system-design/requirements/requirements-question-8"
+          },
+          {
+            "text": "How do you handle progressive delivery?",
+            "link": "/frontend-system-design/requirements/requirements-question-9"
+          },
+          {
+            "text": "How do you prioritize a first version?",
+            "link": "/frontend-system-design/requirements/requirements-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Performance & Delivery",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Performance & Delivery",
+            "link": "/frontend-system-design/performance/"
+          },
+          {
+            "text": "How would you design a fast e-commerce product page?",
+            "link": "/frontend-system-design/performance/performance-question-1"
+          },
+          {
+            "text": "How do you optimize initial page load?",
+            "link": "/frontend-system-design/performance/performance-question-2"
+          },
+          {
+            "text": "How do you design image delivery at scale?",
+            "link": "/frontend-system-design/performance/performance-question-3"
+          },
+          {
+            "text": "How do you implement code splitting?",
+            "link": "/frontend-system-design/performance/performance-question-4"
+          },
+          {
+            "text": "How do you prevent layout shift?",
+            "link": "/frontend-system-design/performance/performance-question-5"
+          },
+          {
+            "text": "How do you design list virtualization?",
+            "link": "/frontend-system-design/performance/performance-question-6"
+          },
+          {
+            "text": "How do you measure Core Web Vitals?",
+            "link": "/frontend-system-design/performance/performance-question-7"
+          },
+          {
+            "text": "How do you cache static assets?",
+            "link": "/frontend-system-design/performance/performance-question-8"
+          },
+          {
+            "text": "How do you handle low-end devices?",
+            "link": "/frontend-system-design/performance/performance-question-9"
+          },
+          {
+            "text": "How do you build a performance budget?",
+            "link": "/frontend-system-design/performance/performance-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Data & Caching",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Data & Caching",
+            "link": "/frontend-system-design/data/"
+          },
+          {
+            "text": "How would you design typeahead search?",
+            "link": "/frontend-system-design/data/data-question-1"
+          },
+          {
+            "text": "How do you design a client-side cache?",
+            "link": "/frontend-system-design/data/data-question-2"
+          },
+          {
+            "text": "How do you handle stale data?",
+            "link": "/frontend-system-design/data/data-question-3"
+          },
+          {
+            "text": "How do you design infinite scrolling?",
+            "link": "/frontend-system-design/data/data-question-4"
+          },
+          {
+            "text": "How do you handle optimistic updates?",
+            "link": "/frontend-system-design/data/data-question-5"
+          },
+          {
+            "text": "How do you manage pagination?",
+            "link": "/frontend-system-design/data/data-question-6"
+          },
+          {
+            "text": "How do you prevent duplicate network requests?",
+            "link": "/frontend-system-design/data/data-question-7"
+          },
+          {
+            "text": "How do you design offline support?",
+            "link": "/frontend-system-design/data/data-question-8"
+          },
+          {
+            "text": "How do you handle API errors?",
+            "link": "/frontend-system-design/data/data-question-9"
+          },
+          {
+            "text": "How do you secure client data?",
+            "link": "/frontend-system-design/data/data-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Real-time Experiences",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Real-time Experiences",
+            "link": "/frontend-system-design/realtime/"
+          },
+          {
+            "text": "How would you design a notification center?",
+            "link": "/frontend-system-design/realtime/realtime-question-1"
+          },
+          {
+            "text": "How do WebSockets compare with SSE?",
+            "link": "/frontend-system-design/realtime/realtime-question-2"
+          },
+          {
+            "text": "How do you design a collaborative editor?",
+            "link": "/frontend-system-design/realtime/realtime-question-3"
+          },
+          {
+            "text": "How do you reconcile real-time updates?",
+            "link": "/frontend-system-design/realtime/realtime-question-4"
+          },
+          {
+            "text": "How do you handle reconnects?",
+            "link": "/frontend-system-design/realtime/realtime-question-5"
+          },
+          {
+            "text": "How do you order real-time events?",
+            "link": "/frontend-system-design/realtime/realtime-question-6"
+          },
+          {
+            "text": "How do you prevent notification overload?",
+            "link": "/frontend-system-design/realtime/realtime-question-7"
+          },
+          {
+            "text": "How do you design presence indicators?",
+            "link": "/frontend-system-design/realtime/realtime-question-8"
+          },
+          {
+            "text": "How do you handle conflicts?",
+            "link": "/frontend-system-design/realtime/realtime-question-9"
+          },
+          {
+            "text": "How do you observe real-time reliability?",
+            "link": "/frontend-system-design/realtime/realtime-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Architecture & Operations",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Architecture & Operations",
+            "link": "/frontend-system-design/architecture/"
+          },
+          {
+            "text": "How would you design a scalable design system?",
+            "link": "/frontend-system-design/architecture/architecture-question-1"
+          },
+          {
+            "text": "How do you organize a micro-frontend architecture?",
+            "link": "/frontend-system-design/architecture/architecture-question-2"
+          },
+          {
+            "text": "How do you manage feature flags?",
+            "link": "/frontend-system-design/architecture/architecture-question-3"
+          },
+          {
+            "text": "How do you define frontend API boundaries?",
+            "link": "/frontend-system-design/architecture/architecture-question-4"
+          },
+          {
+            "text": "How do you make a frontend resilient to backend changes?",
+            "link": "/frontend-system-design/architecture/architecture-question-5"
+          },
+          {
+            "text": "How do you plan for accessibility?",
+            "link": "/frontend-system-design/architecture/architecture-question-6"
+          },
+          {
+            "text": "How do you plan observability?",
+            "link": "/frontend-system-design/architecture/architecture-question-7"
+          },
+          {
+            "text": "How do you handle authentication state?",
+            "link": "/frontend-system-design/architecture/architecture-question-8"
+          },
+          {
+            "text": "How do you deploy safely?",
+            "link": "/frontend-system-design/architecture/architecture-question-9"
+          },
+          {
+            "text": "How do you evolve a legacy frontend?",
+            "link": "/frontend-system-design/architecture/architecture-question-10"
+          }
+        ]
+      }
+    ],
+    "/hr-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/hr-interview-questions/"
+      },
+      {
+        "text": "Introduction & Motivation",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Introduction & Motivation",
+            "link": "/hr-interview-questions/introduction/"
+          },
+          {
+            "text": "Tell me about yourself.",
+            "link": "/hr-interview-questions/introduction/introduction-question-1"
+          },
+          {
+            "text": "Walk me through your resume.",
+            "link": "/hr-interview-questions/introduction/introduction-question-2"
+          },
+          {
+            "text": "Why do you want this role?",
+            "link": "/hr-interview-questions/introduction/introduction-question-3"
+          },
+          {
+            "text": "Why do you want to work here?",
+            "link": "/hr-interview-questions/introduction/introduction-question-4"
+          },
+          {
+            "text": "What are your greatest strengths?",
+            "link": "/hr-interview-questions/introduction/introduction-question-5"
+          },
+          {
+            "text": "What is an area you are working to improve?",
+            "link": "/hr-interview-questions/introduction/introduction-question-6"
+          },
+          {
+            "text": "What motivates you?",
+            "link": "/hr-interview-questions/introduction/introduction-question-7"
+          },
+          {
+            "text": "What are your career goals?",
+            "link": "/hr-interview-questions/introduction/introduction-question-8"
+          },
+          {
+            "text": "Why are you leaving your current role?",
+            "link": "/hr-interview-questions/introduction/introduction-question-9"
+          },
+          {
+            "text": "What makes you a strong fit for this position?",
+            "link": "/hr-interview-questions/introduction/introduction-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Collaboration",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Collaboration",
+            "link": "/hr-interview-questions/collaboration/"
+          },
+          {
+            "text": "Tell me about a conflict with a teammate.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-1"
+          },
+          {
+            "text": "Describe a time you gave difficult feedback.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-2"
+          },
+          {
+            "text": "Describe a time you received difficult feedback.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-3"
+          },
+          {
+            "text": "Tell me about a time you influenced without authority.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-4"
+          },
+          {
+            "text": "How do you build trust with a new team?",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-5"
+          },
+          {
+            "text": "Describe a cross-functional disagreement.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-6"
+          },
+          {
+            "text": "Tell me about a time you helped a teammate succeed.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-7"
+          },
+          {
+            "text": "How do you handle different working styles?",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-8"
+          },
+          {
+            "text": "Describe a time you communicated bad news.",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-9"
+          },
+          {
+            "text": "How do you collaborate in a remote team?",
+            "link": "/hr-interview-questions/collaboration/collaboration-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Ownership & Judgment",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Ownership & Judgment",
+            "link": "/hr-interview-questions/ownership/"
+          },
+          {
+            "text": "Tell me about a time you showed ownership.",
+            "link": "/hr-interview-questions/ownership/ownership-question-1"
+          },
+          {
+            "text": "Describe a time you made a mistake.",
+            "link": "/hr-interview-questions/ownership/ownership-question-2"
+          },
+          {
+            "text": "Tell me about a difficult decision you made.",
+            "link": "/hr-interview-questions/ownership/ownership-question-3"
+          },
+          {
+            "text": "Tell me about a time you missed a deadline.",
+            "link": "/hr-interview-questions/ownership/ownership-question-4"
+          },
+          {
+            "text": "Describe a time you handled ambiguity.",
+            "link": "/hr-interview-questions/ownership/ownership-question-5"
+          },
+          {
+            "text": "Tell me about a time you improved a process.",
+            "link": "/hr-interview-questions/ownership/ownership-question-6"
+          },
+          {
+            "text": "Describe a time you disagreed with a decision.",
+            "link": "/hr-interview-questions/ownership/ownership-question-7"
+          },
+          {
+            "text": "Tell me about a time you took initiative.",
+            "link": "/hr-interview-questions/ownership/ownership-question-8"
+          },
+          {
+            "text": "How do you prioritize competing work?",
+            "link": "/hr-interview-questions/ownership/ownership-question-9"
+          },
+          {
+            "text": "Tell me about a time you managed risk.",
+            "link": "/hr-interview-questions/ownership/ownership-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Leadership",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Leadership",
+            "link": "/hr-interview-questions/leadership/"
+          },
+          {
+            "text": "Tell me about a time you led a project.",
+            "link": "/hr-interview-questions/leadership/leadership-question-1"
+          },
+          {
+            "text": "How do you mentor others?",
+            "link": "/hr-interview-questions/leadership/leadership-question-2"
+          },
+          {
+            "text": "Describe a time you delegated work.",
+            "link": "/hr-interview-questions/leadership/leadership-question-3"
+          },
+          {
+            "text": "Tell me about a time you resolved a team conflict.",
+            "link": "/hr-interview-questions/leadership/leadership-question-4"
+          },
+          {
+            "text": "How do you create alignment?",
+            "link": "/hr-interview-questions/leadership/leadership-question-5"
+          },
+          {
+            "text": "Tell me about a time you drove change.",
+            "link": "/hr-interview-questions/leadership/leadership-question-6"
+          },
+          {
+            "text": "How do you make decisions with incomplete information?",
+            "link": "/hr-interview-questions/leadership/leadership-question-7"
+          },
+          {
+            "text": "Tell me about a time you raised the quality bar.",
+            "link": "/hr-interview-questions/leadership/leadership-question-8"
+          },
+          {
+            "text": "How do you handle an underperforming teammate?",
+            "link": "/hr-interview-questions/leadership/leadership-question-9"
+          },
+          {
+            "text": "What is your leadership style?",
+            "link": "/hr-interview-questions/leadership/leadership-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Culture & Self-awareness",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Culture & Self-awareness",
+            "link": "/hr-interview-questions/culture/"
+          },
+          {
+            "text": "What kind of culture helps you do your best work?",
+            "link": "/hr-interview-questions/culture/culture-question-1"
+          },
+          {
+            "text": "How do you handle pressure?",
+            "link": "/hr-interview-questions/culture/culture-question-2"
+          },
+          {
+            "text": "How do you maintain work-life balance?",
+            "link": "/hr-interview-questions/culture/culture-question-3"
+          },
+          {
+            "text": "What feedback style works best for you?",
+            "link": "/hr-interview-questions/culture/culture-question-4"
+          },
+          {
+            "text": "What does inclusion mean to you?",
+            "link": "/hr-interview-questions/culture/culture-question-5"
+          },
+          {
+            "text": "How do you respond to failure?",
+            "link": "/hr-interview-questions/culture/culture-question-6"
+          },
+          {
+            "text": "What would your manager say about you?",
+            "link": "/hr-interview-questions/culture/culture-question-7"
+          },
+          {
+            "text": "What are you looking for in your next manager?",
+            "link": "/hr-interview-questions/culture/culture-question-8"
+          },
+          {
+            "text": "What questions do you have for us?",
+            "link": "/hr-interview-questions/culture/culture-question-9"
+          },
+          {
+            "text": "How do you evaluate a job offer?",
+            "link": "/hr-interview-questions/culture/culture-question-10"
+          }
+        ]
+      }
+    ]
+  },
+  "questionCount": 450
+}
