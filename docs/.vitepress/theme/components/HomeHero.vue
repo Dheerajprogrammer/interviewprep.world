@@ -26,13 +26,14 @@ import manifest from '../../manifest.json'
     </div>
     <div class="ip-sponsor" aria-label="Support InterviewPrep.World">
       <span>Enjoying InterviewPrep.World?</span>
-      <iframe
-        src="https://github.com/sponsors/Dheerajprogrammer/button"
-        title="Sponsor Dheerajprogrammer"
-        height="32"
-        width="114"
-        style="border: 0; border-radius: 6px"
-      />
+      <a
+        class="ip-btn ip-btn--sponsor"
+        href="https://github.com/sponsors/Dheerajprogrammer"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span aria-hidden="true">♥</span> Sponsor this project
+      </a>
     </div>
     <PagefindSearch />
   </section>
