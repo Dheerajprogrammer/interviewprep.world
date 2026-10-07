@@ -101,6 +101,17 @@ watch(
 <template>
   <ReadingProgress />
   <DefaultTheme.Layout>
+    <template #nav-bar-content-after>
+      <a
+        class="ip-header-sponsor"
+        href="https://github.com/sponsors/Dheerajprogrammer"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span aria-hidden="true">♥</span> Sponsor
+      </a>
+    </template>
+
     <template v-if="isQuestion" #doc-before>
       <Breadcrumbs v-if="breadcrumbs.length" :items="breadcrumbs" />
       <QuestionMeta />
