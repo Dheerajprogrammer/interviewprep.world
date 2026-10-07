@@ -94,7 +94,7 @@ export default defineConfig({
       '/blog/': [{ text: 'Blog', link: '/blog/' }],
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/interviewprep-world' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Dheerajprogrammer/interviewprep.world' }],
 
     footer: {
       message: 'Built for developers preparing for technical interviews.',
