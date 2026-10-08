@@ -8,7 +8,7 @@ difficulty: medium
 experienceLevel: mid
 tags: ["react", "hooks", "useEffect", "side-effects"]
 updated: 2026-10-06
-readingMinutes: 2
+readingMinutes: 3
 answerExcerpt: "useEffect runs side effects after render—data fetching, subscriptions, and DOM sync—controlled by a dependency array with optional cleanup."
 outline: deep
 canonical: "https://interviewprep.world/react-interview-questions/hooks/use-effect"
@@ -37,6 +37,14 @@ next:
 - **`[]`** — runs after mount (and cleanup before unmount). In Strict Mode (dev), effects may run twice to surface unsafe side effects.
 - **`[deps]`** — runs when dependencies change; cleanup runs before re-running the effect.
 
+## Mental model
+
+An effect is a synchronization process, not a general place for code that happens after rendering. First identify an external system—such as the network, a browser API, a timer, an event source, or a third-party widget. The setup function makes that system reflect the current props and state. Its cleanup reverses the previous setup before dependencies change or the component unmounts. Thinking in setup/cleanup pairs makes effects resilient to remounting and Strict Mode checks.
+
+Every reactive value read inside an effect belongs in its dependency list. Dependencies are not an optimization switch; they describe when synchronization must run again to stay correct. If adding a dependency creates a loop, the usual fix is to change the design: calculate derived data during render, move user-triggered work into an event handler, stabilize a callback where identity genuinely matters, or split one effect that performs unrelated jobs into separate effects.
+
+Data fetching also needs a stale-response strategy. Cleanup cannot undo a response already returned, but it can abort the request or prevent an obsolete result from updating state. In larger applications, a route loader or query library often handles caching, deduplication, retries, and server rendering more reliably than a hand-written effect.
+
 ## Code Examples
 
 ```jsx
@@ -61,6 +69,8 @@ export function UserProfile({ userId }) {
 }
 ```
 
+Here, `userId` is a dependency because changing it means the component must synchronize with a different resource. The cleanup marks the previous request as obsolete, so a slow response for the old user cannot replace the current profile. A production implementation should also represent loading and error states and should preferably use `AbortController` to cancel the underlying fetch.
+
 ```jsx
 useEffect(() => {
   const id = setInterval(tick, 1000)
@@ -83,3 +93,17 @@ useEffect(() => {
 ## Real Interview Scenarios
 
 Interviewers often present a component with an infinite re-render loop or a memory leak from a missing cleanup and ask you to fix it live.
+
+## Copyable example
+
+```jsx
+// Explain the useEffect Hook
+// Section: react:hooks
+useEffect(() => {
+  const controller = new AbortController()
+  fetch(url, { signal: controller.signal })
+  return () => controller.abort()
+}, [url])
+```
+
+This example demonstrates the React behavior discussed in the answer and can be adapted directly in a component or route.

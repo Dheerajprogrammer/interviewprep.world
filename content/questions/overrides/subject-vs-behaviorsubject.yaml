@@ -22,6 +22,14 @@ body: |
   | Late subscriber | Misses prior emissions | Gets latest value immediately |
   | Typical use | Fire-and-forget events | State snapshots, selected entity |
 
+  ## Choosing between them
+
+  Use a `Subject` when an emission represents an event that only current subscribers should observe: a refresh command, dismissal notification, or completed action. A component that subscribes later should not pretend that the old event just happened. Use a `BehaviorSubject` when the stream represents current state and every new subscriber needs an immediate snapshot, such as the selected account, current filter, or authenticated user. Its required initial value forces you to model the state before real data arrives, often with `null` or a deliberate loading value.
+
+  Both types are hot and multicast. Calling `next` happens independently of whether a particular consumer is ready, and all current subscribers receive the same emission. Neither automatically provides durable persistence, server-state caching, or a complete application store. Keep mutation private in a service and expose only the observable view so components cannot push arbitrary values.
+
+  `BehaviorSubject#getValue()` can be useful at an imperative boundary, but frequent reads are a warning that code is leaving the reactive model. Prefer composing streams with operators and consuming them with Angular's async pipe. For bounded replay of several historical values, use `ReplaySubject`; for one final value on completion, consider `AsyncSubject`.
+
   ## Code Examples
 
   ```typescript
@@ -44,6 +52,8 @@ body: |
   private readonly selectedId$ = new BehaviorSubject<string | null>(null)
   readonly selectedIdChanges$ = this.selectedId$.asObservable()
   ```
+
+  In this example, a child route created after the user selects an item immediately receives the current ID from the `BehaviorSubject`. Replacing it with a plain `Subject` would leave the late subscriber empty until the user changed the selection again. Conversely, using a `BehaviorSubject` for a one-time “toast dismissed” event could incorrectly replay that old event to a newly mounted component.
 
   ## Common Mistakes
 

@@ -8,7 +8,7 @@ difficulty: easy
 experienceLevel: junior
 tags: ["react", "rendering", "reconciliation"]
 updated: 2026-10-06
-readingMinutes: 2
+readingMinutes: 3
 answerExcerpt: "The Virtual DOM is an in-memory tree of UI descriptions. React diffs it against the previous tree and applies minimal updates to the real DOM."
 outline: deep
 canonical: "https://interviewprep.world/react-interview-questions/basics/virtual-dom"
@@ -32,6 +32,14 @@ The **Virtual DOM** is a lightweight, in-memory representation of the UI. Librar
 
 This indirection helps batch updates, keep rendering predictable, and avoid unnecessary direct DOM manipulation.
 
+## How it works
+
+Calling a component creates React elements: plain descriptions containing a type, props, and children. When props or state change, React calls the relevant components again to produce a new description. Reconciliation compares that description with the previous one. If an element keeps the same type and identity, React usually preserves its DOM node and component state and updates only changed properties. If the type or key changes, React treats it as a different element and may replace the subtree and reset its state.
+
+“Smallest set of changes” should not be interpreted as a mathematically optimal diff. React uses predictable heuristics that run efficiently for UI trees. It compares siblings at the same level and relies on keys to match items in a collection. That is why stable data IDs are important when rows can be inserted, removed, or reordered. An array index describes position, not identity, and can attach input state or focus to the wrong row after an update.
+
+The Virtual DOM also does not remove the need for performance work. Creating and comparing a very large element tree still consumes CPU, and committing many DOM changes can still trigger layout and paint. Profile the actual interaction, keep state close to where it is used, virtualize very large lists, and memoize only when measurements show repeated work.
+
 ## Code Examples
 
 ```jsx
@@ -48,6 +56,8 @@ function Greeting({ name }) {
 ))}
 ```
 
+In the list example, changing one item's label creates a new element tree, but its stable `item.id` lets React match that row to the existing DOM node. React can update the text while preserving focus and local component state for the other rows. If the code used the array index and inserted a new first item, every later position would refer to different data and state could appear to move between rows.
+
 ## Common Mistakes
 
 - Claiming the Virtual DOM is *always* faster than manual DOM updates.
@@ -63,3 +73,14 @@ function Greeting({ name }) {
 ## Real Interview Scenarios
 
 You may be asked to trace what happens when state updates in a parent with several children, or to explain why improper list keys cause bugs in forms and inputs.
+
+## Copyable example
+
+```jsx
+// What is the Virtual DOM?
+// Section: react:basics
+const before = <h1>Hello</h1>
+const after = <h1>Hello, Ada</h1> // React reconciles these element trees
+```
+
+This example demonstrates the React behavior discussed in the answer and can be adapted directly in a component or route.
