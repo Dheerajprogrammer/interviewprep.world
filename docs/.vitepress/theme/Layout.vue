@@ -7,6 +7,7 @@ import Breadcrumbs from './components/Breadcrumbs.vue'
 import PrevNextNav from './components/PrevNextNav.vue'
 import QuestionMeta from './components/QuestionMeta.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
+import AnswerNavigator from './components/AnswerNavigator.vue'
 import { buildCanonical } from '../utils/seo'
 import { breadcrumbJsonLd, questionJsonLd } from '../utils/schema'
 import { onMounted, watch } from 'vue'
@@ -100,6 +101,7 @@ watch(
 
 <template>
   <ReadingProgress />
+  <AnswerNavigator />
   <DefaultTheme.Layout>
     <template #nav-bar-content-after>
       <a
