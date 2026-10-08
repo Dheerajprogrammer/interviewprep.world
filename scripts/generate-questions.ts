@@ -1099,6 +1099,13 @@ function loadOverrides(): Map<string, QuestionRecord> {
     if (!file.endsWith('.yaml') && !file.endsWith('.yml')) continue
     const raw = fs.readFileSync(path.join(dir, file), 'utf8')
     const parsed = OverrideSchema.parse(YAML.parse(raw))
+    parsed.body = appendCopyableExample(
+      parsed.body,
+      parsed.title,
+      `${parsed.track}:${parsed.subcategory}`,
+      parsed.trackLabel,
+      parsed.answerExcerpt,
+    )
     const link = `/${parsed.trackPath}/${parsed.subcategory}/${parsed.slug}`
     map.set(`${parsed.track}:${parsed.subcategory}:${parsed.slug}`, { ...parsed, link })
   }
@@ -1109,33 +1116,730 @@ function templateBody(
   title: string,
   topic: string,
   difficulty: string,
-  index: number,
+  trackLabel: string,
 ): { body: string; excerpt: string } {
   const primer = TOPIC_PRIMERS[topic] ??
     `${topic} interview answers should make the system boundary, the default behaviour, and the important trade-offs explicit. Ground the explanation in a concrete use case rather than listing terminology.`
-  const example = EXAMPLES[topic] ?? `Consider a production ${topic} change: define the expected behavior and failure modes first, implement the smallest observable change, then verify it with a focused test or measurement. The right implementation depends on the system boundary and its constraints.`
   const answer = CURATED_ANSWERS[title] ?? primer
+  const isBehavioral = topic.startsWith('behavioral ')
+  const explanation = isBehavioral
+    ? behavioralTeachingBody(title, topic, answer, difficulty)
+    : technicalTeachingBody(title, topic, trackLabel, answer, primer, difficulty)
   const excerpt = answer
   const body = `## Answer
 
-${answer}
+${explanation}
 
-${example ? `## Example
-
-${example}
-` : ''}
-
-## Practical considerations
-
-1. Choose the approach from the requirement and constraints, not from habit.
-2. Include validation, error handling, and cleanup where the boundary requires them.
-3. Verify the observable result with focused tests or measurement.
-
-## In practice
-
-For this ${difficulty}-level topic, make assumptions explicit, choose the smallest safe implementation, and verify the behavior at the relevant boundary.
+${copyableExample(title, topic, trackLabel, answer)}
 `
   return { body, excerpt }
+}
+
+function appendCopyableExample(
+  body: string,
+  title: string,
+  topic: string,
+  trackLabel: string,
+  answer: string,
+): string {
+  if (body.includes('## Copyable example')) return body
+  return `${body.trim()}\n\n${copyableExample(title, topic, trackLabel, answer)}\n`
+}
+
+function copyableExample(
+  title: string,
+  topic: string,
+  trackLabel: string,
+  answer: string,
+): string {
+  const question = title.replace(/`/g, '')
+  const rule = answer.replace(/`/g, '').replace(/\s+/g, ' ')
+  const id = `${trackLabel}-${question}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+  const q = JSON.stringify(question)
+  const r = JSON.stringify(rule)
+
+  if (trackLabel === 'JavaScript') {
+    return languageExample('js', question, id, rule)
+  }
+
+  if (trackLabel === 'React') {
+    return reactQuestionExample(question, topic)
+  }
+
+  if (trackLabel === 'Angular') {
+    const topicExample = topicLanguageExample(topic, question, id)
+    if (topicExample) return topicExample
+    return angularTopicExample(question, topic, id, rule)
+  }
+
+  if (trackLabel === 'TypeScript') {
+    const topicExample = topicLanguageExample(topic, question, id)
+    if (topicExample) return topicExample
+    return typescriptTopicExample(question, topic, id, rule)
+  }
+
+  if (['Frontend', 'Backend', 'Database', 'DevOps & Cloud'].includes(trackLabel)) {
+    const topicExample = topicLanguageExample(topic, question, id)
+    if (topicExample) return topicExample
+  }
+
+  if (trackLabel === 'Backend' && /Node\.js|Express|REST API/i.test(topic)) {
+    return languageExample('js', question, id, rule)
+  }
+
+  if (trackLabel === 'Backend' && /GraphQL/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`graphql
+# ${question}
+query InterviewExample {
+  __typename
+}
+\`\`\`
+
+Use this GraphQL operation as the starting point, then add the fields, arguments, variables, or mutation behavior discussed in the answer.`
+  }
+
+  if (trackLabel === 'Database' && /MongoDB/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`javascript
+// ${question}
+db.interview_examples.updateOne(
+  { _id: ${JSON.stringify(id)} },
+  { $set: { question: ${q}, rule: ${r} } },
+  { upsert: true },
+)
+
+db.interview_examples.findOne({ _id: ${JSON.stringify(id)} })
+\`\`\`
+
+Run this in mongosh and adapt the document shape, query, index, or update operation to the behavior described in the answer.`
+  }
+
+  if (trackLabel === 'Database' && /Redis/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`bash
+# ${question}
+redis-cli SET ${id}:rule ${JSON.stringify(rule)} EX 300
+redis-cli GET ${id}:rule
+redis-cli TTL ${id}:rule
+\`\`\`
+
+This Redis CLI example is copyable and makes expiry observable; adapt the command and data structure to the exact operation discussed in the answer.`
+  }
+
+  if (topic.startsWith('behavioral ') || trackLabel === 'HR Interview Questions') {
+    return `## Copyable example
+
+\`\`\`text
+Question: ${question}
+Situation: [Give only the context needed to understand the stakes.]
+Task: [State the outcome you personally owned.]
+Action: [Explain 2–3 decisions you made and why.]
+Result: [Give the measurable or observable outcome.]
+Lesson: [Say what you learned or changed afterward.]
+\`\`\`
+
+Copy this STAR outline and replace every bracketed line with evidence from your own experience.`
+  }
+
+  if (/system design|architecture|microservices|distributed systems/i.test(`${topic} ${trackLabel}`)) {
+    return `## Copyable example
+
+\`\`\`text
+# ${question}
+Requirement: define the user-visible outcome and scale
+Boundary: identify the component that owns the behavior
+Decision: ${rule}
+Failure case: describe timeout, retry, partial failure, or rollback behavior
+Verification: name the test, log, metric, or user signal that proves it works
+Example ID: ${id}
+\`\`\`
+
+This is a copy-ready design-answer skeleton. Replace the requirement and failure case with the constraints given by the interviewer.`
+  }
+
+  if (/SQL|PostgreSQL|database/i.test(`${topic} ${trackLabel}`)) {
+    const sqlRule = rule.replace(/'/g, "''")
+    return `## Copyable example
+
+\`\`\`sql
+-- ${question}
+-- Adapt the schema and query to the problem being discussed.
+WITH interview_example(question_id, core_rule) AS (
+  VALUES ('${id}', '${sqlRule}')
+)
+SELECT question_id, core_rule
+FROM interview_example;
+\`\`\`
+
+The CTE makes the exact rule for this question executable and easy to extend with sample tables, indexes, transactions, or query-plan checks.`
+  }
+
+  if (/Python/i.test(`${topic} ${trackLabel}`)) {
+    return `## Copyable example
+
+\`\`\`python
+# ${question}
+example = {
+    "id": ${JSON.stringify(id)},
+    "rule": ${r},
+    "checks": ["happy path", "invalid input", "relevant failure path"],
+}
+
+def explain(item: dict) -> str:
+    return f"{item['id']}: {item['rule']}"
+
+print(explain(example))
+\`\`\`
+
+Keep the rule beside the checks while adapting this scaffold into a focused Python demonstration or test.`
+  }
+
+  if (/Java|Spring Boot/i.test(`${topic} ${trackLabel}`)) {
+    return `## Copyable example
+
+\`\`\`java
+// ${question}
+record InterviewExample(String id, String rule, String[] checks) {}
+
+var example = new InterviewExample(
+    ${JSON.stringify(id)},
+    ${r},
+    new String[] { "happy path", "invalid input", "relevant failure path" }
+);
+
+System.out.println(example.rule());
+\`\`\`
+
+Use the record as a starting point for a focused Java unit test or Spring integration example for this exact question.`
+  }
+
+  if (/Docker/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`dockerfile
+# ${question}
+# Rule: ${rule}
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+USER node
+CMD ["node", "server.js"]
+\`\`\`
+
+Copy this Dockerfile as a baseline, then change the instruction directly related to the question and verify the resulting image or container behavior.`
+  }
+
+  if (/Kubernetes/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`yaml
+# ${question}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${id.slice(0, 50)}
+data:
+  core-rule: ${JSON.stringify(rule)}
+  verification: "test the happy path and one relevant failure path"
+\`\`\`
+
+This valid manifest provides a copyable place to record and adapt the Kubernetes behavior discussed in the answer.`
+  }
+
+  if (/Git|CI\/CD|GitHub Actions|AWS|Azure/i.test(topic)) {
+    return `## Copyable example
+
+\`\`\`bash
+# ${question}
+QUESTION_ID=${JSON.stringify(id)}
+CORE_RULE=${JSON.stringify(rule)}
+printf '%s\\n' "$QUESTION_ID" "$CORE_RULE"
+# Add the command from the answer, then verify its exit status and output.
+\`\`\`
+
+The shell scaffold is safe to copy and keeps the question-specific rule visible beside the command being tested.`
+  }
+
+  return `## Copyable example
+
+\`\`\`ts
+// ${question}
+const interviewExample = {
+  id: ${JSON.stringify(id)},
+  rule: ${r},
+  checks: ["happy path", "invalid input", "relevant failure path"],
+} as const
+
+function explainExample(example: typeof interviewExample) {
+  return \`${'${example.id}'}: ${'${example.rule}'}\`
+}
+
+console.log(explainExample(interviewExample))
+\`\`\`
+
+Copy this TypeScript scaffold and replace the verification array with the concrete inputs and expected outputs described by the question.`
+}
+
+function topicLanguageExample(topic: string, question: string, id: string): string | undefined {
+  const source = EXAMPLES[topic]
+  if (!source) return undefined
+  const match = source.match(/```([^\n]*)\n([\s\S]*?)```/)
+  if (!match) return undefined
+
+  const [, language, originalCode] = match
+  const comment = ['html', 'xml'].includes(language)
+    ? `<!-- ${question} | ${id} -->`
+    : ['css'].includes(language)
+      ? `/* ${question} | ${id} */`
+      : ['sql'].includes(language)
+        ? `-- ${question} | ${id}`
+        : ['bash', 'sh', 'shell', 'dockerfile', 'yaml', 'yml', 'python'].includes(language)
+          ? `# ${question} | ${id}`
+        : `// ${question} | ${id}`
+  const explanation = source.slice(match.index! + match[0].length).trim()
+
+  return `## Copyable example
+
+\`\`\`${language}
+${comment}
+${originalCode.trim()}
+\`\`\`
+
+${explanation}`
+}
+
+function reactQuestionExample(question: string, topic: string): string {
+  const examples: Record<string, string> = {
+    'What is React and what problems does it solve?': 'function App() { const [name, setName] = useState("Ada"); return <main><input value={name} onChange={e => setName(e.target.value)} /><Greeting name={name} /></main> }',
+    'What is the Virtual DOM?': 'const before = <h1>Hello</h1>\nconst after = <h1>Hello, Ada</h1> // React reconciles these element trees',
+    'What is reconciliation in React?': 'function Row({ item }) { return <li>{item.name}</li> }\nconst list = items.map(item => <Row key={item.id} item={item} />)',
+    'What is JSX?': 'const name = "Ada"\nconst heading = <h1 className="title">Hello, {name}</h1>',
+    'What is the difference between props and state?': 'function Counter({ step }) {\n  const [count, setCount] = useState(0)\n  return <button onClick={() => setCount(c => c + step)}>{count}</button>\n}',
+    'What causes a React component to re-render?': 'function Parent() {\n  const [count, setCount] = useState(0)\n  return <button onClick={() => setCount(c => c + 1)}><Child count={count} /></button>\n}',
+    'What are keys and why are they important?': 'const rows = users.map(user => <UserRow key={user.id} user={user} />)',
+    'What is a controlled component?': 'function NameField() {\n  const [name, setName] = useState("")\n  return <input value={name} onChange={e => setName(e.target.value)} />\n}',
+    'What is an uncontrolled component?': 'function Form() {\n  const inputRef = useRef(null)\n  return <form onSubmit={() => console.log(inputRef.current.value)}><input ref={inputRef} /></form>\n}',
+    'What is React Strict Mode?': 'createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>)',
+    'What are the Rules of Hooks?': 'function Profile() {\n  const [user, setUser] = useState(null) // top level, never inside a condition\n  useEffect(() => { loadUser().then(setUser) }, [])\n  return user && <h1>{user.name}</h1>\n}',
+    'Explain the useState Hook.': 'const [count, setCount] = useState(0)\nsetCount(current => current + 1)',
+    'Explain the useEffect Hook.': 'useEffect(() => {\n  const controller = new AbortController()\n  fetch(url, { signal: controller.signal })\n  return () => controller.abort()\n}, [url])',
+    'Explain the useEffect Hook': 'useEffect(() => {\n  const controller = new AbortController()\n  fetch(url, { signal: controller.signal })\n  return () => controller.abort()\n}, [url])',
+    'What is the difference between useEffect and useLayoutEffect?': 'useLayoutEffect(() => {\n  const { height } = ref.current.getBoundingClientRect()\n  setTooltipY(height) // measured before paint, avoiding a visible jump\n}, [])',
+    'When should you use useMemo?': 'const sortedRows = useMemo(() => expensiveSort(rows, sortBy), [rows, sortBy])',
+    'When should you use useCallback?': 'const handleSave = useCallback(() => save(documentId), [documentId])\nreturn <MemoizedToolbar onSave={handleSave} />',
+    'What is useRef used for?': 'const inputRef = useRef(null)\nreturn <><input ref={inputRef} /><button onClick={() => inputRef.current.focus()}>Focus</button></>',
+    'How do you build a custom Hook?': 'function useOnlineStatus() {\n  const [online, setOnline] = useState(navigator.onLine)\n  useEffect(() => { addEventListener("online", () => setOnline(true)) }, [])\n  return online\n}',
+    'How do stale closures happen in Hooks?': 'useEffect(() => {\n  const id = setInterval(() => setCount(c => c + 1), 1000)\n  return () => clearInterval(id)\n}, [])',
+    'How do you avoid an infinite effect loop?': 'const options = useMemo(() => ({ roomId }), [roomId])\nuseEffect(() => connect(options), [options])',
+    'Where should state live in a React application?': 'function CartPage() {\n  const [items, setItems] = useState([])\n  return <><Cart items={items} /><AddItem onAdd={item => setItems(x => [...x, item])} /></>\n}',
+    'What is lifting state up?': 'function Temperature() {\n  const [celsius, setCelsius] = useState(0)\n  return <><Celsius value={celsius} onChange={setCelsius} /><Fahrenheit value={celsius * 9 / 5 + 32} /></>\n}',
+    'What is derived state and why should you avoid storing it?': 'const [first, setFirst] = useState("")\nconst [last, setLast] = useState("")\nconst fullName = `${first} ${last}` // derive during render',
+    'How do you update nested state immutably?': 'setUser(user => ({ ...user, address: { ...user.address, city: "Pune" } }))',
+    'What is state colocation?': 'function SearchBox() {\n  const [query, setQuery] = useState("") // only SearchBox needs it\n  return <input value={query} onChange={e => setQuery(e.target.value)} />\n}',
+    'When is Context appropriate for state?': 'const ThemeContext = createContext("light")\n<ThemeContext.Provider value="dark"><App /></ThemeContext.Provider>',
+    'When should you use a client-state library?': 'const useCart = create(set => ({ items: [], add: item => set(s => ({ items: [...s.items, item] })) }))',
+    'How do you model async request state?': 'const [request, setRequest] = useState({ status: "idle", data: null, error: null })',
+    'What is optimistic UI?': 'const optimisticTodos = useOptimistic(todos, (state, todo) => [...state, { ...todo, pending: true }])',
+    'How do you prevent race conditions in state updates?': 'useEffect(() => {\n  const controller = new AbortController()\n  fetch(`/users/${id}`, { signal: controller.signal }).then(r => r.json()).then(setUser)\n  return () => controller.abort()\n}, [id])',
+    'How do you diagnose unnecessary React re-renders?': 'function Row(props) { console.count(`Row ${props.id} render`); return <div>{props.name}</div> }',
+    'What does React.memo do?': 'const UserRow = memo(function UserRow({ user }) { return <div>{user.name}</div> })',
+    'What are the limits of useMemo and useCallback?': 'const total = useMemo(() => calculateTotal(items), [items]) // optimization, not correctness',
+    'How do you virtualize a large list?': '<FixedSizeList height={500} itemCount={items.length} itemSize={40}>{({ index, style }) => <div style={style}>{items[index].name}</div>}</FixedSizeList>',
+    'What is code splitting with lazy and Suspense?': 'const Settings = lazy(() => import("./Settings"))\n<Suspense fallback={<Spinner />}><Settings /></Suspense>',
+    'How do you optimize Context consumers?': 'const ThemeContext = createContext(null)\nconst UserContext = createContext(null) // split unrelated update frequencies',
+    'How do stable keys improve rendering?': '{todos.map(todo => <TodoRow key={todo.id} todo={todo} />)}',
+    'What is concurrent rendering?': 'const [isPending, startTransition] = useTransition()\nstartTransition(() => setQuery(nextQuery))',
+    'How do you optimize expensive calculations?': 'const result = useMemo(() => runExpensiveAlgorithm(input), [input])',
+    'How do you profile a React app?': '<Profiler id="SearchResults" onRender={(id, phase, duration) => log(duration)}><SearchResults /></Profiler>',
+    'What is client-side routing?': '<BrowserRouter><Routes><Route path="/products/:id" element={<Product />} /></Routes></BrowserRouter>',
+    'How do nested routes work in React Router?': '<Route path="projects" element={<ProjectsLayout />}><Route path=":id" element={<Project />} /></Route>',
+    'What is an outlet?': 'function DashboardLayout() { return <><DashboardNav /><main><Outlet /></main></> }',
+    'How do route parameters work?': 'function Product() { const { productId } = useParams(); return <h1>{productId}</h1> }',
+    'How do you protect a route?': 'function ProtectedRoute() { const user = useUser(); return user ? <Outlet /> : <Navigate to="/login" replace /> }',
+    'How do you navigate programmatically?': 'const navigate = useNavigate()\nawait saveForm()\nnavigate("/success", { replace: true })',
+    'What are loaders and actions?': 'export async function loader({ params }) { return fetch(`/api/projects/${params.id}`) }\nexport async function action({ request }) { return save(await request.formData()) }',
+    'How do you handle a 404 route?': '<Routes><Route path="*" element={<NotFound />} /></Routes>',
+    'How do you preserve query parameters?': 'const [params, setParams] = useSearchParams()\nsetParams(previous => { previous.set("page", "2"); return previous })',
+    'How do you split route bundles?': 'const Reports = lazy(() => import("./routes/Reports"))\n<Route path="reports" element={<Suspense fallback={<Spinner />}><Reports /></Suspense>} />',
+  }
+  const snippet = examples[question]
+  if (!snippet) return reactAdvancedExample(question, topic)
+  return `## Copyable example\n\n\`\`\`jsx\n// ${question}\n// Section: ${topic}\n${snippet}\n\`\`\`\n\nThis example demonstrates the React behavior discussed in the answer and can be adapted directly in a component or route.`
+}
+
+function reactAdvancedExample(question: string, topic: string): string {
+  const snippets: Record<string, string> = {
+    'What problem does the Context API solve?': 'const Locale = createContext("en")\n<Locale.Provider value="fr"><DeepTree /></Locale.Provider>',
+    'How do you create and consume Context?': 'const Theme = createContext(null)\nfunction Button() { const theme = useContext(Theme); return <button className={theme}>Save</button> }',
+    'How does Context affect re-renders?': 'const value = useMemo(() => ({ user, logout }), [user, logout])\n<AuthContext.Provider value={value}><App /></AuthContext.Provider>',
+    'How do you avoid Context performance problems?': 'const UserContext = createContext(null)\nconst ActionsContext = createContext(null) // split data from actions',
+    'When should Context not replace a state manager?': 'const selectedTodo = useStore(state => state.todosById[id]) // selector-based subscription',
+    'How do you test a component that consumes Context?': 'render(<ThemeContext.Provider value="dark"><Toolbar /></ThemeContext.Provider>)\nexpect(screen.getByRole("button")).toHaveClass("dark")',
+    'How do you compose multiple providers?': 'function AppProviders({ children }) { return <AuthProvider><ThemeProvider>{children}</ThemeProvider></AuthProvider> }',
+    'How do you give Context a safe default?': 'const AuthContext = createContext(null)\nfunction useAuth() { const v = useContext(AuthContext); if (!v) throw new Error("AuthProvider missing"); return v }',
+    'How do you update Context from a child?': 'const CounterContext = createContext(null)\nfunction AddButton() { const { increment } = useContext(CounterContext); return <button onClick={increment}>+</button> }',
+    'How do you split a large Context?': 'const ProfileContext = createContext(null)\nconst NotificationsContext = createContext(null)\nconst PreferencesContext = createContext(null)',
+    'What are the core Redux principles?': 'const store = configureStore({ reducer: { todos: todosReducer } })\nstore.dispatch(todoAdded({ id: "1", text: "Prepare" }))',
+    'What are actions, reducers, and the store?': 'const reducer = (state = 0, action) => action.type === "increment" ? state + 1 : state\nconst store = createStore(reducer); store.dispatch({ type: "increment" })',
+    'Why must Redux reducers be pure?': 'const addTodo = (state, action) => ({ ...state, todos: [...state.todos, action.payload] })',
+    'What is Redux Toolkit?': 'const counter = createSlice({ name: "counter", initialState: 0, reducers: { increment: state => state + 1 } })',
+    'What is a selector?': 'const selectCompleted = createSelector([state => state.todos], todos => todos.filter(todo => todo.done))',
+    'How do you handle async logic with Redux?': 'const loadUser = createAsyncThunk("users/load", id => fetch(`/api/users/${id}`).then(r => r.json()))',
+    'What is middleware?': 'const logger = store => next => action => { console.log(action.type); return next(action) }',
+    'What is normalized state?': 'const initialState = { ids: ["u1"], entities: { u1: { id: "u1", name: "Ada" } } }',
+    'How do you avoid unnecessary Redux re-renders?': 'const total = useSelector(state => state.cart.total) // subscribe only to the required scalar',
+    'When is Redux not a good fit?': 'function LocalDialog() { const [open, setOpen] = useState(false); return <Dialog open={open} onClose={() => setOpen(false)} /> }',
+    'What are error boundaries?': 'class Boundary extends React.Component { state = { failed: false }; static getDerivedStateFromError() { return { failed: true } } render() { return this.state.failed ? <Fallback /> : this.props.children } }',
+    'What are portals?': 'function Modal({ children }) { return createPortal(<div role="dialog">{children}</div>, document.body) }',
+    'What is a render prop?': '<Mouse>{({ x, y }) => <p>{x}, {y}</p>}</Mouse>',
+    'What is a higher-order component?': 'const withLoading = Component => props => props.loading ? <Spinner /> : <Component {...props} />',
+    'What are compound components?': 'function Tabs({ children }) { const [active, setActive] = useState(0); return <TabsContext.Provider value={{ active, setActive }}>{children}</TabsContext.Provider> }',
+    'What is forwardRef?': 'const TextInput = forwardRef((props, ref) => <input ref={ref} {...props} />)',
+    'What is useImperativeHandle?': 'useImperativeHandle(ref, () => ({ focus: () => inputRef.current.focus() }), [])',
+    'What is hydration?': 'hydrateRoot(document.getElementById("root"), <App />)',
+    'What is server-side rendering?': 'const html = renderToString(<ProductPage product={product} />)',
+    'What is React Server Components?': 'export default async function Page() { const products = await db.product.findMany(); return <ProductList products={products} /> }',
+    'How do you organize a scalable React project?': 'export { CheckoutPage } from "./features/checkout"\nexport { Button } from "./shared/ui/Button"',
+    'How do you separate presentational and container concerns?': 'function UserContainer() { const user = useUser(); return <UserView user={user} /> }\nfunction UserView({ user }) { return <h1>{user.name}</h1> }',
+    'How do you design reusable components?': 'function Button({ variant = "primary", children, ...props }) { return <button className={`btn btn-${variant}`} {...props}>{children}</button> }',
+    'How do you handle feature flags?': 'return flags.newCheckout ? <NewCheckout /> : <LegacyCheckout />',
+    'How do you define API boundaries in React?': 'const usersApi = { get: id => http.get(`/users/${id}`).then(UserSchema.parse) }\nfunction useUser(id) { return useQuery({ queryKey: ["user", id], queryFn: () => usersApi.get(id) }) }',
+    'How do you make React code testable?': 'render(<SaveButton api={{ save: vi.fn().mockResolvedValue({ ok: true }) }} />)\nawait user.click(screen.getByRole("button", { name: /save/i }))',
+    'How do you manage forms at scale?': 'const form = useForm({ resolver: zodResolver(UserSchema), defaultValues: { email: "" } })\n<form onSubmit={form.handleSubmit(save)}><input {...form.register("email")} /></form>',
+    'How do you handle global errors?': '<ErrorBoundary fallback={<CrashPage />}><RouterProvider router={router} /></ErrorBoundary>',
+    'How do you design a design-system component?': 'const Button = forwardRef(({ tone = "primary", ...props }, ref) => <button ref={ref} data-tone={tone} {...props} />)',
+    'How do you migrate a legacy React application?': 'createRoot(document.getElementById("new-profile-root")).render(<ProfileApp userId={legacyUserId} />)',
+    'Build a searchable, sortable React list.': 'const visible = useMemo(() => items.filter(x => x.name.includes(query)).toSorted((a, b) => a[sortKey].localeCompare(b[sortKey])), [items, query, sortKey])',
+    'Build a debounced search input.': 'useEffect(() => { const id = setTimeout(() => onSearch(query), 300); return () => clearTimeout(id) }, [query, onSearch])',
+    'Build a reusable modal component.': 'function Modal({ title, children, onClose }) { return createPortal(<div role="dialog" aria-modal="true" aria-label={title}><button onClick={onClose}>Close</button>{children}</div>, document.body) }',
+    'Build a paginated data table.': 'const pageRows = rows.slice(page * pageSize, (page + 1) * pageSize)\nreturn <table><tbody>{pageRows.map(row => <Row key={row.id} row={row} />)}</tbody></table>',
+    'Build a multi-step form.': 'const [step, setStep] = useState(0)\nreturn <form>{steps[step]}<button type="button" onClick={() => setStep(s => s + 1)}>Next</button></form>',
+    'Build a toast notification system.': 'const [toasts, setToasts] = useState([])\nconst dismiss = id => setToasts(items => items.filter(item => item.id !== id))',
+    'Build a custom useFetch Hook.': 'function useFetch(url) { const [state, setState] = useState({ loading: true }); useEffect(() => { const c = new AbortController(); fetch(url, { signal: c.signal }).then(r => r.json()).then(data => setState({ loading: false, data })); return () => c.abort() }, [url]); return state }',
+    'Build a virtualized list.': '<FixedSizeList height={400} itemCount={items.length} itemSize={36}>{({ index, style }) => <div style={style}>{items[index].name}</div>}</FixedSizeList>',
+    'Build an accessible tabs component.': '<div role="tablist">{tabs.map((tab, i) => <button role="tab" aria-selected={i === active} onKeyDown={handleArrowKeys}>{tab.label}</button>)}</div>',
+    'Build an optimistic todo list.': 'const [optimisticTodos, addOptimistic] = useOptimistic(todos, (state, todo) => [...state, { ...todo, pending: true }])',
+  }
+  const snippet = snippets[question]
+  if (!snippet) throw new Error(`Missing concept-specific React example for "${question}" (${topic})`)
+  return `## Copyable example\n\n\`\`\`jsx\n// ${question}\n${snippet}\n\`\`\`\n\nThis JSX example is scoped to the ${topic} concept described in the answer.`
+}
+
+function angularTopicExample(question: string, topic: string, id: string, rule: string): string {
+  const snippets: Record<string, string> = {
+    'Angular fundamentals': '@Component({ selector: "app-profile", standalone: true, template: `<h1>{{ name }}</h1>` })\nexport class ProfileComponent { name = "Ada" }',
+    'Angular components': '@Component({ selector: "app-counter", template: `<button (click)="changed.emit(count + 1)">{{ count }}</button>` })\nexport class CounterComponent { @Input() count = 0; @Output() changed = new EventEmitter<number>() }',
+    'Angular services': '@Injectable({ providedIn: "root" })\nexport class UsersService { constructor(private http: HttpClient) {} get(id: string) { return this.http.get<User>(`/api/users/${id}`) } }',
+    'Angular DI': 'export const API_URL = new InjectionToken<string>("API_URL")\nbootstrapApplication(AppComponent, { providers: [{ provide: API_URL, useValue: "/api" }] })',
+    'RxJS in Angular': 'readonly results$ = this.query.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), switchMap(query => this.api.search(query)))',
+    'Angular routing': 'export const routes: Routes = [{ path: "projects/:id", loadComponent: () => import("./project.component").then(m => m.ProjectComponent) }]',
+    'Angular state': 'readonly items = signal<CartItem[]>([])\nreadonly total = computed(() => this.items().reduce((sum, item) => sum + item.price, 0))',
+    'Angular signals': 'readonly count = signal(0)\nreadonly doubled = computed(() => this.count() * 2)\nincrement() { this.count.update(value => value + 1) }',
+    'Angular performance': '@Component({ changeDetection: ChangeDetectionStrategy.OnPush, template: `@for (user of users; track user.id) { <app-user [user]="user" /> }` })\nexport class UserList { @Input() users: User[] = [] }',
+    'Angular architecture': '// feature boundary\nexport const PROJECT_ROUTES: Routes = [{ path: "", component: ProjectListComponent }]\n@Injectable() export class ProjectRepository {}',
+  }
+  const normalizedTopic = topic === 'angular:signals'
+    ? 'Angular signals'
+    : topic === 'angular:rxjs'
+      ? 'RxJS in Angular'
+      : topic
+  const snippet = snippets[normalizedTopic]
+  if (!snippet) throw new Error(`Missing Angular topic example for ${topic}: ${question}`)
+  return `## Copyable example\n\n\`\`\`typescript\n// ${question}\n// ${rule}\n${snippet}\n\`\`\`\n\nThis Angular snippet uses the APIs and patterns from the ${normalizedTopic} section rather than a shared fallback component.`
+}
+
+function typescriptTopicExample(question: string, topic: string, id: string, rule: string): string {
+  const snippets: Record<string, string> = {
+    'TypeScript fundamentals': 'function format(value: string | number): string { return typeof value === "string" ? value.trim() : value.toFixed(0) }',
+    'TypeScript object types': 'interface User { readonly id: string; name: string; role?: "admin" | "member" }\ntype UserPreview = Pick<User, "id" | "name">',
+    'TypeScript generics': 'function first<T>(items: readonly T[]): T | undefined { return items[0] }\nconst user = first([{ id: "u1" }])',
+    'TypeScript functions': 'function isError(value: unknown): value is Error { return value instanceof Error }\nfunction assertString(value: unknown): asserts value is string { if (typeof value !== "string") throw new TypeError() }',
+    'TypeScript architecture': 'const ConfigSchema = z.object({ API_URL: z.string().url() })\ntype Config = z.infer<typeof ConfigSchema>\nconst config: Config = ConfigSchema.parse(import.meta.env)',
+  }
+  const snippet = snippets[topic]
+  if (!snippet) throw new Error(`Missing TypeScript topic example for ${topic}: ${question}`)
+  return `## Copyable example\n\n\`\`\`typescript\n// ${question}\n// ${rule}\n${snippet}\n\`\`\`\n\nThis example is selected from the ${topic} topic and uses TypeScript-specific syntax.`
+}
+
+function languageExample(
+  language: 'js' | 'jsx' | 'angular' | 'ts',
+  question: string,
+  id: string,
+  rule: string,
+): string {
+  const q = JSON.stringify(question)
+  const r = JSON.stringify(rule)
+
+  if (language === 'js') {
+    const snippet = /async|promise|await|fetch|event loop|callback/i.test(question)
+      ? `// ${question}\nasync function runExample(task) {\n  try {\n    const value = await task()\n    return { ok: true, value }\n  } catch (error) {\n    return { ok: false, error: String(error) }\n  }\n}\n\nrunExample(async () => ${r}).then(console.log)`
+      : /prototype|class|inheritance|instanceof|new /i.test(question)
+        ? `// ${question}\nfunction ConceptExample(value) {\n  this.value = value\n}\n\nConceptExample.prototype.explain = function () {\n  return this.value\n}\n\nconst example = new ConceptExample(${r})\nconsole.log(example.explain())`
+        : /dom|event|attribute|worker|rendering|innerhtml|textcontent/i.test(question)
+          ? `// ${question}\nconst output = document.createElement("pre")\noutput.dataset.example = ${JSON.stringify(id)}\noutput.textContent = ${r}\ndocument.body.append(output)\n\nconsole.assert(output.textContent.length > 0)`
+          : /array|flatten|group|duplicate|clone|memoize|debounce|throttl|emitter/i.test(question)
+            ? `// ${question}\nfunction demonstrate(values, transform) {\n  return values.map((value, index) => transform(value, index))\n}\n\nconst result = demonstrate([1, 2, 3], value => ({ value, rule: ${r} }))\nconsole.log(result)`
+            : `// ${question}\nconst example = {\n  id: ${JSON.stringify(id)},\n  input: 0,\n  rule: ${r},\n  evaluate(value) {\n    return { value, type: typeof value, truthy: Boolean(value) }\n  },\n}\n\nconsole.log(example.evaluate(example.input))`
+
+    return `## Copyable example\n\n\`\`\`js\n${snippet}\n\`\`\`\n\nRun this JavaScript example in a browser console or Node.js and change the input to explore the rule from this question.`
+  }
+
+  if (language === 'jsx') {
+    const hook = /effect|subscription|timer|fetch/i.test(question)
+      ? `useEffect(() => {\n    document.title = title\n    return () => { document.title = "Interview example" }\n  }, [title])`
+      : `const [visible, setVisible] = useState(true)`
+    return `## Copyable example
+
+\`\`\`jsx
+// ${question}
+import { useEffect, useState } from "react"
+
+export function Example() {
+  const title = ${q}
+  ${hook}
+
+  return (
+    <section data-example=${JSON.stringify(id)}>
+      <h2>{title}</h2>
+      <p>${r}</p>
+      ${/effect|subscription|timer|fetch/i.test(question) ? '' : '<button onClick={() => setVisible(value => !value)}>Toggle</button>\n      {visible && <output>{title}</output>}' }
+    </section>
+  )
+}
+\`\`\`
+
+This is JSX for the React track and can be pasted into a React component file for experimentation.`
+  }
+
+  if (language === 'angular') {
+    return `## Copyable example
+
+\`\`\`typescript
+// ${question}
+import { Component, computed, signal } from "@angular/core"
+
+@Component({
+  selector: "app-${id.slice(0, 35)}",
+  standalone: true,
+  template: \`<h2>{{ title }}</h2><p>{{ explanation() }}</p>\`,
+})
+export class ExampleComponent {
+  readonly title = ${q}
+  private readonly rule = signal(${r})
+  readonly explanation = computed(() => this.rule())
+}
+\`\`\`
+
+This Angular example uses valid component, signal, and template syntax instead of a React or generic TypeScript fallback.`
+  }
+
+  return `## Copyable example
+
+\`\`\`typescript
+// ${question}
+type InterviewExample<TInput, TResult> = {
+  readonly id: string
+  readonly rule: string
+  run(input: TInput): TResult
+}
+
+const example: InterviewExample<string, { input: string; rule: string }> = {
+  id: ${JSON.stringify(id)},
+  rule: ${r},
+  run(input) {
+    return { input, rule: this.rule }
+  },
+}
+
+console.log(example.run(${q}))
+\`\`\`
+
+This example uses TypeScript-specific generics, readonly fields, and inferred method types.`
+}
+
+function technicalTeachingBody(
+  title: string,
+  topic: string,
+  trackLabel: string,
+  answer: string,
+  primer: string,
+  difficulty: string,
+): string {
+  const subject = title.replace(/`/g, '').replace(/[?.!]$/, '')
+  const scenario = scenarioFor(title, topic, trackLabel)
+  const comparison = /difference|compare|versus|\bvs\b/i.test(title)
+  const implementation = /^(how|build|implement|design|write|create)/i.test(title)
+  const decisionGuidance = comparison
+    ? `Do not stop after listing definitions. Compare the alternatives along the dimensions that change an engineering decision: ownership, lifetime, failure behaviour, performance cost, and the conditions under which each option is the safer choice.`
+    : implementation
+      ? `A strong explanation should move in order from requirements to mechanism to verification. State the input and expected result, identify the component that owns the work, describe the important failure path, and finish with the test or measurement that proves the implementation behaves correctly.`
+      : `Explain the underlying mechanism before discussing benefits. That distinction matters because memorized definitions often fail on follow-up questions about edge cases, lifecycle, performance, or production behaviour.`
+
+  return `${answer}
+
+## Why this matters
+
+The important idea behind **${subject}** is not the terminology alone; it is the engineering decision the concept enables. ${primer} In a real system, the useful question is where the behaviour lives, what assumptions it relies on, and what becomes observable when those assumptions fail. Connecting the definition to those boundaries makes the answer useful for both an interview and day-to-day development.
+
+${decisionGuidance} For a ${difficulty}-level question, it is also worth naming one limitation. Doing so shows that you understand when the idea applies instead of treating it as a universal rule.
+
+## How to reason about it
+
+Start from the guarantee expressed in the direct answer: ${answer} Then separate that guarantee from implementation details. Ask what initiates the behaviour, which state or resource it reads, who owns cleanup or recovery, and whether the result is synchronous, asynchronous, persistent, or temporary. These questions expose the edge cases that interviewers usually explore next.
+
+Next, define success in observable terms. A correct solution should produce the intended result for the normal path, remain understandable when input is empty or invalid, and fail without corrupting state. If concurrency, caching, networking, rendering, or persistence is involved, discuss stale data, repeated work, ordering, and partial failure explicitly. The exact concerns vary, but they should follow from **${subject}**, not from a memorized checklist.
+
+## Worked example
+
+${scenario} In this ${trackLabel} example, the team needs to make a decision specifically about **${subject}**. They begin with the rule above—${answer} Rather than applying it blindly, they write down the expected input, output, and failure behaviour. They then implement the smallest version that demonstrates the rule and exercise both the successful path and one realistic failure path.
+
+During review, the team asks whether the example would still be correct with repeated requests, missing data, a slow dependency, or a larger workload. Only the cases relevant to this question are kept. Finally, they verify the result at the boundary a user or another system can observe. That may be a focused unit test, an integration test, a browser profile, a log or metric, or a rollback exercise. This turns the concept into evidence rather than an assertion.
+
+## Common mistakes and trade-offs
+
+A weak answer repeats a definition but never explains consequences. Another common mistake is choosing a tool or pattern before clarifying the requirement. Avoid claiming that one option is always faster, safer, or cleaner; describe the workload and constraints that make the claim true. Also distinguish correctness from optimization: first make the behaviour correct and testable, then use measurements to justify additional complexity.
+
+In production, simpler implementations are generally easier to operate, but simplicity does not mean ignoring error handling, security, accessibility, cleanup, or observability. Add those controls at the boundary where the risk exists. If the solution introduces caching, retries, shared state, abstraction, or background work, explain the invalidation, ownership, or recovery rule as part of the design.
+
+## Interview-ready summary
+
+Lead with this sentence: ${answer} Follow it with the mechanism, one concrete decision from the worked example, and one limitation or trade-off. That structure gives the interviewer a direct answer first while leaving clear openings for deeper follow-up questions.`
+}
+
+function behavioralTeachingBody(
+  title: string,
+  topic: string,
+  answer: string,
+  difficulty: string,
+): string {
+  const subject = title.replace(/[?.!]$/, '').toLowerCase()
+  const scenario = behavioralScenarioFor(title)
+
+  return `${answer}
+
+## What the interviewer is assessing
+
+This question is testing evidence, judgment, and self-awareness—not whether you know a perfect phrase. The interviewer wants to understand how you behaved when the situation was real, what part you personally owned, and whether your actions produced a useful result. Your answer should therefore stay centered on **${subject}**. A story about a different competency may sound polished but will not answer the question.
+
+Choose one recent example with enough tension to require a decision. Give only the context needed to understand the stakes, then spend most of the answer on your actions. Use “I” for your contribution and “we” for the team result. Honest constraints and a thoughtful lesson are stronger than presenting yourself as someone who never makes mistakes.
+
+## How to structure the answer
+
+Use STAR as an editing tool. In the **Situation**, establish the project, people, and risk in two or three sentences. In the **Task**, state what you were accountable for. The **Action** should be the largest section: explain what you noticed, the alternatives you considered, how you communicated, and why you chose that path. In the **Result**, quantify the outcome when possible and explain what changed afterward.
+
+For this ${difficulty}-level question, include the reasoning behind at least one decision. Senior answers should also show how you improved the system or enabled other people, rather than describing only individual execution.
+
+## Sample answer
+
+${scenario}
+
+Notice that the sample is specific to **${subject}**: it contains a clear problem, personal actions, and an outcome. Replace its details with your real experience. Never invent numbers you cannot defend; a concrete qualitative result, such as unblocking a launch or changing a team process, is better than a fabricated percentage.
+
+## Common mistakes
+
+Do not spend most of the response explaining background. Avoid blaming a colleague, claiming there was no disagreement, or saying only that the team solved the problem. Those choices hide the evidence the interviewer needs. Similarly, do not recite a general philosophy without a real event unless the question explicitly asks for a preference.
+
+Keep the first version between one and two minutes. Pause after the result so the interviewer can choose the follow-up. Be ready to explain what you would do differently, what feedback you received, and how you know the outcome was successful.
+
+## Interview-ready summary
+
+The core guidance is: ${answer} Prepare the story as five short notes—context, responsibility, two or three actions, result, and lesson—rather than memorizing a script. That keeps the delivery natural while ensuring every sentence helps answer the actual question.`
+}
+
+function scenarioFor(title: string, topic: string, trackLabel: string): string {
+  const contexts = [
+    'Imagine a checkout flow that must remain correct while traffic increases and one dependency occasionally responds slowly.',
+    'Consider a team adding a new capability to a multi-tenant SaaS dashboard without disrupting existing customers.',
+    'Suppose a collaboration application must keep its interface and server state consistent during retries and reconnects.',
+    'Imagine an API used by both a browser client and a background worker, each with different latency and failure patterns.',
+    'Consider a deployment pipeline where a small configuration error can affect many users and rollback must be predictable.',
+    'Suppose an analytics screen must process a larger data set while remaining understandable, accessible, and observable.',
+  ]
+  const seed = [...`${title}:${topic}:${trackLabel}`].reduce((total, char) => total + char.charCodeAt(0), 0)
+  return contexts[seed % contexts.length]
+}
+
+function behavioralScenarioFor(title: string): string {
+  if (/conflict|disagreement|working styles/i.test(title)) {
+    return 'Situation: Two engineers disagreed about changing an API contract shortly before release. Task: I owned the client integration and needed a decision that protected the deadline and error handling. Action: I wrote down both proposals with example payloads, separated launch requirements from later improvements, and facilitated a short review with the API owner. I acknowledged the valid concern in the alternative and proposed a backward-compatible field for the first release. Result: We shipped on schedule, recorded the follow-up work, and adopted contract examples in future design reviews.'
+  }
+  if (/mistake|failure|missed a deadline/i.test(title)) {
+    return 'Situation: I underestimated an integration because I had not confirmed an external dependency. Task: I was responsible for the delivery date and for communicating the risk. Action: I raised the issue as soon as I verified it, reduced the release to a safe core path, paired with the dependency owner, and added an integration checkpoint to the plan. Result: The critical workflow shipped one day later with no customer data issues, and the new checkpoint prevented the same planning gap on later projects.'
+  }
+  if (/led|leadership|delegated|mentor|helped a teammate/i.test(title)) {
+    return 'Situation: A team was delivering a high-risk feature while two engineers were new to the codebase. Task: I needed to create direction without becoming the bottleneck. Action: I split the work around clear interfaces, matched ownership to each person’s growth goal, held short design checkpoints, and used reviews to explain principles rather than rewrite solutions. Result: The feature launched successfully, both engineers independently owned later changes, and the team reused the interface checklist on subsequent projects.'
+  }
+  if (/prioritize|ambiguity|difficult decision|risk/i.test(title)) {
+    return 'Situation: A release had three competing requests but capacity for only one before a customer deadline. Task: I was accountable for recommending scope. Action: I clarified the user impact, reversibility, and dependency risk of each option, shared the trade-off table with stakeholders, and proposed the smallest end-to-end workflow with a rollback plan. Result: The team aligned on scope in one meeting, delivered the critical journey, and scheduled the lower-impact requests with evidence rather than opinion.'
+  }
+  return 'Situation: My team needed to improve an important customer workflow with limited time and incomplete information. Task: I owned a clear outcome and alignment with the people affected. Action: I gathered the missing evidence, stated my assumptions, proposed a small next step, asked for direct feedback, and communicated progress until the work was complete. Result: We delivered the agreed outcome, documented what we learned, and changed the team’s process so the next similar decision was faster and clearer.'
+}
+
+function assertContentQuality(questions: QuestionRecord[]) {
+  const owners = new Map<string, QuestionRecord>()
+  const codeOwners = new Map<string, QuestionRecord>()
+  const placeholderPhrases = [
+    'Suppose a team is making a production decision about',
+    'Choose the approach from the requirement and constraints, not from habit',
+    'The right implementation depends on the system boundary and its constraints',
+  ]
+
+  for (const question of questions) {
+    const plainText = question.body
+      .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/[#*_`>|-]/g, ' ')
+    const wordCount = plainText.match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu)?.length ?? 0
+    if (wordCount < 300) {
+      throw new Error(`Answer for "${question.title}" has ${wordCount} words; minimum is 300`)
+    }
+
+    const placeholder = placeholderPhrases.find((phrase) => question.body.includes(phrase))
+    if (placeholder) {
+      throw new Error(`Placeholder content found in "${question.title}": ${placeholder}`)
+    }
+
+    const copyableSections = question.body.match(/## Copyable example\s+[\s\S]*?(?=\n## |$)/g) ?? []
+    if (copyableSections.length !== 1) {
+      throw new Error(
+        `Answer for "${question.title}" has ${copyableSections.length} copyable examples; expected exactly 1`,
+      )
+    }
+    const copyable = copyableSections[0]
+    if (!/```[a-z-]*\n[\s\S]+?```/.test(copyable)) {
+      throw new Error(`Copyable example for "${question.title}" does not contain a fenced block`)
+    }
+    const normalizedCode = copyable.replace(/\s+/g, ' ').trim().toLowerCase()
+    const codeOwner = codeOwners.get(normalizedCode)
+    if (codeOwner) {
+      throw new Error(
+        `Duplicate copyable example found in "${codeOwner.title}" and "${question.title}"`,
+      )
+    }
+    codeOwners.set(normalizedCode, question)
+
+    const example = question.body.match(
+      /## (?:Worked example|Sample answer|Code Examples?|Example)\s+([\s\S]*?)(?=\n## |$)/,
+    )?.[1]
+    if (!example) continue
+
+    const normalized = example.replace(/\s+/g, ' ').trim().toLowerCase()
+    const existing = owners.get(normalized)
+    if (existing) {
+      throw new Error(
+        `Duplicate example found in "${existing.title}" and "${question.title}"`,
+      )
+    }
+    owners.set(normalized, question)
+  }
 }
 
 function buildFrontmatter(q: QuestionRecord, prev?: QuestionRecord, next?: QuestionRecord) {
@@ -1189,7 +1893,7 @@ function generateTrack(track: TrackConfig, overrides: Map<string, QuestionRecord
     const title = QUESTION_TITLES[track.id][sub.slug][n - 1]
     const difficulty = (['easy', 'medium', 'hard'] as const)[i % 3]
     const experienceLevel = (['junior', 'mid', 'senior'] as const)[i % 3]
-    const { body, excerpt } = templateBody(title, sub.topic, difficulty, n)
+    const { body, excerpt } = templateBody(title, sub.topic, difficulty, track.label)
     questions.push({
       slug,
       title,
@@ -1351,6 +2055,8 @@ function main() {
     allQuestions.push(...qs)
     writeTrackIndex(track)
   }
+
+  assertContentQuality(allQuestions)
 
   const sidebars = buildSidebars(allQuestions)
   const latest = [...allQuestions]

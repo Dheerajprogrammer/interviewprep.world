@@ -20,6 +20,14 @@ body: |
   - **`[]`** — runs after mount (and cleanup before unmount). In Strict Mode (dev), effects may run twice to surface unsafe side effects.
   - **`[deps]`** — runs when dependencies change; cleanup runs before re-running the effect.
 
+  ## Mental model
+
+  An effect is a synchronization process, not a general place for code that happens after rendering. First identify an external system—such as the network, a browser API, a timer, an event source, or a third-party widget. The setup function makes that system reflect the current props and state. Its cleanup reverses the previous setup before dependencies change or the component unmounts. Thinking in setup/cleanup pairs makes effects resilient to remounting and Strict Mode checks.
+
+  Every reactive value read inside an effect belongs in its dependency list. Dependencies are not an optimization switch; they describe when synchronization must run again to stay correct. If adding a dependency creates a loop, the usual fix is to change the design: calculate derived data during render, move user-triggered work into an event handler, stabilize a callback where identity genuinely matters, or split one effect that performs unrelated jobs into separate effects.
+
+  Data fetching also needs a stale-response strategy. Cleanup cannot undo a response already returned, but it can abort the request or prevent an obsolete result from updating state. In larger applications, a route loader or query library often handles caching, deduplication, retries, and server rendering more reliably than a hand-written effect.
+
   ## Code Examples
 
   ```jsx
@@ -43,6 +51,8 @@ body: |
     return user ? <p>{user.name}</p> : null
   }
   ```
+
+  Here, `userId` is a dependency because changing it means the component must synchronize with a different resource. The cleanup marks the previous request as obsolete, so a slow response for the old user cannot replace the current profile. A production implementation should also represent loading and error states and should preferably use `AbortController` to cancel the underlying fetch.
 
   ```jsx
   useEffect(() => {

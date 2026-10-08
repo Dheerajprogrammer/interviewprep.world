@@ -8,7 +8,7 @@ difficulty: medium
 experienceLevel: mid
 tags: ["angular", "signals", "reactivity"]
 updated: 2026-10-06
-readingMinutes: 2
+readingMinutes: 3
 answerExcerpt: "Signals are reactive primitives that hold values and notify dependents when they change, enabling fine-grained updates with signal, computed, and effect."
 outline: deep
 canonical: "https://interviewprep.world/angular-interview-questions/signals/angular-signals"
@@ -34,6 +34,14 @@ next:
 **Angular Signals** provide a reactive model for state: a **signal** holds a value, **computed** derives values from other signals, and **effect** runs side effects when dependencies change.
 
 Signals integrate with modern Angular change detection—often paired with `OnPush`—and can reduce reliance on Zone.js for many update paths.
+
+## How dependency tracking works
+
+Reading a signal inside a computed value or template registers a dependency. When the signal changes, Angular marks the dependent computation or view so it can be evaluated again. Dependencies are dynamic: if a computed function takes one branch, only the signals read by that branch participate until the next evaluation. A computed value is lazy and memoized, so Angular recalculates it only when it is read after one of its dependencies changes.
+
+Use writable signals for state that has a clear owner, computed signals for values that can be derived, and effects only to synchronize with an imperative external system such as logging, storage, or a non-Angular widget. An effect that writes other application state often creates hidden update chains; an event handler or computed value usually expresses that relationship more clearly.
+
+Signals and RxJS solve overlapping but different problems. Signals are well suited to synchronous current values used by templates. Observables remain powerful for asynchronous event sequences, cancellation, time-based operators, and multicasting external sources. Angular interop utilities can convert at a boundary, but repeatedly converting back and forth makes ownership harder to understand.
 
 ## Code Examples
 
@@ -63,6 +71,8 @@ export class CartSummary {
 }
 ```
 
+In the cart example, `items` is the source of truth and `total` is derived state. Adding or removing an item invalidates the computed value; the total is recalculated when the template reads it. Storing `total` in a second writable signal would create two values that can disagree. The update should also return a new array or use an explicit update that Angular can observe rather than silently mutating nested data.
+
 ## Common Mistakes
 
 - Mutating objects inside signals without producing a new reference when needed.
@@ -78,3 +88,15 @@ export class CartSummary {
 ## Real Interview Scenarios
 
 You might refactor a component that overuses async pipe and global state into signal-based local state and justify when to keep RxJS.
+
+## Copyable example
+
+```typescript
+// What are Angular Signals?
+// Signals are reactive primitives that hold values and notify dependents when they change, enabling fine-grained updates with signal, computed, and effect.
+readonly count = signal(0)
+readonly doubled = computed(() => this.count() * 2)
+increment() { this.count.update(value => value + 1) }
+```
+
+This Angular snippet uses the APIs and patterns from the Angular signals section rather than a shared fallback component.
