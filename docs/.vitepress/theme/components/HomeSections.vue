@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import manifest from '../../manifest.json'
 import { TRACKS } from '../../utils/constants'
+import StudyDashboard from './StudyDashboard.vue'
 
 const trackDetails: Record<string, { description: string; icon: string; topics: string[] }> = {
   'generative-ai': { icon: 'AI', description: 'Learn LLM fundamentals, prompting, RAG, agents, safety, and production evaluation.', topics: ['Prompting', 'RAG', 'Agents'] },
@@ -30,6 +31,8 @@ const latest = [...manifest.latest].slice(0, 6)
 </script>
 
 <template>
+  <StudyDashboard />
+
   <section class="ip-section ip-track-section" aria-labelledby="featured-tracks">
     <div class="ip-section-heading">
       <div>
