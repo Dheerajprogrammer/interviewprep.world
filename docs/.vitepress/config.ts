@@ -100,6 +100,7 @@ export default defineConfig({
         ],
       },
       { text: 'Search', link: '/search/' },
+      { text: 'Bookmarks', link: '/bookmarks/' },
     ],
 
     sidebar: {

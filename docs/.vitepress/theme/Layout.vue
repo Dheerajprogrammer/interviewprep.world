@@ -8,6 +8,7 @@ import PrevNextNav from './components/PrevNextNav.vue'
 import QuestionMeta from './components/QuestionMeta.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
 import AnswerNavigator from './components/AnswerNavigator.vue'
+import BookmarkButton from './components/BookmarkButton.vue'
 import { buildCanonical } from '../utils/seo'
 import { breadcrumbJsonLd, questionJsonLd } from '../utils/schema'
 import { onMounted, watch } from 'vue'
@@ -117,6 +118,7 @@ watch(
     <template v-if="isQuestion" #doc-before>
       <Breadcrumbs v-if="breadcrumbs.length" :items="breadcrumbs" />
       <QuestionMeta />
+      <BookmarkButton />
       <AdSlot id="question-top" provider="adsense" />
     </template>
 
