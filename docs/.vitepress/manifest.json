@@ -1,79 +1,335 @@
 {
   "latest": [
     {
-      "title": "What is the Virtual DOM?",
-      "link": "/react-interview-questions/basics/virtual-dom",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is generative AI?",
+      "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-1",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "Explain the useEffect Hook",
-      "link": "/react-interview-questions/hooks/use-effect",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What makes an effective prompt?",
+      "link": "/generative-ai-interview-questions/prompting/prompting-question-1",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "Where should state live in a React application?",
-      "link": "/react-interview-questions/state-management/state-management-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is retrieval-augmented generation?",
+      "link": "/generative-ai-interview-questions/rag/rag-question-1",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "How do you diagnose unnecessary React re-renders?",
-      "link": "/react-interview-questions/performance/performance-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is an AI agent?",
+      "link": "/generative-ai-interview-questions/agents/agents-question-1",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "What is client-side routing?",
-      "link": "/react-interview-questions/react-router/react-router-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What are hallucinations in generative AI?",
+      "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-1",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "What problem does the Context API solve?",
-      "link": "/react-interview-questions/context-api/context-api-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "How do large language models generate text?",
+      "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-2",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "What are the core Redux principles?",
-      "link": "/react-interview-questions/redux/redux-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is zero-shot prompting?",
+      "link": "/generative-ai-interview-questions/prompting/prompting-question-2",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "What are error boundaries?",
-      "link": "/react-interview-questions/advanced/advanced-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "How does a RAG pipeline work?",
+      "link": "/generative-ai-interview-questions/rag/rag-question-2",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "How do you organize a scalable React project?",
-      "link": "/react-interview-questions/architecture/architecture-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is tool calling?",
+      "link": "/generative-ai-interview-questions/agents/agents-question-2",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "Build a searchable, sortable React list.",
-      "link": "/react-interview-questions/coding-challenges/coding-challenges-question-1",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "How do you evaluate an LLM application?",
+      "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-2",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "What is the Virtual DOM?",
-      "link": "/react-interview-questions/basics/basics-question-2",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What are tokens and tokenization?",
+      "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-3",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     },
     {
-      "title": "Explain the `useState` Hook.",
-      "link": "/react-interview-questions/hooks/hooks-question-2",
-      "track": "React",
-      "updated": "2026-10-06"
+      "title": "What is few-shot prompting?",
+      "link": "/generative-ai-interview-questions/prompting/prompting-question-3",
+      "track": "Generative AI",
+      "updated": "2026-10-10"
     }
   ],
   "sidebars": {
+    "/generative-ai-interview-questions/": [
+      {
+        "text": "Overview",
+        "link": "/generative-ai-interview-questions/"
+      },
+      {
+        "text": "Generative AI Fundamentals",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Generative AI Fundamentals",
+            "link": "/generative-ai-interview-questions/fundamentals/"
+          },
+          {
+            "text": "What is generative AI?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-1"
+          },
+          {
+            "text": "How do large language models generate text?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-2"
+          },
+          {
+            "text": "What are tokens and tokenization?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-3"
+          },
+          {
+            "text": "What is a context window?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-4"
+          },
+          {
+            "text": "What is temperature in text generation?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-5"
+          },
+          {
+            "text": "What is the difference between parameters and hyperparameters?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-6"
+          },
+          {
+            "text": "What are embeddings?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-7"
+          },
+          {
+            "text": "What is fine-tuning?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-8"
+          },
+          {
+            "text": "What is inference?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-9"
+          },
+          {
+            "text": "What are multimodal models?",
+            "link": "/generative-ai-interview-questions/fundamentals/fundamentals-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Prompt Engineering",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Prompt Engineering",
+            "link": "/generative-ai-interview-questions/prompting/"
+          },
+          {
+            "text": "What makes an effective prompt?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-1"
+          },
+          {
+            "text": "What is zero-shot prompting?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-2"
+          },
+          {
+            "text": "What is few-shot prompting?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-3"
+          },
+          {
+            "text": "What is chain-of-thought prompting?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-4"
+          },
+          {
+            "text": "How do system and user instructions differ?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-5"
+          },
+          {
+            "text": "How do you produce structured model output?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-6"
+          },
+          {
+            "text": "How do you manage long prompts?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-7"
+          },
+          {
+            "text": "What is prompt injection?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-8"
+          },
+          {
+            "text": "How do you version and test prompts?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-9"
+          },
+          {
+            "text": "When should prompting be replaced by code or tools?",
+            "link": "/generative-ai-interview-questions/prompting/prompting-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Retrieval-Augmented Generation",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Retrieval-Augmented Generation",
+            "link": "/generative-ai-interview-questions/rag/"
+          },
+          {
+            "text": "What is retrieval-augmented generation?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-1"
+          },
+          {
+            "text": "How does a RAG pipeline work?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-2"
+          },
+          {
+            "text": "How should documents be chunked for RAG?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-3"
+          },
+          {
+            "text": "How do embeddings support semantic search?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-4"
+          },
+          {
+            "text": "What is hybrid search?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-5"
+          },
+          {
+            "text": "What is reranking?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-6"
+          },
+          {
+            "text": "How do you evaluate retrieval quality?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-7"
+          },
+          {
+            "text": "How do you keep a RAG index fresh?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-8"
+          },
+          {
+            "text": "How do you cite sources in RAG answers?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-9"
+          },
+          {
+            "text": "When should you use RAG instead of fine-tuning?",
+            "link": "/generative-ai-interview-questions/rag/rag-question-10"
+          }
+        ]
+      },
+      {
+        "text": "AI Agents",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All AI Agents",
+            "link": "/generative-ai-interview-questions/agents/"
+          },
+          {
+            "text": "What is an AI agent?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-1"
+          },
+          {
+            "text": "What is tool calling?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-2"
+          },
+          {
+            "text": "How does an agent loop work?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-3"
+          },
+          {
+            "text": "How should tools be designed for agents?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-4"
+          },
+          {
+            "text": "How do agents maintain state and memory?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-5"
+          },
+          {
+            "text": "What are multi-agent systems?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-6"
+          },
+          {
+            "text": "How do you prevent runaway agent loops?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-7"
+          },
+          {
+            "text": "How do you make agent actions idempotent?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-8"
+          },
+          {
+            "text": "How do you observe and debug agents?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-9"
+          },
+          {
+            "text": "When should you not use an agent?",
+            "link": "/generative-ai-interview-questions/agents/agents-question-10"
+          }
+        ]
+      },
+      {
+        "text": "Safety & Evaluation",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "All Safety & Evaluation",
+            "link": "/generative-ai-interview-questions/safety-evaluation/"
+          },
+          {
+            "text": "What are hallucinations in generative AI?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-1"
+          },
+          {
+            "text": "How do you evaluate an LLM application?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-2"
+          },
+          {
+            "text": "What is groundedness?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-3"
+          },
+          {
+            "text": "How do you defend against prompt injection?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-4"
+          },
+          {
+            "text": "How should sensitive data be handled in AI applications?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-5"
+          },
+          {
+            "text": "What are guardrails?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-6"
+          },
+          {
+            "text": "How do you reduce harmful or biased outputs?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-7"
+          },
+          {
+            "text": "What is human-in-the-loop review?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-8"
+          },
+          {
+            "text": "How do you monitor a generative AI system in production?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-9"
+          },
+          {
+            "text": "How do you design a safe fallback when the model is uncertain?",
+            "link": "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-10"
+          }
+        ]
+      }
+    ],
     "/react-interview-questions/": [
       {
         "text": "Overview",
@@ -3891,5 +4147,5 @@
       }
     ]
   },
-  "questionCount": 750
+  "questionCount": 800
 }

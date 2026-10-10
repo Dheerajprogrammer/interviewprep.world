@@ -3,6 +3,7 @@ import manifest from '../../manifest.json'
 import { TRACKS } from '../../utils/constants'
 
 const trackDetails: Record<string, { description: string; icon: string; topics: string[] }> = {
+  'generative-ai': { icon: 'AI', description: 'Learn LLM fundamentals, prompting, RAG, agents, safety, and production evaluation.', topics: ['Prompting', 'RAG', 'Agents'] },
   react: { icon: '⚛', description: 'Build confident React answers, from component fundamentals to production architecture.', topics: ['Hooks', 'State', 'Performance'] },
   angular: { icon: '🅰', description: 'Practice modern Angular concepts, RxJS, signals, dependency injection, and routing.', topics: ['Signals', 'RxJS', 'DI'] },
   javascript: { icon: 'JS', description: 'Strengthen the language foundations behind every frontend interview.', topics: ['Async', 'Closures', 'DOM'] },

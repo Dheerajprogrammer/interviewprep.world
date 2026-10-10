@@ -64,6 +64,13 @@ type TrackConfig = {
  * explanations generated below are original for InterviewPrep World.
  */
 const QUESTION_TITLES: Record<string, Record<string, string[]>> = {
+  'generative-ai': {
+    fundamentals: ['What is generative AI?', 'How do large language models generate text?', 'What are tokens and tokenization?', 'What is a context window?', 'What is temperature in text generation?', 'What is the difference between parameters and hyperparameters?', 'What are embeddings?', 'What is fine-tuning?', 'What is inference?', 'What are multimodal models?'],
+    prompting: ['What makes an effective prompt?', 'What is zero-shot prompting?', 'What is few-shot prompting?', 'What is chain-of-thought prompting?', 'How do system and user instructions differ?', 'How do you produce structured model output?', 'How do you manage long prompts?', 'What is prompt injection?', 'How do you version and test prompts?', 'When should prompting be replaced by code or tools?'],
+    rag: ['What is retrieval-augmented generation?', 'How does a RAG pipeline work?', 'How should documents be chunked for RAG?', 'How do embeddings support semantic search?', 'What is hybrid search?', 'What is reranking?', 'How do you evaluate retrieval quality?', 'How do you keep a RAG index fresh?', 'How do you cite sources in RAG answers?', 'When should you use RAG instead of fine-tuning?'],
+    agents: ['What is an AI agent?', 'What is tool calling?', 'How does an agent loop work?', 'How should tools be designed for agents?', 'How do agents maintain state and memory?', 'What are multi-agent systems?', 'How do you prevent runaway agent loops?', 'How do you make agent actions idempotent?', 'How do you observe and debug agents?', 'When should you not use an agent?'],
+    'safety-evaluation': ['What are hallucinations in generative AI?', 'How do you evaluate an LLM application?', 'What is groundedness?', 'How do you defend against prompt injection?', 'How should sensitive data be handled in AI applications?', 'What are guardrails?', 'How do you reduce harmful or biased outputs?', 'What is human-in-the-loop review?', 'How do you monitor a generative AI system in production?', 'How do you design a safe fallback when the model is uncertain?'],
+  },
   javascript: {
     basics: ['What are the JavaScript primitive types?', 'What is the difference between `==` and `===`?', 'What is the difference between `null` and `undefined`?', 'What is hoisting in JavaScript?', 'What is the temporal dead zone?', 'How do `var`, `let`, and `const` differ?', 'What is strict mode?', 'What is type coercion?', 'What makes a value truthy or falsy?', 'What is the difference between shallow and deep equality?'],
     functions: ['What is a closure?', 'What is lexical scope?', 'What is the difference between `call`, `apply`, and `bind`?', 'What is a higher-order function?', 'What is currying?', 'What is function composition?', 'How do arrow functions handle `this`?', 'What is an IIFE?', 'What is a pure function?', 'What is the difference between a callback and a promise?'],
@@ -167,7 +174,61 @@ const QUESTION_TITLES: Record<string, Record<string, string[]>> = {
  * Direct, question-level answers. Keep these concise enough to practise aloud,
  * then use the topic primer and example below for the supporting detail.
  */
+const GENERATIVE_AI_ANSWERS: Record<string, string> = {
+  'What is generative AI?': 'Generative AI learns patterns from training data and produces new content such as text, images, audio, video, or code. Unlike a classifier that selects a label, a generative model predicts or constructs an output conditioned on the user input and its learned representation.',
+  'How do large language models generate text?': 'A large language model converts input into tokens and repeatedly predicts a probability distribution for the next token. A decoding strategy selects a token, appends it to the context, and repeats until the model reaches a stop condition or output limit.',
+  'What are tokens and tokenization?': 'Tokens are the units a model reads and writes, often representing words, word fragments, punctuation, or bytes. Tokenization maps text to numeric token IDs, so token count—not character count—drives context usage, latency, and often API cost.',
+  'What is a context window?': 'A context window is the maximum number of input and output tokens a model can consider in one request. Applications must budget that space among instructions, conversation history, retrieved evidence, tool results, and the response while preserving the most relevant information.',
+  'What is temperature in text generation?': 'Temperature adjusts the sharpness of next-token probabilities during sampling. Lower values make common tokens more likely and outputs more repeatable; higher values increase variation but can reduce consistency. It does not add knowledge or guarantee creativity.',
+  'What is the difference between parameters and hyperparameters?': 'Parameters are learned model weights updated during training. Hyperparameters are choices made by developers or researchers, such as learning rate, batch size, model depth, temperature, or retrieval count, that control training or inference behavior.',
+  'What are embeddings?': 'Embeddings are dense numeric vectors that represent semantic properties of text, images, or other data. Similar items tend to be close in vector space, enabling semantic search, clustering, recommendations, deduplication, and retrieval for grounded generation.',
+  'What is fine-tuning?': 'Fine-tuning continues training a pretrained model on selected examples to shape behavior, style, task performance, or domain patterns. It is useful for repeatable behavior changes but is not the best way to inject frequently changing factual knowledge.',
+  'What is inference?': 'Inference is the process of running a trained model on new input to produce predictions or generated output. Its design concerns include latency, throughput, memory, batching, decoding settings, context size, reliability, and serving cost.',
+  'What are multimodal models?': 'Multimodal models accept or generate more than one data type, such as text, images, audio, or video. A production application must define how each modality is encoded, validated, authorized, stored, and evaluated rather than treating every input as plain text.',
+  'What makes an effective prompt?': 'An effective prompt states the goal, supplies necessary context, defines constraints and output format, and includes examples only when they clarify the task. It separates trusted instructions from untrusted data and is evaluated against representative cases rather than judged from one response.',
+  'What is zero-shot prompting?': 'Zero-shot prompting asks a model to perform a task using instructions without supplying worked examples. It is compact and suitable when the task is familiar and clearly specified, but it may be less consistent for specialized formats or ambiguous decisions.',
+  'What is few-shot prompting?': 'Few-shot prompting includes a small set of input-output examples that demonstrate the desired pattern. Good examples cover meaningful variation and edge cases without accidentally teaching irrelevant wording, labels, or bias.',
+  'What is chain-of-thought prompting?': 'Chain-of-thought prompting encourages intermediate reasoning before a conclusion. In applications, prefer requesting concise justifications or verifiable intermediate artifacts, because exposing unrestricted internal reasoning is often unnecessary and does not guarantee correctness.',
+  'How do system and user instructions differ?': 'System instructions define the application’s durable behavior and constraints, while user messages provide the task and data for a particular interaction. Applications should preserve this trust boundary and never concatenate untrusted user content into privileged instructions.',
+  'How do you produce structured model output?': 'Use a schema-constrained output feature when available, validate the returned structure at runtime, and handle refusal or validation failure explicitly. Prompt-only requests for JSON are weaker because syntactically valid JSON can still violate the business contract.',
+  'How do you manage long prompts?': 'Keep stable instructions concise, retrieve only relevant evidence, summarize old conversation turns carefully, and reserve space for the response. Measure whether each prompt section improves evaluation results instead of assuming more context is always better.',
+  'What is prompt injection?': 'Prompt injection is untrusted content that attempts to override instructions, reveal data, or trigger unsafe actions. Defenses include isolating data from instructions, limiting tool permissions, validating actions, filtering retrieved content, and requiring confirmation for consequential operations.',
+  'How do you version and test prompts?': 'Store prompts like source code with identifiers, review history, fixtures, and automated evaluations. Compare versions on a stable dataset for correctness, safety, latency, and cost, then monitor the deployed version for distribution changes.',
+  'When should prompting be replaced by code or tools?': 'Use deterministic code for rules, arithmetic, validation, authorization, and state transitions that must be exact. Use tools for current data or external actions, and reserve prompting for interpretation, language generation, ranking, or decisions where probabilistic behavior is acceptable.',
+  'What is retrieval-augmented generation?': 'Retrieval-augmented generation retrieves relevant external evidence at request time and supplies it to a model for answering. RAG improves freshness and traceability, but its quality depends on ingestion, chunking, retrieval, reranking, prompting, and citation behavior.',
+  'How does a RAG pipeline work?': 'A RAG pipeline ingests documents, splits and indexes them, transforms a user query, retrieves candidate passages, optionally reranks them, and asks a model to answer from that evidence. The response should retain source identifiers for citations and auditing.',
+  'How should documents be chunked for RAG?': 'Chunk around semantic units such as headings, paragraphs, procedures, or records while retaining useful metadata and limited overlap. Chunk size should be tuned against retrieval evaluations because fragments lose context while oversized chunks dilute relevance.',
+  'How do embeddings support semantic search?': 'An embedding model maps queries and documents into the same vector space. A vector index retrieves nearby document vectors, allowing conceptually related passages to match even when they do not share exact keywords.',
+  'What is hybrid search?': 'Hybrid search combines lexical matching with vector similarity. Keyword search preserves exact names, identifiers, and rare terms, while vector search captures semantic similarity; fusion or reranking combines their candidate lists.',
+  'What is reranking?': 'Reranking applies a stronger relevance model to a small candidate set returned by initial retrieval. It improves ordering without paying the cost of scoring the entire corpus and is especially useful when vector similarity alone returns broadly related passages.',
+  'How do you evaluate retrieval quality?': 'Create queries with judged relevant passages and measure metrics such as recall at k, precision at k, mean reciprocal rank, and nDCG. Also inspect failures by query type because aggregate scores can hide poor performance on critical content.',
+  'How do you keep a RAG index fresh?': 'Use incremental ingestion with stable document and chunk identifiers, record source versions, update changed content, delete removed content, and verify indexing lag. Retrieval results should expose version metadata so stale evidence can be detected.',
+  'How do you cite sources in RAG answers?': 'Carry source identifiers from retrieval into the model context, require claims to reference those identifiers, and render citations only after verifying them against retrieved passages. A citation must support the nearby claim, not merely point to a related document.',
+  'When should you use RAG instead of fine-tuning?': 'Use RAG when knowledge changes frequently, must be cited, or is private to a request. Use fine-tuning when the primary goal is consistent behavior, style, classification, or task format; many systems combine both techniques.',
+  'What is an AI agent?': 'An AI agent uses a model to select actions, call tools, inspect results, and continue toward a goal. The application—not the model alone—must enforce permissions, budgets, termination conditions, state management, and validation.',
+  'What is tool calling?': 'Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed.',
+  'How does an agent loop work?': 'An agent loop sends the goal and state to a model, receives either a response or tool request, executes permitted tools, appends observations, and repeats until completion, failure, or a configured limit. Each iteration should be observable and bounded.',
+  'How should tools be designed for agents?': 'Tools should have narrow responsibilities, explicit schemas, descriptive names, validated inputs, safe defaults, idempotency where possible, and structured errors. Permissions should be scoped to the user and task instead of granting broad system access.',
+  'How do agents maintain state and memory?': 'Keep authoritative workflow state in application storage and pass only relevant state to the model. Short-term conversation context, durable user preferences, and retrieved knowledge need separate lifecycles, access rules, and deletion policies.',
+  'What are multi-agent systems?': 'Multi-agent systems divide work among model-driven roles that communicate or hand off tasks. They can help when responsibilities and tools are genuinely distinct, but they add coordination cost, latency, failure modes, and harder evaluation.',
+  'How do you prevent runaway agent loops?': 'Set limits for turns, elapsed time, tokens, tool calls, and spending; detect repeated actions; require progress signals; and define terminal states. Consequential or irreversible operations should require explicit confirmation.',
+  'How do you make agent actions idempotent?': 'Give each logical action a stable idempotency key, persist its status and result, and return the recorded outcome when a request is repeated. This prevents retries or loop repetition from duplicating payments, messages, or mutations.',
+  'How do you observe and debug agents?': 'Trace model requests, tool calls, arguments, results, state transitions, latency, token use, and termination reason with sensitive data redacted. Replayable test cases and failure classifications make traces useful for regression analysis.',
+  'When should you not use an agent?': 'Avoid an agent when a fixed workflow, search interface, rules engine, or ordinary function can solve the task reliably. Agent autonomy is justified only when the task requires flexible multi-step decisions that cannot be enumerated safely.',
+  'What are hallucinations in generative AI?': 'Hallucinations are outputs that sound plausible but are unsupported, incorrect, or fabricated. Reduce them with grounded evidence, constrained tasks, tools, validation, calibrated refusal, and evaluations; prompting alone cannot eliminate them.',
+  'How do you evaluate an LLM application?': 'Build a representative dataset with expected properties, run automated checks and calibrated model graders, include human review for subjective dimensions, and track quality alongside latency, cost, safety, and task completion.',
+  'What is groundedness?': 'Groundedness measures whether an answer’s claims are supported by the provided evidence or authorized data source. It is distinct from general factual correctness because a true claim can still be ungrounded if it was not supported by the supplied context.',
+  'How do you defend against prompt injection?': 'Treat model inputs and retrieved documents as untrusted, separate them from privileged instructions, restrict tools and data by policy, validate proposed actions, and require confirmation for high-impact operations. No single filter is a complete defense.',
+  'How should sensitive data be handled in AI applications?': 'Minimize collected data, classify it, redact unnecessary fields, encrypt transport and storage, restrict access, define retention and deletion, and verify provider settings. Never place secrets in prompts or logs.',
+  'What are guardrails?': 'Guardrails are controls around model input, output, tool use, and workflow state. They can include schema validation, moderation, policy checks, permission enforcement, rate limits, human approval, and deterministic business rules.',
+  'How do you reduce harmful or biased outputs?': 'Use representative evaluation data, safety policies, input and output controls, grounded responses, human review, and monitoring segmented across affected groups. Document limitations and provide appeal or correction paths for consequential use cases.',
+  'What is human-in-the-loop review?': 'Human-in-the-loop review routes selected model outputs or actions to an authorized person before acceptance. Escalation should be triggered by risk, low confidence, policy category, or high impact, with enough evidence for an informed decision.',
+  'How do you monitor a generative AI system in production?': 'Monitor task success, groundedness, safety incidents, refusals, user feedback, latency, token usage, tool failures, and cost by model and release. Sample traces with privacy controls and connect regressions to prompt, model, retrieval, or data changes.',
+  'How do you design a safe fallback when the model is uncertain?': 'Define detectable uncertainty signals and return a bounded response: ask a clarifying question, retrieve more evidence, use deterministic logic, escalate to a human, or state that the answer is unavailable. Never convert uncertainty into a confident guess.',
+}
+
 const CURATED_ANSWERS: Record<string, string> = {
+  ...GENERATIVE_AI_ANSWERS,
   'What is semantic HTML?': 'Semantic HTML uses elements for their intended meaning—such as `nav`, `main`, `button`, and `article`—rather than styling generic `div` elements. It gives browsers, search engines, and assistive technology a reliable structure without adding ARIA by hand.',
   'When should you use a button instead of a link?': 'Use a link when the action navigates to another URL and a button when it changes state or performs an action on the current page. This distinction gives keyboard and screen-reader users the interaction they expect.',
   'How do forms associate labels with inputs?': 'Use a visible `label` whose `for` attribute matches the input `id`, or wrap the input inside the label. Placeholder text is not a label because it disappears and is not a dependable accessible name.',
@@ -821,6 +882,11 @@ const CURATED_ANSWERS: Record<string, string> = {
 }
 
 const TOPIC_PRIMERS: Record<string, string> = {
+  'generative AI fundamentals': 'Generative AI systems combine learned probabilistic models with deterministic application code. A strong answer separates model behavior from product guarantees and explains tokens, context, decoding, latency, and failure modes in observable terms.',
+  'prompt engineering': 'Prompt engineering defines instructions, context, constraints, examples, and output contracts, then validates them with repeatable evaluations. Prompts should never replace deterministic authorization, validation, or business rules.',
+  'retrieval-augmented generation': 'RAG grounds model responses in retrieved evidence. Its quality depends on ingestion, chunking, indexing, query transformation, retrieval, reranking, context assembly, citation verification, and continuous evaluation.',
+  'AI agents': 'Agents combine model decisions with tools and state in a bounded loop. Production designs enforce permissions, validated tool schemas, idempotency, budgets, termination rules, confirmation, and complete traces outside the model.',
+  'AI safety and evaluation': 'Reliable AI systems are evaluated for task quality, groundedness, safety, latency, and cost. Layered controls, privacy boundaries, monitoring, human escalation, and safe failure behavior are product requirements rather than optional prompt text.',
   HTML: 'HTML supplies the document’s meaning and structure. Prefer native elements first, then add only the attributes needed to connect controls, describe state, or support responsive delivery.',
   CSS: 'CSS is a cascade-based layout system. Robust styles keep specificity low, make layout constraints explicit, and let components adapt to their available space instead of a fixed device list.',
   'Next.js': 'Next.js lets a route choose a server-first rendering and caching strategy while preserving React’s component model. Keep client boundaries small and make cache invalidation part of every mutation design.',
@@ -953,6 +1019,19 @@ const EXAMPLES: Record<string, string> = {
 }
 
 const TRACKS: TrackConfig[] = [
+  {
+    id: 'generative-ai',
+    label: 'Generative AI',
+    urlSegment: 'generative-ai-interview-questions',
+    count: 50,
+    subcategories: [
+      { slug: 'fundamentals', label: 'Generative AI Fundamentals', topic: 'generative AI fundamentals' },
+      { slug: 'prompting', label: 'Prompt Engineering', topic: 'prompt engineering' },
+      { slug: 'rag', label: 'Retrieval-Augmented Generation', topic: 'retrieval-augmented generation' },
+      { slug: 'agents', label: 'AI Agents', topic: 'AI agents' },
+      { slug: 'safety-evaluation', label: 'Safety & Evaluation', topic: 'AI safety and evaluation' },
+    ],
+  },
   {
     id: 'react',
     label: 'React',
@@ -1160,6 +1239,10 @@ function copyableExample(
     .replace(/^-|-$/g, '')
   const q = JSON.stringify(question)
   const r = JSON.stringify(rule)
+
+  if (trackLabel === 'Generative AI') {
+    return generativeAIExample(question, topic, id, rule)
+  }
 
   if (trackLabel === 'JavaScript') {
     return languageExample('js', question, id, rule)
@@ -1387,6 +1470,64 @@ console.log(explainExample(interviewExample))
 \`\`\`
 
 Copy this TypeScript scaffold and replace the verification array with the concrete inputs and expected outputs described by the question.`
+}
+
+function generativeAIExample(question: string, topic: string, id: string, rule: string): string {
+  const snippets: Record<string, string> = {
+    'What is generative AI?': 'prompt = "Create three interview questions about caching"\nnew_content = model.generate(prompt)\nprint(new_content)',
+    'How do large language models generate text?': 'tokens = tokenizer.encode("The event loop")\nfor _ in range(20):\n    logits = model(tokens)\n    next_token = sample(logits[-1], temperature=0.2)\n    tokens.append(next_token)',
+    'What are tokens and tokenization?': 'text = "Retrieval-augmented generation"\ntoken_ids = tokenizer.encode(text)\nprint(token_ids)\nprint("token count:", len(token_ids))\nprint(tokenizer.decode(token_ids))',
+    'What is a context window?': 'budget = 8192\nused = count_tokens(system_prompt + history + retrieved_docs)\nmax_output_tokens = max(0, budget - used)\nassert max_output_tokens >= 500',
+    'What is temperature in text generation?': 'for temperature in (0.0, 0.7, 1.2):\n    answer = model.generate(prompt, temperature=temperature, seed=42)\n    print(temperature, answer)',
+    'What is the difference between parameters and hyperparameters?': 'model_parameters = sum(weight.numel() for weight in model.parameters())\nhyperparameters = {"learning_rate": 2e-5, "batch_size": 16, "epochs": 3}\nprint(model_parameters, hyperparameters)',
+    'What are embeddings?': 'query = embed("cancel an HTTP request")\ndocuments = embed_many(article_chunks)\nscores = cosine_similarity(query, documents)\nprint(article_chunks[scores.argmax()])',
+    'What is fine-tuning?': 'training_examples = [{"input": "Classify: great service", "output": "positive"}]\njob = fine_tune(base_model=BASE_MODEL, examples=training_examples)\nprint(job.model_id)',
+    'What is inference?': 'started = time.perf_counter()\nresponse = model.generate(prompt, max_new_tokens=150)\nlatency_ms = (time.perf_counter() - started) * 1000\nprint({"response": response, "latency_ms": latency_ms})',
+    'What are multimodal models?': 'response = model.generate([\n    {"type": "image", "data": screenshot},\n    {"type": "text", "text": "Identify the accessibility issue."},\n])',
+    'What makes an effective prompt?': 'prompt = f"""Task: Review this function for race conditions.\nConstraints: Be concise and cite exact lines.\nCode:\n{source_code}\nOutput: JSON with issues and fixes.\n"""',
+    'What is zero-shot prompting?': 'prompt = "Classify the ticket as billing, technical, or account. Ticket: Password reset email never arrived."\nlabel = model.generate(prompt)',
+    'What is few-shot prompting?': 'prompt = """slow checkout -> performance\nunknown charge -> billing\npassword expired -> account\nblank dashboard ->"""\nlabel = model.generate(prompt)',
+    'What is chain-of-thought prompting?': 'result = model.generate(\n    question,\n    instruction="Return the final answer plus a short, verifiable justification.",\n)\nverify(result.justification)',
+    'How do system and user instructions differ?': 'messages = [\n    {"role": "system", "content": "Answer only from approved documentation."},\n    {"role": "user", "content": user_question},\n]',
+    'How do you produce structured model output?': 'class Review(BaseModel):\n    severity: Literal["low", "medium", "high"]\n    summary: str\n    fixes: list[str]\nreview = model.generate(prompt, response_schema=Review)',
+    'How do you manage long prompts?': 'relevant = retrieve(query, top_k=5)\nrecent_history = conversation[-6:]\nprompt = assemble(system_rules, relevant, recent_history, query)\nassert count_tokens(prompt) <= INPUT_BUDGET',
+    'What is prompt injection?': 'retrieved_text = load_document()  # untrusted data\nresponse = model.generate(system=TRUSTED_RULES, data=retrieved_text, tools=READ_ONLY_TOOLS)\nassert not response.requests_privileged_action()',
+    'How do you version and test prompts?': 'PROMPT_VERSION = "support-router-v3"\nfor case in evaluation_set:\n    result = run_prompt(PROMPT_VERSION, case.input)\n    assert result.label == case.expected_label',
+    'When should prompting be replaced by code or tools?': 'total = sum(item.price * item.quantity for item in cart)  # deterministic code\nweather = weather_api.current(city)  # current data from a tool\nsummary = model.generate(f"Explain total {total} and weather {weather}")',
+    'What is retrieval-augmented generation?': 'passages = vector_index.search(embed(question), top_k=5)\nanswer = model.generate(question=question, context=passages)\nreturn answer.with_citations(passages)',
+    'How does a RAG pipeline work?': 'chunks = chunk(load_documents())\nindex.upsert([(chunk.id, embed(chunk.text), chunk.metadata) for chunk in chunks])\nhits = index.search(embed(question), top_k=10)\nanswer = generate(question, rerank(question, hits)[:4])',
+    'How should documents be chunked for RAG?': 'chunks = split_by_headings(document, max_tokens=500, overlap_tokens=60)\nfor chunk in chunks:\n    chunk.metadata.update({"source": document.url, "heading": chunk.heading})',
+    'How do embeddings support semantic search?': 'query_vector = embedding_model.encode(question, normalize=True)\nresults = vector_db.search(vector=query_vector, limit=8)\nfor result in results:\n    print(result.score, result.text)',
+    'What is hybrid search?': 'keyword_hits = bm25.search(question, limit=20)\nvector_hits = vectors.search(embed(question), limit=20)\ncombined = reciprocal_rank_fusion(keyword_hits, vector_hits)\nreturn combined[:8]',
+    'What is reranking?': 'candidates = vector_db.search(embed(question), limit=30)\nranked = cross_encoder.rank([(question, item.text) for item in candidates])\ncontext = ranked[:5]',
+    'How do you evaluate retrieval quality?': 'for case in retrieval_eval_set:\n    hits = retrieve(case.query, top_k=5)\n    recall_at_5.add(any(hit.id in case.relevant_ids for hit in hits))\nprint(recall_at_5.mean())',
+    'How do you keep a RAG index fresh?': 'for event in content_changes:\n    if event.type == "deleted": index.delete(event.document_id)\n    else: index.upsert(embed_document(event.document, version=event.version))',
+    'How do you cite sources in RAG answers?': 'answer = model.generate(question, context=numbered(passages), require_citations=True)\nfor citation in answer.citations:\n    assert passages[citation.source_id].supports(citation.claim)',
+    'When should you use RAG instead of fine-tuning?': 'strategy = "rag" if requirements.need_fresh_facts or requirements.need_citations else "fine_tuning"\nprint({"strategy": strategy, "reason": requirements.primary_goal})',
+    'What is an AI agent?': 'while not state.done and state.steps < 8:\n    action = model.decide(goal=goal, state=state, tools=allowed_tools)\n    observation = execute(action)\n    state.record(action, observation)',
+    'What is tool calling?': 'tools = [{"name": "get_order", "schema": {"order_id": "string"}}]\ncall = model.generate(user_request, tools=tools).tool_call\narguments = validate(call.arguments, tools[0]["schema"])\nresult = get_order(**arguments)',
+    'How does an agent loop work?': 'for step in range(MAX_STEPS):\n    decision = agent.next(messages, tools)\n    if decision.final_answer: return decision.final_answer\n    messages.append(run_tool(decision.tool_call))\nraise StepLimitExceeded()',
+    'How should tools be designed for agents?': '@tool(name="cancel_order", idempotent=True)\ndef cancel_order(order_id: str, reason: str) -> CancelResult:\n    """Cancel one authorized order and return its final status."""\n    return orders.cancel(order_id, reason)',
+    'How do agents maintain state and memory?': 'state = workflow_store.load(run_id)\ncontext = {"recent": state.messages[-6:], "preferences": user_memory.allowed(user_id)}\ndecision = agent.next(goal, context)\nworkflow_store.save(run_id, decision)',
+    'What are multi-agent systems?': 'research = researcher.run(question)\ndraft = writer.run(question, evidence=research.sources)\nfinal = reviewer.run(draft, policy=QUALITY_POLICY)\nreturn final',
+    'How do you prevent runaway agent loops?': 'budget = Budget(max_steps=8, max_seconds=30, max_tool_calls=12)\nwhile budget.allow_next_step():\n    action = agent.next()\n    if repeated(action, last_n=3): raise LoopDetected()',
+    'How do you make agent actions idempotent?': 'key = f"{run_id}:{action.name}:{action.logical_id}"\nif stored := action_log.get(key): return stored.result\nresult = execute(action)\naction_log.save(key, result)\nreturn result',
+    'How do you observe and debug agents?': 'with trace.span("agent_step", run_id=run_id, step=step) as span:\n    span.record("tool", call.name)\n    span.record("arguments", redact(call.arguments))\n    span.record("result", redact(result))',
+    'When should you not use an agent?': 'if workflow.steps_are_known and workflow.requires_determinism:\n    result = run_fixed_workflow(workflow)\nelse:\n    result = run_bounded_agent(workflow)',
+    'What are hallucinations in generative AI?': 'answer = model.generate(question, context=sources)\nunsupported = find_unsupported_claims(answer, sources)\nif unsupported: return "I cannot verify that from the available sources."',
+    'How do you evaluate an LLM application?': 'for case in eval_dataset:\n    result = app.run(case.input)\n    scores.add(correctness=result == case.expected, grounded=groundedness(result, case.sources), latency=result.latency_ms)',
+    'What is groundedness?': 'claims = extract_claims(answer)\nscore = sum(any(entails(source, claim) for source in sources) for claim in claims) / len(claims)\nassert score >= 0.9',
+    'How do you defend against prompt injection?': 'content = retrieve(user_query)  # treat as untrusted\naction = model.propose(system=POLICY, data=content, tools=scoped_tools(user))\npolicy_engine.authorize(user, action)\nrequire_confirmation(action) if action.is_high_impact else execute(action)',
+    'How should sensitive data be handled in AI applications?': 'safe_input = redact_pii(user_input)\nresponse = model.generate(safe_input)\naudit_log.write(metadata_only(response), retention_days=30)',
+    'What are guardrails?': 'request = input_guard.validate(request)\ndraft = model.generate(request)\noutput = output_guard.validate(draft)\npolicy_engine.authorize(output.proposed_actions)',
+    'How do you reduce harmful or biased outputs?': 'for group, cases in evaluation_set.by_demographic_group():\n    scores[group] = evaluate_safety_and_quality(model, cases)\nassert disparity(scores) <= ACCEPTABLE_THRESHOLD',
+    'What is human-in-the-loop review?': 'decision = model.assess(application)\nif decision.risk == "high" or decision.confidence < 0.8:\n    return review_queue.enqueue(application, evidence=decision.evidence)\nreturn decision.result',
+    'How do you monitor a generative AI system in production?': 'metrics.observe("latency_ms", response.latency_ms, model=model_id)\nmetrics.observe("groundedness", groundedness(response, sources))\nmetrics.increment("tool_failures", tool_errors)\nfeedback.store(response.id, user_rating)',
+    'How do you design a safe fallback when the model is uncertain?': 'result = model.answer(question, context=context)\nif result.confidence < 0.75 or not result.citations:\n    return ask_clarifying_question() if can_clarify(question) else escalate_to_human()\nreturn result',
+  }
+  const snippet = snippets[question]
+  if (!snippet) throw new Error(`Missing answer-specific Generative AI example for ${topic}: ${question}`)
+  return `## Copyable example\n\n\`\`\`python\n# ${question}\n# ${rule}\n# Example ID: ${id}\n${snippet}\n\`\`\`\n\nThis Python-style example demonstrates the implementation boundary for the ${topic} topic; replace the placeholder client, model, or index with the library used by your application.`
 }
 
 function topicLanguageExample(topic: string, question: string, id: string): string | undefined {
@@ -1905,7 +2046,7 @@ function generateTrack(track: TrackConfig, overrides: Map<string, QuestionRecord
       difficulty,
       experienceLevel,
       tags: [track.id, sub.slug],
-      updated: '2026-10-06',
+      updated: track.id === 'generative-ai' ? '2026-10-10' : '2026-10-06',
       description: `Learn ${title} with answers, examples, and real interview scenarios for ${track.label} interviews.`,
       answerExcerpt: excerpt,
       body,
@@ -1956,7 +2097,16 @@ function generateTrack(track: TrackConfig, overrides: Map<string, QuestionRecord
   return questions
 }
 
-function writeTrackIndex(track: TrackConfig) {
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
+function writeTrackIndex(track: TrackConfig, questions: QuestionRecord[]) {
   const dir = path.join(DOCS, track.urlSegment)
   fs.mkdirSync(dir, { recursive: true })
   const trackTitle = track.label.endsWith('Interview Questions')
@@ -1991,31 +2141,50 @@ ${subs}
   for (const sub of track.subcategories) {
     const subDir = path.join(dir, sub.slug)
     fs.mkdirSync(subDir, { recursive: true })
-    const preferred = [
-      'virtual-dom.md',
-      'use-effect.md',
-      'angular-signals.md',
-      'subject-vs-behaviorsubject.md',
-    ]
-    const files = fs
-      .readdirSync(subDir)
-      .filter((f) => f.endsWith('.md') && f !== 'index.md')
-    const first =
-      preferred.find((p) => files.includes(p)) ??
-      files.sort()[0]
-    const link = first
-      ? `/${track.urlSegment}/${sub.slug}/${first.replace(/\.md$/, '')}`
-      : `/${track.urlSegment}/`
+    const topicQuestions = questions.filter((q) => q.subcategory === sub.slug)
+    const firstQuestion = topicQuestions[0]
+    const difficultyCounts = (['easy', 'medium', 'hard'] as const)
+      .map((level) => `${topicQuestions.filter((q) => q.difficulty === level).length} ${level}`)
+      .join(' · ')
+    const questionCards = topicQuestions
+      .map(
+        (question, index) => `<a class="ip-topic-question" href="${question.link}">
+  <span class="ip-topic-number">${String(index + 1).padStart(2, '0')}</span>
+  <span class="ip-topic-question-copy">
+    <strong>${escapeHtml(question.title)}</strong>
+    <small>${question.difficulty} · ${question.experienceLevel} level · ${Math.max(1, Math.ceil(readingTime(question.body).minutes))} min read</small>
+  </span>
+  <span class="ip-topic-question-arrow" aria-hidden="true">→</span>
+</a>`,
+      )
+      .join('\n')
     fs.writeFileSync(
       path.join(subDir, 'index.md'),
       `---
 title: ${sub.label}
-description: ${track.label} ${sub.label} interview questions and answers.
+description: ${topicQuestions.length} ${track.label} ${sub.label} interview questions with detailed answers, examples, and practical guidance.
 ---
 
 # ${sub.label}
 
-Browse questions in this section. [Start here](${link}).
+<div class="ip-topic-hero">
+  <p class="ip-topic-eyebrow">${track.label} learning path</p>
+  <p class="ip-topic-intro">Master ${sub.label.toLowerCase()} through ${topicQuestions.length} carefully ordered interview questions. Each lesson includes a detailed explanation, practical example, common mistakes, and an interview-ready summary.</p>
+  <div class="ip-topic-stats">
+    <span><strong>${topicQuestions.length}</strong> questions</span>
+    <span><strong>${difficultyCounts}</strong> difficulty mix</span>
+    <span><strong>≈ ${topicQuestions.length * 5} min</strong> total study time</span>
+  </div>
+  ${firstQuestion ? `<a class="ip-topic-start" href="${firstQuestion.link}">Start this learning path <span aria-hidden="true">→</span></a>` : ''}
+</div>
+
+## Table of contents
+
+<p class="ip-topic-guidance">Work through the questions in order for a guided path, or jump directly to the concept you want to review.</p>
+
+<div class="ip-topic-questions">
+${questionCards}
+</div>
 `,
     )
   }
@@ -2053,7 +2222,7 @@ function main() {
   for (const track of TRACKS) {
     const qs = generateTrack(track, overrides)
     allQuestions.push(...qs)
-    writeTrackIndex(track)
+    writeTrackIndex(track, qs)
   }
 
   assertContentQuality(allQuestions)

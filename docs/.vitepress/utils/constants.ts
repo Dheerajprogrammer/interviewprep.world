@@ -1,7 +1,7 @@
 export const SITE_NAME = 'InterviewPrep.World'
 export const SITE_URL = 'https://interviewprep.world'
 export const SITE_DESCRIPTION =
-  '750+ interview questions across frontend, backend, databases, DevOps, architecture, and behavioral interviews—with answers, examples, and real scenarios.'
+  '800+ interview questions across generative AI, frontend, backend, databases, DevOps, architecture, and behavioral interviews—with answers, examples, and real scenarios.'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.svg`
 
 export const BRAND = {
@@ -11,6 +11,12 @@ export const BRAND = {
 } as const
 
 export const TRACKS = [
+  {
+    id: 'generative-ai',
+    label: 'Generative AI',
+    path: '/generative-ai-interview-questions/',
+    ogImage: '/og-default.png',
+  },
   {
     id: 'react',
     label: 'React',
