@@ -744,3 +744,80 @@
   .ip-topic-question { grid-template-columns: 2rem minmax(0, 1fr) auto; padding: 0.8rem; }
   .ip-topic-stats { align-items: flex-start; flex-direction: column; }
 }
+
+/* Question tools */
+.ip-question-tools { position: relative; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.75rem 0 1rem; }
+.ip-question-tools > button, .ip-reading-settings > button { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.25rem; padding: 0.45rem 0.7rem; border: 1px solid var(--vp-c-divider); border-radius: 0.6rem; background: var(--vp-c-bg-soft); color: var(--vp-c-text-2); font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+.ip-question-tools button:hover, .ip-question-tools button:focus-visible { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
+.ip-question-tools button.is-active { border-color: #d97706; background: rgba(245, 158, 11, 0.12); color: #b45309; }
+.ip-question-tools button.is-complete { border-color: #059669; background: rgba(16, 185, 129, 0.12); color: #047857; }
+.ip-reading-settings { position: relative; }
+.ip-reading-popover { position: absolute; z-index: 30; top: calc(100% + 0.5rem); right: 0; width: 270px; padding: 1rem; border: 1px solid var(--vp-c-divider); border-radius: 0.8rem; background: var(--vp-c-bg); box-shadow: var(--vp-shadow-3); }
+.ip-reading-popover > strong { display: block; margin: 0 0 0.45rem; font-size: 0.78rem; color: var(--vp-c-text-2); }
+.ip-reading-popover > strong:not(:first-child) { margin-top: 0.9rem; }
+.ip-segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem; }
+.ip-segmented button { padding: 0.4rem 0.25rem; border: 1px solid var(--vp-c-divider); border-radius: 0.4rem; background: transparent; color: var(--vp-c-text-2); font-size: 0.7rem; text-transform: capitalize; cursor: pointer; }
+.ip-segmented button.is-selected { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); }
+html[data-ip-font-size='small'] .vp-doc { font-size: 14px; }
+html[data-ip-font-size='medium'] .vp-doc { font-size: 16px; }
+html[data-ip-font-size='large'] .vp-doc { font-size: 18px; }
+html[data-ip-content-width='narrow'] { --ip-reading-width: 620px; }
+html[data-ip-content-width='comfortable'] { --ip-reading-width: 740px; }
+html[data-ip-content-width='wide'] { --ip-reading-width: 920px; }
+html[data-ip-content-width] .VPDoc .content-container { max-width: var(--ip-reading-width) !important; }
+
+/* Bookmark workspace */
+.ip-bookmark-controls { display: grid; grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(125px, 0.75fr)); gap: 0.65rem; margin-top: 1.5rem; }
+.ip-bookmark-controls label { display: grid; gap: 0.3rem; }
+.ip-bookmark-controls label > span:not(.sr-only) { color: var(--vp-c-text-2); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+.ip-bookmark-controls input, .ip-bookmark-controls select, .ip-bookmark-note textarea { width: 100%; border: 1px solid var(--vp-c-divider); border-radius: 0.55rem; background: var(--vp-c-bg); color: var(--vp-c-text-1); font: inherit; }
+.ip-bookmark-controls input, .ip-bookmark-controls select { min-height: 2.6rem; padding: 0 0.7rem; }
+.ip-bookmark-controls input:focus, .ip-bookmark-controls select:focus, .ip-bookmark-note textarea:focus { outline: 2px solid var(--vp-c-brand-soft); border-color: var(--vp-c-brand-1); }
+.ip-bookmark-results-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.5rem; margin-top: 0.75rem; color: var(--vp-c-text-2); font-size: 0.78rem; }
+.ip-bookmark-results-bar button, .ip-bookmarks-no-results button { border: 0; background: transparent; color: var(--vp-c-brand-1); font: inherit; font-weight: 600; cursor: pointer; }
+.ip-clear-confirm { display: flex; align-items: center; gap: 0.6rem; }
+.ip-clear-confirm button.is-danger { color: #dc2626; }
+.ip-bookmark-note { display: grid; gap: 0.35rem; padding: 0 1.25rem 1rem; }
+.ip-bookmark-note span { color: var(--vp-c-text-2); font-size: 0.72rem; font-weight: 600; }
+.ip-bookmark-note textarea { resize: vertical; min-height: 3.75rem; padding: 0.6rem 0.7rem; font-size: 0.85rem; }
+.ip-bookmark-completed { margin-left: 0.6rem; color: #059669; font-size: 0.75rem; font-weight: 700; }
+.ip-bookmarks-no-results { padding: 4rem 1rem; text-align: center; }
+.ip-bookmarks-no-results h2 { border: 0; }
+.ip-bookmarks-no-results p { color: var(--vp-c-text-2); }
+
+/* Home progress and recent history */
+.ip-study-dashboard { padding-top: 2.5rem; }
+.ip-completed-total { padding: 0.4rem 0.7rem; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #047857; font-size: 0.8rem; }
+.ip-progress-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+.ip-progress-card { display: grid; gap: 0.7rem; padding: 0.9rem; border: 1px solid var(--vp-c-divider); border-radius: 0.7rem; color: inherit !important; text-decoration: none !important; }
+.ip-progress-card > span:first-child { display: flex; justify-content: space-between; gap: 0.5rem; }
+.ip-progress-card small { color: var(--vp-c-text-2); }
+.ip-progress-track { height: 0.35rem; border-radius: 999px; background: var(--vp-c-bg-soft); overflow: hidden; }
+.ip-progress-track i { display: block; height: 100%; border-radius: inherit; background: #10b981; }
+.ip-subheading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+.ip-subheading h3 { margin: 0; font-size: 1.15rem; }
+.ip-subheading span { color: var(--vp-c-text-3); font-size: 0.75rem; }
+.ip-recent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.ip-recent-card { display: grid; gap: 0.45rem; min-height: 135px; padding: 1rem; border: 1px solid var(--vp-c-divider); border-radius: 0.75rem; color: inherit !important; text-decoration: none !important; }
+.ip-recent-card:hover { border-color: var(--vp-c-brand-1); transform: translateY(-1px); }
+.ip-recent-card > span { color: var(--vp-c-brand-1); font-size: 0.72rem; font-weight: 600; }
+.ip-recent-card strong { line-height: 1.4; }
+.ip-recent-card small { align-self: end; color: var(--vp-c-text-2); }
+
+@media (max-width: 760px) {
+  .ip-bookmark-controls { grid-template-columns: 1fr 1fr; }
+  .ip-bookmark-search { grid-column: 1 / -1; }
+  .ip-progress-grid { grid-template-columns: 1fr 1fr; }
+  .ip-recent-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .ip-question-tools > button, .ip-reading-settings { flex: 1 1 calc(50% - 0.45rem); }
+  .ip-reading-settings > button { width: 100%; justify-content: center; }
+  .ip-reading-popover { right: 0; width: min(270px, 85vw); }
+  .ip-bookmark-controls { grid-template-columns: 1fr; }
+  .ip-bookmark-search { grid-column: auto; }
+  .ip-bookmark-results-bar { align-items: flex-start; flex-direction: column; }
+  .ip-clear-confirm { flex-wrap: wrap; }
+  .ip-progress-grid { grid-template-columns: 1fr; }
+}

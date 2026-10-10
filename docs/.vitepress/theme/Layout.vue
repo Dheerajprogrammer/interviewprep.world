@@ -8,12 +8,14 @@ import PrevNextNav from './components/PrevNextNav.vue'
 import QuestionMeta from './components/QuestionMeta.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
 import AnswerNavigator from './components/AnswerNavigator.vue'
-import BookmarkButton from './components/BookmarkButton.vue'
+import QuestionTools from './components/QuestionTools.vue'
+import { useStudy } from './study'
 import { buildCanonical } from '../utils/seo'
 import { breadcrumbJsonLd, questionJsonLd } from '../utils/schema'
 import { onMounted, watch } from 'vue'
 
 const { frontmatter, page, title } = useData()
+const { recordView } = useStudy()
 
 const isQuestion = computed(() => frontmatter.value.question === true)
 
@@ -83,12 +85,26 @@ function attachCopyButtons() {
   })
 }
 
+function recordQuestionView() {
+  if (!isQuestion.value) return
+  const path = (`/${page.value.relativePath}`.replace(/index\.md$/, '').replace(/\.md$/, '')).replace(/\/$/, '') || '/'
+  const crumbs = breadcrumbs.value
+  recordView({
+    path,
+    title: (frontmatter.value.questionTitle as string) ?? title.value,
+    difficulty: frontmatter.value.difficulty as string | undefined,
+    track: crumbs[1]?.label,
+    topic: crumbs.slice(1, -1).map((crumb) => crumb.label).join(' · '),
+  })
+}
+
 onMounted(() => {
   if (isQuestion.value) {
     document.querySelector('.vp-doc')?.setAttribute('data-pagefind-body', '')
   }
   updateSchema()
   attachCopyButtons()
+  recordQuestionView()
 })
 
 watch(
@@ -96,6 +112,7 @@ watch(
   () => {
     updateSchema()
     attachCopyButtons()
+    recordQuestionView()
   },
 )
 </script>
@@ -118,7 +135,7 @@ watch(
     <template v-if="isQuestion" #doc-before>
       <Breadcrumbs v-if="breadcrumbs.length" :items="breadcrumbs" />
       <QuestionMeta />
-      <BookmarkButton />
+      <QuestionTools />
       <AdSlot id="question-top" provider="adsense" />
     </template>
 
