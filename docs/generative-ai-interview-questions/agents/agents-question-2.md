@@ -1,0 +1,76 @@
+---
+layout: doc
+question: true
+title: "What is tool calling?"
+questionTitle: "What is tool calling?"
+description: "Learn What is tool calling? with answers, examples, and real interview scenarios for Generative AI interviews."
+difficulty: hard
+experienceLevel: senior
+tags: ["generative-ai", "agents"]
+updated: 2026-10-10
+readingMinutes: 5
+answerExcerpt: "Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed."
+outline: deep
+canonical: "https://interviewprep.world/generative-ai-interview-questions/agents/agents-question-2"
+breadcrumbs:
+  - label: Home
+    link: /
+  - label: "Generative AI"
+    link: /generative-ai-interview-questions/
+  - label: "AI Agents"
+    link: /generative-ai-interview-questions/agents/
+  - label: "What is tool calling?"
+prev:
+  text: "How does a RAG pipeline work?"
+  link: "/generative-ai-interview-questions/rag/rag-question-2"
+next:
+  text: "How do you evaluate an LLM application?"
+  link: "/generative-ai-interview-questions/safety-evaluation/safety-evaluation-question-2"
+---
+# What is tool calling?
+
+## Answer
+
+Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed.
+
+## Why this matters
+
+The important idea behind **What is tool calling** is not the terminology alone; it is the engineering decision the concept enables. Agents combine model decisions with tools and state in a bounded loop. Production designs enforce permissions, validated tool schemas, idempotency, budgets, termination rules, confirmation, and complete traces outside the model. In a real system, the useful question is where the behaviour lives, what assumptions it relies on, and what becomes observable when those assumptions fail. Connecting the definition to those boundaries makes the answer useful for both an interview and day-to-day development.
+
+Explain the underlying mechanism before discussing benefits. That distinction matters because memorized definitions often fail on follow-up questions about edge cases, lifecycle, performance, or production behaviour. For a hard-level question, it is also worth naming one limitation. Doing so shows that you understand when the idea applies instead of treating it as a universal rule.
+
+## How to reason about it
+
+Start from the guarantee expressed in the direct answer: Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed. Then separate that guarantee from implementation details. Ask what initiates the behaviour, which state or resource it reads, who owns cleanup or recovery, and whether the result is synchronous, asynchronous, persistent, or temporary. These questions expose the edge cases that interviewers usually explore next.
+
+Next, define success in observable terms. A correct solution should produce the intended result for the normal path, remain understandable when input is empty or invalid, and fail without corrupting state. If concurrency, caching, networking, rendering, or persistence is involved, discuss stale data, repeated work, ordering, and partial failure explicitly. The exact concerns vary, but they should follow from **What is tool calling**, not from a memorized checklist.
+
+## Worked example
+
+Suppose an analytics screen must process a larger data set while remaining understandable, accessible, and observable. In this Generative AI example, the team needs to make a decision specifically about **What is tool calling**. They begin with the rule above—Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed. Rather than applying it blindly, they write down the expected input, output, and failure behaviour. They then implement the smallest version that demonstrates the rule and exercise both the successful path and one realistic failure path.
+
+During review, the team asks whether the example would still be correct with repeated requests, missing data, a slow dependency, or a larger workload. Only the cases relevant to this question are kept. Finally, they verify the result at the boundary a user or another system can observe. That may be a focused unit test, an integration test, a browser profile, a log or metric, or a rollback exercise. This turns the concept into evidence rather than an assertion.
+
+## Common mistakes and trade-offs
+
+A weak answer repeats a definition but never explains consequences. Another common mistake is choosing a tool or pattern before clarifying the requirement. Avoid claiming that one option is always faster, safer, or cleaner; describe the workload and constraints that make the claim true. Also distinguish correctness from optimization: first make the behaviour correct and testable, then use measurements to justify additional complexity.
+
+In production, simpler implementations are generally easier to operate, but simplicity does not mean ignoring error handling, security, accessibility, cleanup, or observability. Add those controls at the boundary where the risk exists. If the solution introduces caching, retries, shared state, abstraction, or background work, explain the invalidation, ownership, or recovery rule as part of the design.
+
+## Interview-ready summary
+
+Lead with this sentence: Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed. Follow it with the mechanism, one concrete decision from the worked example, and one limitation or trade-off. That structure gives the interviewer a direct answer first while leaving clear openings for deeper follow-up questions.
+
+## Copyable example
+
+```python
+# What is tool calling?
+# Tool calling lets a model request a typed application function with structured arguments. The host validates the request, executes authorized code, returns the result, and decides whether another model step is needed.
+# Example ID: generative-ai-what-is-tool-calling
+tools = [{"name": "get_order", "schema": {"order_id": "string"}}]
+call = model.generate(user_request, tools=tools).tool_call
+arguments = validate(call.arguments, tools[0]["schema"])
+result = get_order(**arguments)
+```
+
+This Python-style example demonstrates the implementation boundary for the AI agents topic; replace the placeholder client, model, or index with the library used by your application.

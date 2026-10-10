@@ -82,6 +82,7 @@ export default defineConfig({
     outline: { level: [2, 3], label: 'On this page' },
 
     nav: [
+      { text: 'Generative AI', link: '/generative-ai-interview-questions/' },
       { text: 'React', link: '/react-interview-questions/' },
       { text: 'Angular', link: '/angular-interview-questions/' },
       { text: 'JavaScript', link: '/javascript-interview-questions/' },
